@@ -1,0 +1,43 @@
+<div class="container__items">
+  <div class="container__title"><p>Sign Up</p></div>
+  <form>
+    <div class="container__input">
+      <span class="container__EmailText">Email</span>
+      <input
+        class="form-control"
+        type="email"
+        #emailsignup
+        (click)="chooseValueMistakeEmail()"
+      />
+      <div *ngIf="AuthService.errorEmailAlreadyused" class="alert alert-danger">
+        This email already is used
+      </div>
+      <div *ngIf="mistakeValidEmail" class="alert alert-danger">
+        Invalid email. Example: "name@gmail.com"
+      </div>
+    </div>
+    <div>
+      <span>Password</span>
+      <input
+        class="form-control"
+        type="password"
+        #passwordsignup
+        (click)="chooseValueMistakePass()"
+      />
+      <div *ngIf="mistakeValidPass" class="alert alert-danger">
+        Very short password. Min 6 symbol
+      </div>
+    </div>
+
+    <div class="container__buttonSubmit">
+      <button
+        type="submit"
+
+        (click)="onSignup(emailsignup.value, passwordsignup.value)"
+        class="btn btn-secondary btnSubmit"
+      >
+        Sign up
+      </button>
+    </div>
+  </form>
+</div>

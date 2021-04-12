@@ -1,0 +1,40 @@
+<div class="container__items">
+  <div class="container__title"><p>Sign In</p></div>
+  <form [formGroup]="myForm"  >
+    <div class="container__input">
+      <span class="container__EmailText">Email</span>
+      <input
+        class="form-control"
+        type="email"
+        formControlName="userEmail"
+        (click)="chooseValueMistakeEmail()"
+      />
+      <div *ngIf="mistakeValidEmail" class="alert alert-danger">
+        Invalid email. Example: "name@gmail.com"
+      </div>
+    </div>
+    <div>
+      <span>Password</span>
+      <input
+        class="form-control"
+        type="password"
+        formControlName="userPassword"
+        (click)="chooseValueMistakePass()"
+      />
+      <div *ngIf="mistakeValidPass" class="alert alert-danger">
+        Very short password. Min 6 symbol
+      </div>
+      <div *ngIf="AuthService.errorUserNotFound" class="alert alert-danger">
+        Invalid password or email, plz try again
+      </div>
+    </div>
+    <div class="container__buttonSubmit">
+      <button type="submit"
+        (click)="onSignip()"
+        class="btn btn-secondary btnSubmit"
+      >
+        Sign in
+      </button>
+    </div>
+  </form>
+</div>
