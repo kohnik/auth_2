@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FirebaseService } from '../../core/services/firebase.service';
+import { FireDatabaseService } from '../../core/services/fire-database.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,7 +10,11 @@ import { Router } from '@angular/router';
 })
 export class HomePageComponent implements OnInit {
   name: any;
-  constructor(public AuthService: FirebaseService, private router: Router) {}
+  constructor(
+    public AuthService: FirebaseService,
+    public DataService: FireDatabaseService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.name = localStorage.getItem('user');
