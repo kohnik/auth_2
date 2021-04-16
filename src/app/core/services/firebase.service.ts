@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-
 import firebase from 'firebase';
-import 'firebase/empty-import.d';
+import { FireDatabaseService } from './fire-database.service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,10 +12,11 @@ export class FirebaseService {
   GithubProvider = new firebase.auth.GithubAuthProvider();
   isLoggedIn: boolean = false;
   InputLogin: boolean = false;
-  errorEmailAlreadyused: boolean = false;
-  errorUserNotFound: boolean = false;
+  //errorEmailAlreadyused: boolean = false;
+  //errorUserNotFound: boolean = false;
   constructor(
     public firebaseAuth: AngularFireAuth,
+    public DataService: FireDatabaseService
   ) {}
   async signup(email: string, password: string) {
     await this.firebaseAuth
@@ -24,12 +24,12 @@ export class FirebaseService {
       .then((rez) => {
         this.isLoggedIn = true;
         localStorage.setItem('user', JSON.stringify(rez.user));
-      })
-      .catch((rez) => {
-        if ((rez.code = 'auth/email-already-in-use')) {
-          this.errorEmailAlreadyused = true;
-        }
       });
+      // .catch((rez) => {
+      //   if ((rez.code = 'auth/email-already-in-use')) {
+      //     this.errorEmailAlreadyused = true;
+      //   }
+      // });
   }
 
   async signin(email: string, password: string) {
@@ -38,12 +38,12 @@ export class FirebaseService {
       .then((rez) => {
         this.isLoggedIn = true;
         localStorage.setItem('user', JSON.stringify(rez.user));
-      })
-      .catch((rez) => {
-        if ((rez.code = 'auth/user-not-found')) {
-          this.errorUserNotFound = true;
-        }
       });
+      // .catch((rez) => {
+      //   if ((rez.code = 'auth/user-not-found')) {
+      //     this.errorUserNotFound = true;
+      //   }
+      // });
   }
 
   signGoogle() {
@@ -57,33 +57,28 @@ export class FirebaseService {
   }
 
   async authLogin(provider: any) {
-    await this.firebaseAuth
-      .signInWithPopup(provider)
+    await this.firebaseAuth.signInWithPopup(provider)
       .then((res) => {
         this.isLoggedIn = true;
         console.log(res.user);
         localStorage.setItem('user', JSON.stringify(res.user));
-      })
-      .catch((error) => {
-        console.log(error);
       });
+
   }
   logout() {
     this.firebaseAuth.signOut();
-
     localStorage.removeItem('user');
-
     this.isLoggedIn = false;
+    this.DataService.items = [];
   }
 
-  checkAuth()
-  {
-      if ( localStorage.getItem('user') === null )
-      {
-        return true;
-      }
-      else {
-        return false;
-      }
+  checkAuth() {
+    if (localStorage.getItem('user') === null) {
+      this.isLoggedIn = false;
+      return true;
+    } else {
+      this.isLoggedIn = true;
+      return false;
+    }
   }
 }

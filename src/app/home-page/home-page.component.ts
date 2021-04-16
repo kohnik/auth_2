@@ -1,7 +1,10 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FirebaseService } from '../../core/services/firebase.service';
-import { FireDatabaseService } from '../../core/services/fire-database.service';
+import { FirebaseService } from '../core/services/firebase.service';
+import { FireDatabaseService } from '../core/services/fire-database.service';
 import { Router } from '@angular/router';
+
+
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-home-page',
@@ -10,18 +13,26 @@ import { Router } from '@angular/router';
 })
 export class HomePageComponent implements OnInit {
   name: any;
+
   constructor(
     public AuthService: FirebaseService,
     public DataService: FireDatabaseService,
-    private router: Router
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
     this.name = localStorage.getItem('user');
     this.name = JSON.parse(this.name).email;
+
   }
-  logout() {
-    this.router.navigate(['']);
-    this.AuthService.logout();
-  }
+
+
+
+
+
+
+
+
+
+
 }

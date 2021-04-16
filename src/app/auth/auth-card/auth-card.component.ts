@@ -16,7 +16,10 @@ export class AuthCardComponent {
     }
   }
   async onSignupWithFacebook() {
-    await this.AuthService.signFacebook();
+    await this.AuthService.signFacebook()
+      .catch((error) => {
+        console.log(error);
+      });
     if (this.AuthService.isLoggedIn) {
       this.router.navigate(['home']);
     }

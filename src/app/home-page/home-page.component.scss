@@ -1,0 +1,33 @@
+.circleAddCard
+{
+  border: 1px solid black;
+  border-radius: 50%;
+  height:50px;
+  width: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  &>span
+  {
+  color: black;
+  }
+  transition: 0.2s;
+}
+.circleAddCard:hover
+{
+ background: black;
+
+  &>span
+  {
+    color: white;
+  }
+}
+.containerForPlusAdd
+{
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  height: 62vh;
+  width: 97%;
+}

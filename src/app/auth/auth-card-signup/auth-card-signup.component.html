@@ -9,11 +9,14 @@
         #emailsignup
         (click)="chooseValueMistakeEmail()"
       />
-      <div *ngIf="AuthService.errorEmailAlreadyused" class="alert alert-danger">
-        This email already is used
-      </div>
+<!--      <div *ngIf="AuthService.errorEmailAlreadyused" class="alert alert-danger">-->
+<!--        This email already is used-->
+<!--      </div>-->
       <div *ngIf="mistakeValidEmail" class="alert alert-danger">
         Invalid email. Example: "name@gmail.com"
+      </div>
+      <div *ngIf="authEror" class="alert alert-danger">
+        {{authEror}}
       </div>
     </div>
     <div>

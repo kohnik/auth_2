@@ -1,0 +1,19 @@
+.btnAddQuestion
+{
+  margin-right: 10px;
+}
+.tags
+{
+  display: grid;
+  grid-template-columns: 1fr 1fr ;
+  justify-items: center;
+  row-gap: 10px;
+  width: 80%;
+
+}
+.container__tag
+{
+  display: flex;
+  width: 100px;
+  justify-content: space-between;
+}

@@ -16,5 +16,78 @@
         >Sign up</a
       >
     </div>
+
+    <div class="navbar-nav" *ngIf="AuthService.isLoggedIn">
+      <button
+        type="button"
+        class="btn btn-outline-dark btnAddQuestion"
+        (click)="open(content)"
+      >
+        Add question
+      </button>
+      <button type="button" class="btn btn-outline-dark" (click)="logout()">
+        Logout
+      </button>
+    </div>
   </div>
 </nav>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Ask the question</h4>
+    <button
+      type="button"
+      class="close btn btn-outline-dark"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label>Title of question</label>
+        <div class="input-group">
+          <input class="form-control" type="text" #titlequestion />
+        </div>
+        <label>Question</label>
+        <div class="input-group">
+          <textarea class="form-control" #textquestion rows="5"></textarea>
+        </div>
+        <label>Tags</label>
+        <div class="input-group tags">
+          <div class="container__tag" *ngFor="let tag of AddItemService.checkboxlist">
+            <label
+              ><strong>{{ tag.name }}</strong></label
+            >
+            <input
+              class="form-check-input checkBoxTag"
+              type="checkbox"
+              name="`${tag.name}`"
+              (change)="AddItemService.onChange()"
+              [(ngModel)]="tag.isselected"
+            />
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="submit"
+      class="btn btn-outline-success"
+      (click)="AddItemService.addQuestion(titlequestion.value, textquestion.value)"
+      (click)="modal.close('Save click')"
+    >
+      Add
+    </button>
+    <button
+      type="button"
+      class="btn btn-outline-dark"
+      (click)="modal.close('Save click')"
+    >
+      Close
+    </button>
+  </div>
+</ng-template>

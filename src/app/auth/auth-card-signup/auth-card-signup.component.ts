@@ -12,14 +12,17 @@ export class AuthCardSignupComponent implements OnInit {
   patternForPassword = /[0-9a-zA-Z]{6,}/;
   mistakeValidEmail = false;
   mistakeValidPass = false;
-
+  authEror: string = '';
   constructor(public AuthService: FirebaseService, private router: Router) {}
   async onSignup(email: string, password: string) {
     if (
       this.patternForEmail.test(email) &&
       this.patternForPassword.test(password)
     ) {
-      await this.AuthService.signup(email, password);
+      await this.AuthService.signup(email, password).catch((error) => {
+        console.log(error);
+        this.authEror = error.message;
+      });
       if (this.AuthService.isLoggedIn) {
         this.router.navigate(['home']);
       }
@@ -34,9 +37,11 @@ export class AuthCardSignupComponent implements OnInit {
   }
   chooseValueMistakeEmail() {
     this.mistakeValidEmail = false;
+    this.authEror = '';
   }
   chooseValueMistakePass() {
     this.mistakeValidPass = false;
+    this.authEror = '';
   }
   ngOnInit(): void {}
 }

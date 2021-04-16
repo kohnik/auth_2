@@ -24,8 +24,11 @@
       <div *ngIf="mistakeValidPass" class="alert alert-danger">
         Very short password. Min 6 symbol
       </div>
-      <div *ngIf="AuthService.errorUserNotFound" class="alert alert-danger">
-        Invalid password or email, plz try again
+<!--      <div *ngIf="AuthService.errorUserNotFound" class="alert alert-danger">-->
+<!--        Invalid password or email, plz try again-->
+<!--      </div>-->
+      <div *ngIf="authEror" class="alert alert-danger">
+        {{authEror}}
       </div>
     </div>
     <div class="container__buttonSubmit">

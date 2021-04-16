@@ -1,0 +1,15 @@
+<div xmlns="http://www.w3.org/1999/html">
+  <ul class="Ulcard__item">
+    <li>
+      <div class="card" style="width: 18rem">
+        <div class="card-body">
+          <h5 class="card-title">{{item.title}}</h5>
+          <div class="idItems" style="display: none"></div>
+          <span class="card-text model"><strong> Created:</strong>{{getDateCreation(item.date)}} </span>
+          <p class="card-text created"><strong>tag: </strong> <span *ngFor="let tag of item.tag"> {{tag}} <strong>|</strong> </span></p>
+          <a class="btn btn-primary btnInfo">Click for Info</a>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>

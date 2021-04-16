@@ -14,6 +14,7 @@ export class AuthCardSigninComponent implements OnInit {
     'userPassword': new FormControl(),
     'userEmail': new FormControl()
   });
+  authEror: string ='';
   patternForEmail = /[a-zA-Z_]+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}/;
   patternForPassword = /[0-9a-zA-Z]{6,}/;
   mistakeValidEmail = false;
@@ -26,7 +27,10 @@ export class AuthCardSigninComponent implements OnInit {
       this.patternForPassword.test(this.myForm.value.userPassword)
     ) {
 
-      await this.AuthService.signin(this.myForm.value.userEmail, this.myForm.value.userPassword);
+      await this.AuthService.signin(this.myForm.value.userEmail, this.myForm.value.userPassword)
+        .catch((error) => {
+          this.authEror = error.message;
+        });
 
       if (this.AuthService.isLoggedIn) {
         this.router.navigate(['home']);
@@ -46,18 +50,15 @@ export class AuthCardSigninComponent implements OnInit {
 
   chooseValueMistakeEmail() {
     this.mistakeValidEmail = false;
+    this.authEror = '';
   }
   chooseValueMistakePass() {
     this.mistakeValidPass = false;
+    this.authEror = '';
   }
 
   ngOnInit(): void {
 
   }
-  // initForm(){
-  //   this.myFirstReactiveForm = this.fb.group({
-  //     name: ['Иван'],
-  //     email: [null]
-  //   });
-  // }
+
 }
