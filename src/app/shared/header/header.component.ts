@@ -3,7 +3,7 @@ import { FirebaseService } from '../../core/services/firebase.service';
 import { Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FireDatabaseService } from '../../core/services/fire-database.service';
-import { AddquestionService } from '../../core/services/addquestion/addquestion.service';
+import { QuestionService } from '../../core/services/question/question.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -23,7 +23,7 @@ export class HeaderComponent implements OnInit {
     public DataService: FireDatabaseService,
     private router: Router,
     private modalService: NgbModal,
-    public AddItemService: AddquestionService
+    public AddItemService: QuestionService
   ) {}
   ngOnInit(): void {
     this.AuthService.checkAuth();

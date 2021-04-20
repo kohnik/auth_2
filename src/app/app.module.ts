@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {FirebaseService} from './core/services/firebase.service';
 import {FireDatabaseService} from './core/services/fire-database.service';
-
+import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './shared/header/header.component';
 import { AuthCardComponent } from './auth/auth-card/auth-card.component';
 import { AuthGuard } from './core/guards/guardAuth/auth-guard.guard';
@@ -21,6 +21,7 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { HomeSettingsComponent } from './home-settings/home-settings.component';
 import { CardsComponent } from './cards/cards.component';
 import { CardItemComponent } from './cards/card-item/card-item.component';
+import { FullcardComponent } from './cards/fullcard/fullcard.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { CardItemComponent } from './cards/card-item/card-item.component';
     HomeSettingsComponent,
     CardsComponent,
     CardItemComponent,
+    FullcardComponent,
 
   ],
   imports: [
@@ -42,7 +44,8 @@ import { CardItemComponent } from './cards/card-item/card-item.component';
     FormsModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    HttpClientModule
   ],
   providers: [FirebaseService, FireDatabaseService, AuthGuard, AuthHomeGuardGuard],
   bootstrap: [AppComponent]

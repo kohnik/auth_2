@@ -12,8 +12,7 @@ export class FirebaseService {
   GithubProvider = new firebase.auth.GithubAuthProvider();
   isLoggedIn: boolean = false;
   InputLogin: boolean = false;
-  //errorEmailAlreadyused: boolean = false;
-  //errorUserNotFound: boolean = false;
+
   constructor(
     public firebaseAuth: AngularFireAuth,
     public DataService: FireDatabaseService

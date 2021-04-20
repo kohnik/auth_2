@@ -12,6 +12,9 @@ export class QuestionService {
   tags: any;
   userName: any;
   dateOfCreation: any;
+  dateCreation: any;
+  zeroForMin: string = '';
+  zeroForMonth: string = '';
   constructor(public DataService: FireDatabaseService) {}
 
   getCheckboxs() {
@@ -65,6 +68,20 @@ export class QuestionService {
   }
   createDateCreation() {
     this.dateOfCreation = new Date().getTime();
+  }
+
+  getDateCreation(date: any) {
+    this.dateCreation = new Date(+date);
+    if(this.dateCreation.getMinutes()<10)
+    {
+      this.zeroForMin = '0';
+    }
+    if(this.dateCreation.getMonth()<10)
+    {
+      this.zeroForMonth = '0';
+    }
+    return this.dateCreation =  `${this.dateCreation.getDate()}.${this.zeroForMonth}${this.dateCreation.getMonth()}.${this.dateCreation.getFullYear()} \n
+    ${this.dateCreation.getHours()}:${ this.zeroForMin}${this.dateCreation.getMinutes()}`;
   }
 }
 
