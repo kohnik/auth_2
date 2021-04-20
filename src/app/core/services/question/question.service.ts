@@ -5,7 +5,7 @@ import { DataOfQuestionToSend} from './../../../shared/interface'
 @Injectable({
   providedIn: 'root',
 })
-export class AddquestionService {
+export class QuestionService {
   checkboxlist: CheckBox[] = [];
   checkBoxListToSend: string[] = [];
   dataOfQuestionToSend: DataOfQuestionToSend[] = [];
@@ -15,6 +15,7 @@ export class AddquestionService {
   constructor(public DataService: FireDatabaseService) {}
 
   getCheckboxs() {
+    this.checkboxlist = [];
     let i: number;
     this.tags = this.DataService.tags;
     for (i = 0; i < this.tags.length; i++) {
@@ -24,6 +25,7 @@ export class AddquestionService {
         isselected: false,
       });
     }
+    console.log(this.checkboxlist)
   }
 
   onChange() {}
@@ -66,31 +68,4 @@ export class AddquestionService {
   }
 }
 
-// interface CheckBox {
-//   id: number;
-//   name: string;
-//   isselected: boolean;
-// }
-// interface DataOfQuestionToSend {
-//   title: string;
-//   questionText: string;
-//   tag: string[];
-//   status: string;
-//   userName: string;
-//   date: any;
-// }
 
-// class CheckBox {
-//   id: number | undefined;
-//   name: string | undefined;
-//   isselected: boolean | undefined;
-// }
-
-// class DataOfQuestionToSend {
-//   title: string | undefined;
-//   questionText: string | undefined;
-//   tag: string[] | undefined;
-//   status: string | undefined;
-//   userName: string | undefined;
-//   date: any | undefined;
-// }
