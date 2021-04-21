@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import {QuestionService} from '../../core/services/question/question.service';
+import { QuestionService } from '../../../core/services/question/question.service';
 
 @Component({
   selector: 'app-card-item',
@@ -8,10 +8,7 @@ import {QuestionService} from '../../core/services/question/question.service';
 })
 export class CardItemComponent implements OnInit {
   @Input() item: any;
-  constructor( public questionService : QuestionService) {}
+  constructor(public questionService: QuestionService) {}
 
-  ngOnInit(): void {
-
-  }
-
+  ngOnInit(): void {}
 }

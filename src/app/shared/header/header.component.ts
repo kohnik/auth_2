@@ -10,43 +10,35 @@ import { QuestionService } from '../../core/services/question/question.service';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  // InputLogin = this.AuthService.InputLogin;
-  // checkboxlist: CheckBox[] = [];
-  // checkBoxListToSend: string[] = [];
-  // dataOfQuestionToSend: DataOfQuestionToSend[] = [];
-  // tags: any;
-  // dateOfCreation: any;
-  // userName: any;
 
   constructor(
-    public AuthService: FirebaseService,
-    public DataService: FireDatabaseService,
+    public authService: FirebaseService,
     private router: Router,
     private modalService: NgbModal,
-    public AddItemService: QuestionService
+    public addItemService: QuestionService
   ) {}
   ngOnInit(): void {
-    this.AuthService.checkAuth();
+    this.authService.checkAuth();
     if (localStorage.getItem('user') !== null) {
-      this.router.navigate(['home']);
+      this.router.navigate(['question']);
     } else {
       this.router.navigate(['']);
     }
-    this.AddItemService.getCheckboxs();
+    this.addItemService.getCheckboxs();
   }
-  changeLogin() {
-    if (this.AuthService.InputLogin) {
-      this.AuthService.InputLogin = false;
+  changeLogin(): void  {
+    if (this.authService.InputLogin) {
+      this.authService.InputLogin = false;
     } else {
-      this.AuthService.InputLogin = true;
+      this.authService.InputLogin = true;
     }
   }
-  logout() {
+  logout(): void  {
     this.router.navigate(['']);
-    this.AuthService.logout();
+    this.authService.logout();
   }
 
-  open(content: any) {
+  open(content: any): void  {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
   }
 

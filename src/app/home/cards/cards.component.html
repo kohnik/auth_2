@@ -1,8 +1,8 @@
 <div class="items__content " xmlns="http://www.w3.org/1999/html">
-  <ng-container *ngIf="DataService.items.length !== 0">
-    <app-card-item *ngFor="let item of DataService.items" [item]="item" ></app-card-item>
+  <ng-container *ngIf="dataService.items.length !== 0">
+    <app-card-item *ngFor="let item of dataService.items" [item]="item" ></app-card-item>
   </ng-container>
-  <ng-container *ngIf="DataService.items.length === 0">
+  <ng-container *ngIf="dataService.items.length === 0">
 <strong> ЗАДАЙТЕ СВОЙ ПЕРВЫЙ ВОПРОС</strong>
   </ng-container>
 </div>
@@ -37,9 +37,9 @@
         </div>
         <label>Tags</label>
         <div class="input-group tags"  >
-          <div class="container__tag"*ngFor="let tag of AddItem.checkboxlist">
+          <div class="container__tag"*ngFor="let tag of addItem.checkboxList">
             <label><strong>{{tag.name}}</strong></label>
-            <input class="form-check-input checkBoxTag"  type="checkbox" name=`${tag.name}` (change)="AddItem.onChange()" [(ngModel)]="tag.isselected" >
+            <input class="form-check-input checkBoxTag"  type="checkbox" name=`${tag.name}` (change)="addItem.onChange()" [(ngModel)]="tag.isselected" >
             <div *ngIf="errorCheck" class="alert alert-danger">
               Very short question. Min 10 symbol;
             </div>

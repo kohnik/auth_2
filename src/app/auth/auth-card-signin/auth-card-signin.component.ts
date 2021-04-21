@@ -33,7 +33,7 @@ export class AuthCardSigninComponent implements OnInit {
         });
 
       if (this.AuthService.isLoggedIn) {
-        this.router.navigate(['home']);
+        this.router.navigate(['question']);
       }
     } else {
       console.log(this.myForm.value);

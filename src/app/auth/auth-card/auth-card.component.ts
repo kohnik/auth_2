@@ -12,7 +12,7 @@ export class AuthCardComponent {
   async onSignupWithGoogle() {
     await this.AuthService.signGoogle();
     if (this.AuthService.isLoggedIn) {
-      this.router.navigate(['home']);
+      this.router.navigate(['question']);
     }
   }
   async onSignupWithFacebook() {
@@ -21,13 +21,13 @@ export class AuthCardComponent {
         console.log(error);
       });
     if (this.AuthService.isLoggedIn) {
-      this.router.navigate(['home']);
+      this.router.navigate(['question']);
     }
   }
   async onSignupWithGitHub() {
     await this.AuthService.signGithub();
     if (this.AuthService.isLoggedIn) {
-      this.router.navigate(['home']);
+      this.router.navigate(['question']);
     }
   }
 }

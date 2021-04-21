@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
-
-import { AngularFireDatabase } from '@angular/fire/database';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {Observable} from "rxjs";
+
 @Injectable({
   providedIn: 'root',
 })
 export class FireDatabaseService {
   items: object[] = [];
+  item: any;
   tags = [
     'Js',
     'Nodejs',
@@ -18,26 +19,45 @@ export class FireDatabaseService {
     'Angular',
     'React',
     'Vue',
-      'Other'
+    'Other',
   ];
+
   constructor(private http: HttpClient) {}
   async getAll() {
+    let countId = 0;
     this.http
       .get('https://fir-auth-9b2a0-default-rtdb.firebaseio.com/.json')
       .subscribe((data) => {
         if (data !== null) {
           Object.values(data).map((item) => {
+            console.log(data)
             // @ts-ignore
-            this.items.push(item[0]);
+            item.id = `${Object.keys(data)[countId]}`;
+            this.items.push(item);
+            countId++;
           });
-          console.log(this.items);
+        }
+        console.log(this.items);
+      });
+  }
+  async getCard(id: string) {
+    this.http
+      .get(`https://fir-auth-9b2a0-default-rtdb.firebaseio.com/${id}.json`)
+      .subscribe((data) => {
+        if (data !== null) {
+          // @ts-ignore
+          console.log(data);
+          this.item = data;
         }
       });
   }
-  async postQuestion(dataOfQuestionToSend: object[]) {
-    this.http.post(
-      'https://fir-auth-9b2a0-default-rtdb.firebaseio.com/.json',
-      dataOfQuestionToSend
-    ).subscribe();
+  postQuestion(dataOfQuestionToSend: object){
+    return this.http
+      .post(
+        'https://fir-auth-9b2a0-default-rtdb.firebaseio.com/.json',
+        dataOfQuestionToSend
+      );
   }
+
+
 }

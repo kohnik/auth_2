@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { QuestionService } from '../../core/services/question/question.service';
-import { FireDatabaseService } from '../../core/services/fire-database.service';
+import { QuestionService } from '../../../core/services/question/question.service';
+import { FireDatabaseService } from '../../../core/services/fire-database.service';
 import { switchMap } from 'rxjs/operators';
 
 @Component({
@@ -13,7 +13,7 @@ export class FullcardComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     public questionService: QuestionService,
-    public DataService: FireDatabaseService
+    public dataService: FireDatabaseService
   ) {}
 
   ngOnInit(): void {
@@ -22,9 +22,9 @@ export class FullcardComponent implements OnInit {
       .subscribe((data) => {
         this.getItemData(data);
       });
-    this.DataService.items = [];
+    this.dataService.items = [];
   }
   async getItemData(data: string) {
-    await this.DataService.getCard(data);
+    await this.dataService.getCard(data);
   }
 }

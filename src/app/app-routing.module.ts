@@ -1,18 +1,27 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {AuthCardComponent} from './auth/auth-card/auth-card.component';
-import {AuthGuard} from './core/guards/guardAuth/auth-guard.guard';
-import {HomePageComponent} from './home-page/home-page.component';
-import {AuthHomeGuardGuard} from './core/guards/guardHome/auth-home-guard.guard';
-import {FullcardComponent} from './cards/fullcard/fullcard.component';
+import { AuthCardComponent } from './auth/auth-card/auth-card.component';
+import { AuthGuard } from './core/guards/guardAuth/auth-guard.guard';
+import { HomePageComponent } from './home/home-page/home-page.component';
+import { AuthHomeGuardGuard } from './core/guards/guardHome/auth-home-guard.guard';
+import { FullcardComponent } from './home/cards/fullcard/fullcard.component';
+import { QuestionGuard } from './core/guards/guardQuestion/question.guard';
 const appRoutes: Routes = [
   { path: '', component: AuthCardComponent, canActivate: [AuthGuard] },
-  { path: 'home', component: HomePageComponent, canActivate: [AuthHomeGuardGuard]},
-  { path: 'question', component: FullcardComponent, },
+  {
+    path: 'question',
+    component: HomePageComponent,
+    canActivate: [AuthHomeGuardGuard],
+  },
+  {
+    path: 'question/:id',
+    component: FullcardComponent,
+    canActivate: [QuestionGuard],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(appRoutes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

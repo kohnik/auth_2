@@ -24,7 +24,7 @@ export class AuthCardSignupComponent implements OnInit {
         this.authEror = error.message;
       });
       if (this.AuthService.isLoggedIn) {
-        this.router.navigate(['home']);
+        this.router.navigate(['question']);
       }
     } else {
       if (!this.patternForEmail.test(email)) {

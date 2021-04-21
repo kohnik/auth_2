@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FireDatabaseService } from '../core/services/fire-database.service';
+import { FireDatabaseService } from '../../core/services/fire-database.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { QuestionService } from '../core/services/question/question.service';
+import { QuestionService } from '../../core/services/question/question.service';
 import {Router} from '@angular/router';
 
 @Component({
@@ -14,15 +14,14 @@ export class CardsComponent implements OnInit {
   errorText = false;
   errorCheck = '';
   constructor(
-    public DataService: FireDatabaseService,
+    public dataService: FireDatabaseService,
     private modalService: NgbModal,
-    public AddItem: QuestionService,
-    private router: Router
+    public addItem: QuestionService
   ) {}
 
   ngOnInit(): void {
-    this.DataService.getAll();
-    this.AddItem.getCheckboxs();
+    this.dataService.getAll();
+    this.addItem.getCheckboxs();
   }
 
   newQuestion(title: string, text: string, content: any): void {
@@ -37,7 +36,7 @@ export class CardsComponent implements OnInit {
     }
     else
     {
-      this.AddItem.addQuestion(title, text);
+      this.addItem.addQuestion(title, text);
       this.modalService.dismissAll(content);
     }
   }

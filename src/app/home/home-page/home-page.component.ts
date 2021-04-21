@@ -1,11 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FirebaseService } from '../core/services/firebase.service';
-import { FireDatabaseService } from '../core/services/fire-database.service';
-import { Router } from '@angular/router';
-
-
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
-
+import { FirebaseService } from '../../core/services/firebase.service';
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
@@ -15,9 +9,7 @@ export class HomePageComponent implements OnInit {
   name: any;
 
   constructor(
-    public AuthService: FirebaseService,
-    public DataService: FireDatabaseService,
-    private router: Router,
+    public authService: FirebaseService
   ) {}
 
   ngOnInit(): void {

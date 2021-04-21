@@ -8,8 +8,8 @@ import { FireDatabaseService } from './fire-database.service';
 })
 export class FirebaseService {
   googleProvider = new firebase.auth.GoogleAuthProvider();
-  FacebookProvider = new firebase.auth.FacebookAuthProvider();
-  GithubProvider = new firebase.auth.GithubAuthProvider();
+  facebookProvider = new firebase.auth.FacebookAuthProvider();
+  githubProvider = new firebase.auth.GithubAuthProvider();
   isLoggedIn: boolean = false;
   InputLogin: boolean = false;
 
@@ -24,11 +24,6 @@ export class FirebaseService {
         this.isLoggedIn = true;
         localStorage.setItem('user', JSON.stringify(rez.user));
       });
-      // .catch((rez) => {
-      //   if ((rez.code = 'auth/email-already-in-use')) {
-      //     this.errorEmailAlreadyused = true;
-      //   }
-      // });
   }
 
   async signin(email: string, password: string) {
@@ -38,21 +33,16 @@ export class FirebaseService {
         this.isLoggedIn = true;
         localStorage.setItem('user', JSON.stringify(rez.user));
       });
-      // .catch((rez) => {
-      //   if ((rez.code = 'auth/user-not-found')) {
-      //     this.errorUserNotFound = true;
-      //   }
-      // });
   }
 
   signGoogle() {
     return this.authLogin(this.googleProvider);
   }
   signFacebook() {
-    return this.authLogin(this.FacebookProvider);
+    return this.authLogin(this.facebookProvider);
   }
   signGithub() {
-    return this.authLogin(this.GithubProvider);
+    return this.authLogin(this.githubProvider);
   }
 
   async authLogin(provider: any) {

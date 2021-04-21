@@ -1,88 +1,73 @@
 import { Injectable } from '@angular/core';
 import { FireDatabaseService } from '../fire-database.service';
-import { CheckBox} from './../../../shared/interface';
-import { DataOfQuestionToSend} from './../../../shared/interface'
+import { CheckBox } from './../../../shared/interface';
+import { tags } from '../../../shared/constants';
+import { UserauthService } from '../userName/userauth.service';
 @Injectable({
   providedIn: 'root',
 })
 export class QuestionService {
-  checkboxlist: CheckBox[] = [];
+  checkboxList: CheckBox[] = [];
   checkBoxListToSend: string[] = [];
-  dataOfQuestionToSend: DataOfQuestionToSend[] = [];
+  dataOfQuestionToSend = {};
   tags: any;
-  userName: any;
   dateOfCreation: any;
   dateCreation: any;
-  zeroForMin: string = '';
-  zeroForMonth: string = '';
-  constructor(public DataService: FireDatabaseService) {}
 
-  getCheckboxs() {
-    this.checkboxlist = [];
+  constructor(
+    public dataService: FireDatabaseService,
+    public userauthService: UserauthService
+  ) {}
+
+  getCheckboxs(): void {
+    console.log(this.checkboxList);
+    this.checkboxList = [];
     let i: number;
-    this.tags = this.DataService.tags;
-    for (i = 0; i < this.tags.length; i++) {
-      this.checkboxlist.push({
+    for (i = 0; i < tags.length; i++) {
+      this.checkboxList.push({
         id: i + 1,
-        name: `${this.tags[i]}`,
+        name: `${tags[i]}`,
         isselected: false,
       });
     }
-    console.log(this.checkboxlist)
+    console.log(this.checkboxList);
   }
 
-  onChange() {}
-  addQuestion(titlequestion: string, textquestion: string) {
-    this.userName = localStorage.getItem('user');
-    this.userName = JSON.parse(this.userName).email;
-
+  onChange(): void {}
+  addQuestion(titlequestion: string, textquestion: string): void {
     let i: number;
-    for (i = 0; i < this.checkboxlist.length; i++) {
-      if (this.checkboxlist[i].isselected === true) {
-        this.checkBoxListToSend.push(`${this.checkboxlist[i].name}`);
+    for (i = 0; i < this.checkboxList.length; i++) {
+      if (this.checkboxList[i].isselected === true) {
+        this.checkBoxListToSend.push(`${this.checkboxList[i].name}`);
       }
     }
     this.createDateCreation();
-    this.dataOfQuestionToSend.push({
+    this.dataOfQuestionToSend = {
       title: `${titlequestion}`,
       questionText: `${textquestion}`,
       tag: this.checkBoxListToSend,
       status: `ischecking`,
-      userName: `${this.userName}`,
+      userName: `${this.userauthService.userName}`,
       date: `${this.dateOfCreation}`,
-    });
-    this.DataService.postQuestion(this.dataOfQuestionToSend);
-    this.DataService.items = [
-      ...this.DataService.items,
+    };
+    console.log(this.dataOfQuestionToSend);
+    this.dataService.postQuestion(this.dataOfQuestionToSend).subscribe();
+    this.dataService.items = [
+      ...this.dataService.items,
       {
         title: `${titlequestion}`,
         questionText: `${textquestion}`,
         tag: this.checkBoxListToSend,
         status: `ischecking`,
-        userName: `${this.userName}`,
+        userName: `${this.userauthService.userName}`,
         date: `${this.dateOfCreation}`,
       },
     ];
     this.checkBoxListToSend = [];
     this.dataOfQuestionToSend = [];
   }
-  createDateCreation() {
+
+  createDateCreation(): void {
     this.dateOfCreation = new Date().getTime();
   }
-
-  getDateCreation(date: any) {
-    this.dateCreation = new Date(+date);
-    if(this.dateCreation.getMinutes()<10)
-    {
-      this.zeroForMin = '0';
-    }
-    if(this.dateCreation.getMonth()<10)
-    {
-      this.zeroForMonth = '0';
-    }
-    return this.dateCreation =  `${this.dateCreation.getDate()}.${this.zeroForMonth}${this.dateCreation.getMonth()}.${this.dateCreation.getFullYear()} \n
-    ${this.dateCreation.getHours()}:${ this.zeroForMin}${this.dateCreation.getMinutes()}`;
-  }
 }
-
-
