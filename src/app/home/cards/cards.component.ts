@@ -1,6 +1,6 @@
-import { Component, NgZone, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FireDatabaseService } from '../core/services/fire-database.service';
-import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { QuestionService } from '../core/services/question/question.service';
 import {Router} from '@angular/router';
 
@@ -10,11 +10,9 @@ import {Router} from '@angular/router';
   styleUrls: ['./cards.component.scss'],
 })
 export class CardsComponent implements OnInit {
-  errorTitle: boolean = false;
-  errorText: boolean = false;
-  errorCheck: string = '';
-  checkValidModal : boolean = false;
-
+  errorTitle = false;
+  errorText = false;
+  errorCheck = '';
   constructor(
     public DataService: FireDatabaseService,
     private modalService: NgbModal,
@@ -27,7 +25,7 @@ export class CardsComponent implements OnInit {
     this.AddItem.getCheckboxs();
   }
 
-  newQuestion(title: string, text: string, content: any) {
+  newQuestion(title: string, text: string, content: any): void {
 
     if (title === '')
     {
@@ -43,7 +41,7 @@ export class CardsComponent implements OnInit {
       this.modalService.dismissAll(content);
     }
   }
-  open(content: any) {
+  open(content: any): void {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
   }
 }

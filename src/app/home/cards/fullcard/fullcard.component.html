@@ -1,26 +1,29 @@
-<div class="fullcard">
+<div class="fullcard" *ngIf="DataService.item">
   <div class="fullcard__wr">
     <header class="fullcard__header">
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <button class="btn btn-outline-dark" routerLink="/question">return</button>
         <div class="container-fluid">
-          <a class="navbar-brand login" >{{item.username}}</a>
+
+          <a class="navbar-brand login" >{{DataService.item.userName}}</a>
           <div class="navbar-nav">
-            <a>{{questionService.getDateCreation(item.date)}}</a>
+                        <a>{{DataService.item.date | date:'M/d/yy, h:mm a'}}</a>
+<!--            <a>{{questionService.getDateCreation(DataService.item.date)}}</a>-->
           </div>
         </div>
       </nav>
     </header>
 
     <section class="fullcard__body">
-        <h5 class="fullcard__title">{{item.title}}</h5>
+        <h5 class="fullcard__title">{{DataService.item.title}}</h5>
       <div class="fullcard__text">
-        <span>{{item.text}}</span>
+        <span>{{DataService.item.questionText}}</span>
       </div>
     </section>
 
     <footer class="fullcard__footer">
         <ul class="fullcard__footerUl">
-          <li *ngFor="let tag of item.tags"><span style="visibility: hidden">s</span>{{tag}} <strong> | </strong></li>
+          <li *ngFor="let tag of DataService.item.tag"><span style="visibility: hidden">s</span>{{tag}} <strong> | </strong></li>
         </ul>
       <div class="fullcard__footerButton">
         <button>Должны быть скрыты</button>

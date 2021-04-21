@@ -5,9 +5,9 @@
         <div class="card-body">
           <h5 class="card-title">{{item.title}}</h5>
           <div class="idItems" style="display: none"></div>
-          <span class="card-text model"><strong> Created:</strong>{{questionService.getDateCreation(item.date)}} </span>
+          <span class="card-text model"><strong> Created:</strong>{{item.date | date:' M/d/yy, h:mm a'}} </span>
           <p class="card-text created"><strong>tag: </strong> <span *ngFor="let tag of item.tag"> {{tag}} <strong>|</strong> </span></p>
-          <a class="btn btn-primary btnInfo" routerLink="/question"  [queryParams]="{ title: item.title, date : item.date, text: item.questionText , username: item.userName,tags :item.tag}" >Click for Info</a>
+          <a class="btn btn-primary btnInfo"  [routerLink]="[item.id]"   >Click for Info</a>
         </div>
       </div>
     </li>
