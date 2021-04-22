@@ -41,33 +41,40 @@ export class QuestionService {
         this.checkBoxListToSend.push(`${this.checkboxList[i].name}`);
       }
     }
-    this.createDateCreation();
+
     this.dataOfQuestionToSend = {
       title: `${titlequestion}`,
-      questionText: `${textquestion}`,
+      text: `${textquestion}`,
       tag: this.checkBoxListToSend,
       status: `ischecking`,
-      userName: `${this.userauthService.userName}`,
-      date: `${this.dateOfCreation}`,
+      author: `${this.userauthService.getname()}`,
+      date: `${this.createDateCreation()}`,
+
     };
     console.log(this.dataOfQuestionToSend);
-    this.dataService.postQuestion(this.dataOfQuestionToSend).subscribe();
+    this.dataService
+      .postQuestion(this.dataOfQuestionToSend)
+      .subscribe((data) => {
+        console.log(data);
+      });
+
     this.dataService.items = [
       ...this.dataService.items,
       {
         title: `${titlequestion}`,
-        questionText: `${textquestion}`,
+        text: `${textquestion}`,
         tag: this.checkBoxListToSend,
         status: `ischecking`,
-        userName: `${this.userauthService.userName}`,
-        date: `${this.dateOfCreation}`,
+        author: `${this.userauthService.userName}`,
+        date: `${this.createDateCreation()}`,
+        comments: [],
       },
     ];
     this.checkBoxListToSend = [];
     this.dataOfQuestionToSend = [];
   }
 
-  createDateCreation(): void {
-    this.dateOfCreation = new Date().getTime();
+  createDateCreation(): number {
+    return this.dateCreation = new Date().getTime();
   }
 }

@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand login" routerLink="home">Home</a>
+    <a class="navbar-brand login" routerLink="question">Home</a>
     <div class="navbar-nav" *ngIf="!authService.isLoggedIn">
       <a
         *ngIf="!authService.InputLogin"
@@ -53,7 +53,7 @@
         </div>
         <label>Tags</label>
         <div class="input-group tags">
-          <div class="container__tag" *ngFor="let tag of addItemService.checkboxlist">
+          <div class="container__tag" *ngFor="let tag of addItemService.checkboxList">
             <label
               ><strong>{{ tag.name }}</strong></label
             >

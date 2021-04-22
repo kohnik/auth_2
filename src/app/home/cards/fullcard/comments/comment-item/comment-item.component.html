@@ -1,0 +1,20 @@
+<div class="comment">
+  <div class="comment__header">
+    <div class="comment__imgContainer">
+      <img
+        class="comment__img"
+        src="../../../../../../assets/img/spanch_img.jpg"
+      />
+    </div>
+    <div class="comment__titleContainer">
+      <span class="comment__title">{{ dataComment.authorComment }}</span>
+    </div>
+
+  </div>
+
+    <div class="comment__answerContainer">
+      <span class="comment__text">{{ dataComment.textComment  }}</span>
+      <span>{{dataComment.dateCreateComment | date:'M/d/yy, h:mm a'}}</span>
+    </div>
+
+</div>

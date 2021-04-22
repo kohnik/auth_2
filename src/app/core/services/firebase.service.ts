@@ -58,7 +58,7 @@ export class FirebaseService {
     this.firebaseAuth.signOut();
     localStorage.removeItem('user');
     this.isLoggedIn = false;
-    this.DataService.items = [];
+
   }
 
   checkAuth() {

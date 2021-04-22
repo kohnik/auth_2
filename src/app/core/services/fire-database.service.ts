@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import {Observable} from "rxjs";
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -8,6 +8,8 @@ import {Observable} from "rxjs";
 export class FireDatabaseService {
   items: object[] = [];
   item: any;
+  comments: object[] = [];
+  currentId = '';
   tags = [
     'Js',
     'Nodejs',
@@ -30,34 +32,43 @@ export class FireDatabaseService {
       .subscribe((data) => {
         if (data !== null) {
           Object.values(data).map((item) => {
-            console.log(data)
             // @ts-ignore
             item.id = `${Object.keys(data)[countId]}`;
             this.items.push(item);
+            // console.log(Object.values(this.item.comments));
             countId++;
           });
         }
-        console.log(this.items);
       });
   }
+
   async getCard(id: string) {
     this.http
       .get(`https://fir-auth-9b2a0-default-rtdb.firebaseio.com/${id}.json`)
       .subscribe((data) => {
         if (data !== null) {
-          // @ts-ignore
-          console.log(data);
           this.item = data;
+          if (this.item.comments) {
+            for (let i = 1; i <= Object.values(this.item.comments).length; i++
+            ) {
+              this.comments.push(Object.values<object>(this.item.comments)[
+                  Object.values(this.item.comments).length - i
+                ]
+              );
+            }
+          }
         }
       });
   }
-  postQuestion(dataOfQuestionToSend: object){
-    return this.http
-      .post(
-        'https://fir-auth-9b2a0-default-rtdb.firebaseio.com/.json',
-        dataOfQuestionToSend
-      );
+  postQuestion(dataOfQuestionToSend: object) {
+    return this.http.post(
+      'https://fir-auth-9b2a0-default-rtdb.firebaseio.com/.json',
+      dataOfQuestionToSend
+    );
   }
 
-
+  addComment(body: object) {
+    const url = `https://fir-auth-9b2a0-default-rtdb.firebaseio.com/${this.currentId}/comments.json`;
+    this.http.post(url, body).subscribe();
+  }
 }

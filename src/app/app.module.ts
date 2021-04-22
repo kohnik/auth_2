@@ -22,6 +22,9 @@ import { HomeSettingsComponent } from './home/home-settings/home-settings.compon
 import { CardsComponent } from './home/cards/cards.component';
 import { CardItemComponent } from './home/cards/card-item/card-item.component';
 import { FullcardComponent } from './home/cards/fullcard/fullcard.component';
+import { CommentsComponent } from './home/cards/fullcard/comments/comments.component';
+import { CommentItemComponent } from './home/cards/fullcard/comments/comment-item/comment-item.component';
+import { CreateCommentComponent } from './home/cards/fullcard/comments/create-comment/create-comment.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +38,9 @@ import { FullcardComponent } from './home/cards/fullcard/fullcard.component';
     CardsComponent,
     CardItemComponent,
     FullcardComponent,
+    CommentsComponent,
+    CommentItemComponent,
+    CreateCommentComponent,
 
   ],
   imports: [

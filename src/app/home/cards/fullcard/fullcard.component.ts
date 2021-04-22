@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { QuestionService } from '../../../core/services/question/question.service';
 import { FireDatabaseService } from '../../../core/services/fire-database.service';
@@ -15,16 +15,19 @@ export class FullcardComponent implements OnInit {
     public questionService: QuestionService,
     public dataService: FireDatabaseService
   ) {}
-
   ngOnInit(): void {
     this.route.paramMap
       .pipe(switchMap((params) => params.getAll('id')))
-      .subscribe((data) => {
-        this.getItemData(data);
+      .subscribe((id) => {
+        this.dataService.currentId = id;
+        this.getItemData(id);
       });
-    this.dataService.items = [];
   }
-  async getItemData(data: string) {
-    await this.dataService.getCard(data);
+  ngOnDestroy(): void {
+    this.dataService.item = [];
+    console.log( this.dataService.item)
+  }
+  async getItemData(id: string) {
+    await this.dataService.getCard(id);
   }
 }

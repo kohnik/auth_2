@@ -1,3 +1,4 @@
+<div *ngIf="dataService.item"><strong>ГРУЗИТСЯ</strong></div>
 <div class="fullcard" *ngIf="dataService.item">
   <div class="fullcard__wr">
     <header class="fullcard__header">
@@ -5,19 +6,17 @@
         <button class="btn btn-outline-dark" routerLink="/question">return</button>
         <div class="container-fluid">
 
-          <a class="navbar-brand login" >{{dataService.item.userName}}</a>
+          <a class="navbar-brand login" >{{dataService.item.author}}</a>
           <div class="navbar-nav">
                         <a>{{dataService.item.date | date:'M/d/yy, h:mm a'}}</a>
-<!--            <a>{{questionService.getDateCreation(DataService.item.date)}}</a>-->
           </div>
         </div>
       </nav>
     </header>
-
     <section class="fullcard__body">
         <h5 class="fullcard__title">{{dataService.item.title}}</h5>
       <div class="fullcard__text">
-        <span>{{dataService.item.questionText}}</span>
+        <span>{{dataService.item.text}}</span>
       </div>
     </section>
 
@@ -33,3 +32,7 @@
     </footer>
   </div>
 </div>
+
+<app-comments *ngIf="dataService.item"></app-comments>
+
+

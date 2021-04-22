@@ -1,0 +1,23 @@
+<app-create-comment
+  (closeToCreate)="closeToCreateComment()"
+  *ngIf="toCreateComment"
+></app-create-comment>
+<section class="comments">
+  <div class="comments__wr">
+    <div class="comments__header">
+      <div class="comments__title">Answers to the question</div>
+      <div class="comments__btnAnswer">
+        <button class="btn btn-outline-danger" (click)="openToCreateComment()">
+          Ответить
+        </button>
+      </div>
+    </div>
+    <div class="comments__body">
+      <ng-container *ngIf="this.dataService.comments"
+        ><div class="comments__item" *ngFor="let item of this.dataService.comments">
+          <app-comment-item [dataComment]="item"></app-comment-item></div
+      ></ng-container>
+      <div *ngIf="!this.dataService.comments" class="comments__error"><span> ADD YOUR FIRST ANSWER </span></div>
+    </div>
+  </div>
+</section>

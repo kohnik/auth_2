@@ -1,0 +1,39 @@
+.comment
+{
+  display: flex;
+  box-sizing: border-box;
+  margin: 10px;
+  border: 1px solid darkslateblue;
+  min-height: 100px;
+  &__header
+  {
+    padding: 10px;
+    text-align: center;
+  }
+  &__img
+  {
+    width: 80px;
+    height: 80px;
+  }
+&__answerContainer
+  {
+  display: flex;
+  justify-content: space-between;
+    box-sizing: border-box;
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid darkslateblue;
+    width: 100%;
+
+  }
+  &__titleContainer
+  {
+    width:80px;
+  }
+  &__title
+  {
+    font-size: 15px;
+    word-wrap: break-word;
+
+  }
+}
