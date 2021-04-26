@@ -1,4 +1,4 @@
-<div *ngIf="dataService.item"><strong>ГРУЗИТСЯ</strong></div>
+<div *ngIf="!dataService.item"><strong>ГРУЗИТСЯ</strong></div>
 <div class="fullcard" *ngIf="dataService.item">
   <div class="fullcard__wr">
     <header class="fullcard__header">
@@ -25,14 +25,15 @@
           <li *ngFor="let tag of dataService.item.tag"><span style="visibility: hidden">s</span>{{tag}} <strong> | </strong></li>
         </ul>
       <div class="fullcard__footerButton">
-        <button>Должны быть скрыты</button>
+        <button routerLink="/editquestion"  class="btn btn-outline-primary">Edit</button>
         <button>Должны быть скрыты</button>
       </div>
 
     </footer>
   </div>
+  <app-comments *ngIf="dataService.item"></app-comments>
 </div>
 
-<app-comments *ngIf="dataService.item"></app-comments>
+
 
 

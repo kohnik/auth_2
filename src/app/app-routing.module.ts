@@ -6,6 +6,8 @@ import { HomePageComponent } from './home/home-page/home-page.component';
 import { AuthHomeGuardGuard } from './core/guards/guardHome/auth-home-guard.guard';
 import { FullcardComponent } from './home/cards/fullcard/fullcard.component';
 import { QuestionGuard } from './core/guards/guardQuestion/question.guard';
+import { ModaltoCreateCardComponent } from './shared/modalto-create-card/modalto-create-card.component';
+import { ModalToEditCardComponent } from './shared/modal-to-edit-card/modal-to-edit-card.component';
 const appRoutes: Routes = [
   { path: '', component: AuthCardComponent, canActivate: [AuthGuard] },
   {
@@ -16,6 +18,16 @@ const appRoutes: Routes = [
   {
     path: 'question/:id',
     component: FullcardComponent,
+    canActivate: [QuestionGuard],
+  },
+  {
+    path: 'newquestion',
+    component: ModaltoCreateCardComponent,
+    canActivate: [QuestionGuard],
+  },
+  {
+    path: 'editquestion',
+    component: ModalToEditCardComponent,
     canActivate: [QuestionGuard],
   },
 ];

@@ -14,19 +14,23 @@ export class FullcardComponent implements OnInit {
     private route: ActivatedRoute,
     public questionService: QuestionService,
     public dataService: FireDatabaseService
-  ) {}
+  ) {
+  }
+
   ngOnInit(): void {
     this.route.paramMap
       .pipe(switchMap((params) => params.getAll('id')))
       .subscribe((id) => {
-        this.dataService.currentId = id;
+        this.dataService.currentCommentId = id;
         this.getItemData(id);
       });
   }
+
   ngOnDestroy(): void {
     this.dataService.item = [];
-    console.log( this.dataService.item)
+    console.log(this.dataService.item)
   }
+
   async getItemData(id: string) {
     await this.dataService.getCard(id);
   }

@@ -1,6 +1,8 @@
-<app-header ></app-header>
-<router-outlet></router-outlet>
+<div [ngClass]="{header: themeService.colorTheme}">
+  <app-header ></app-header>
+  <router-outlet></router-outlet>
 
+</div>
 
 
 

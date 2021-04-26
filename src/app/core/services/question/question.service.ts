@@ -3,6 +3,7 @@ import { FireDatabaseService } from '../fire-database.service';
 import { CheckBox } from './../../../shared/interface';
 import { tags } from '../../../shared/constants';
 import { UserauthService } from '../userName/userauth.service';
+import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root',
 })
@@ -16,7 +17,8 @@ export class QuestionService {
 
   constructor(
     public dataService: FireDatabaseService,
-    public userauthService: UserauthService
+    public userauthService: UserauthService,
+    private router: Router
   ) {}
 
   getCheckboxs(): void {
@@ -33,15 +35,12 @@ export class QuestionService {
     console.log(this.checkboxList);
   }
 
-  onChange(): void {}
+  onChange(tag: any, index: number): void {
+    this.checkboxList[index].isselected = !this.checkboxList[index].isselected;
+    console.log( this.checkboxList);
+  }
   addQuestion(titlequestion: string, textquestion: string): void {
-    let i: number;
-    for (i = 0; i < this.checkboxList.length; i++) {
-      if (this.checkboxList[i].isselected === true) {
-        this.checkBoxListToSend.push(`${this.checkboxList[i].name}`);
-      }
-    }
-
+    this.createCheckboxList();
     this.dataOfQuestionToSend = {
       title: `${titlequestion}`,
       text: `${textquestion}`,
@@ -49,7 +48,6 @@ export class QuestionService {
       status: `ischecking`,
       author: `${this.userauthService.getname()}`,
       date: `${this.createDateCreation()}`,
-
     };
     console.log(this.dataOfQuestionToSend);
     this.dataService
@@ -58,23 +56,23 @@ export class QuestionService {
         console.log(data);
       });
 
-    this.dataService.items = [
-      ...this.dataService.items,
-      {
-        title: `${titlequestion}`,
-        text: `${textquestion}`,
-        tag: this.checkBoxListToSend,
-        status: `ischecking`,
-        author: `${this.userauthService.userName}`,
-        date: `${this.createDateCreation()}`,
-        comments: [],
-      },
-    ];
+
     this.checkBoxListToSend = [];
     this.dataOfQuestionToSend = [];
+    setTimeout(() => {
+      this.router.navigate(['question']);
+    }, 500);
+  }
+  createCheckboxList() {
+    let i: number;
+    for (i = 0; i < this.checkboxList.length; i++) {
+      if (this.checkboxList[i].isselected === true) {
+        this.checkBoxListToSend.push(`${this.checkboxList[i].name}`);
+      }
+    }
   }
 
   createDateCreation(): number {
-    return this.dateCreation = new Date().getTime();
+    return (this.dateCreation = new Date().getTime());
   }
 }

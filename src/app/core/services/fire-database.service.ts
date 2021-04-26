@@ -8,8 +8,10 @@ import { Observable } from 'rxjs';
 export class FireDatabaseService {
   items: object[] = [];
   item: any;
+  itemForEdit: any;
   comments: object[] = [];
-  currentId = '';
+  currentCommentId = '';
+  currentCardId = '';
   tags = [
     'Js',
     'Nodejs',
@@ -47,11 +49,17 @@ export class FireDatabaseService {
       .get(`https://fir-auth-9b2a0-default-rtdb.firebaseio.com/${id}.json`)
       .subscribe((data) => {
         if (data !== null) {
+          this.currentCardId = id;
           this.item = data;
+          this.itemForEdit = data;
           if (this.item.comments) {
-            for (let i = 1; i <= Object.values(this.item.comments).length; i++
+            for (
+              let i = 1;
+              i <= Object.values(this.item.comments).length;
+              i++
             ) {
-              this.comments.push(Object.values<object>(this.item.comments)[
+              this.comments.push(
+                Object.values<object>(this.item.comments)[
                   Object.values(this.item.comments).length - i
                 ]
               );
@@ -66,9 +74,17 @@ export class FireDatabaseService {
       dataOfQuestionToSend
     );
   }
+  postEditQuestion() {
+    this.http
+      .patch(
+        `https://fir-auth-9b2a0-default-rtdb.firebaseio.com/${this.currentCardId}.json`,
+        this.item
+      )
+      .subscribe((data) => console.log(data));
+  }
 
   addComment(body: object) {
-    const url = `https://fir-auth-9b2a0-default-rtdb.firebaseio.com/${this.currentId}/comments.json`;
+    const url = `https://fir-auth-9b2a0-default-rtdb.firebaseio.com/${this.currentCommentId}/comments.json`;
     this.http.post(url, body).subscribe();
   }
 }

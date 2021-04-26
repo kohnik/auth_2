@@ -1,7 +1,7 @@
 <div xmlns="http://www.w3.org/1999/html">
   <ul class="Ulcard__item">
     <li>
-      <div class="card" style="width: 18rem">
+      <div class="card" style="width: 18rem"  [ngClass]="{cardColor: themeService.colorTheme}">
         <div class="card-body">
           <h5 class="card-title">{{item.title}}</h5>
           <div class="idItems" style="display: none"></div>

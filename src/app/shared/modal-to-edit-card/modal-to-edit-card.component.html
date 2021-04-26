@@ -1,0 +1,54 @@
+<div class="modal__container">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Edit the question</h4>
+  </div>
+  <div class="modal-body">
+
+    <form [formGroup]="editForm">
+      <div class="form-group">
+        <label>Title of question</label>
+        <div class="input-group">
+          <input class="form-control" type="text" formControlName="titlequestion"  />
+        </div>
+        <label>Question</label>
+        <div class="input-group">
+          <textarea class="form-control" formControlName="textquestion" rows="5"></textarea>
+        </div>
+        <label>Tags</label>
+        <div class="input-group tags">
+          <div
+            class="container__tag"
+            *ngFor="let tag of addItemService.checkboxList,let i = index"
+          >
+            <label
+            ><strong>{{ tag.name }}</strong></label
+            >
+            <input
+
+              class="form-check-input checkBoxTag"
+              type="checkbox"
+              name="`${tag.name}`"
+              (change)="addItemService.onChange(tag.isselected, i)"
+              formControlName="checkquestion"
+            />
+          </div>
+
+        </div>
+        <div    *ngIf="error" class="alert alert-danger">
+          Very short title, min 6 symbol or very short text, min 10 symbol or
+          there is not one checkbox, min 1 checkbox
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="submit"
+      class="btn btn-outline-success"
+      (click)="editQuestion()"
+    >
+      Save
+    </button>
+  </div>
+</div>
+

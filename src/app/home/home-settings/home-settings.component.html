@@ -1,4 +1,4 @@
-<nav *ngIf="authService.isLoggedIn" class="navbar navbar-expand-lg navbar-light bg-light" style="border:1px solid black">
+<nav *ngIf="authService.isLoggedIn" class="navbar navbar-expand-lg navbar-light bg-light" style="border:1px solid black"  [ngClass]="{'bg-light': themeService.colorTheme}" >
   <div class="container-fluid">
     <div class="navbar-nav" >
       <a>filters</a>
@@ -7,7 +7,39 @@
       <a>sort</a>
     </div>
     <div class="navbar-nav" >
-      <a>settings</a>
+
+        <span class="setting" type="button" (click)="collapse.toggle()" [attr.aria-expanded]="!isCollapsed"
+                aria-controls="collapseExample">
+          settings
+        </span>
+      <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed" class="card__container">
+        <div class="card">
+          <div class="card-body">
+            <div class="switch__theme">
+
+              <span><strong>Смена темы</strong></span>
+              <div>
+                <span>темная</span>
+                <label class="switch">
+                  <input type="checkbox" (click)="themeService.changeTheme()" [(ngModel)]="this.themeService.colorTheme">
+                  <span class="slider round"></span>
+                </label>
+              </div>
+            </div>
+            <div class="card__View">
+              <span><strong>Смена темы</strong></span>
+              <div>
+                <span>темная</span>
+                <label class="switch">
+                  <input type="checkbox">
+                  <span class="slider round"></span>
+                </label>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </nav>

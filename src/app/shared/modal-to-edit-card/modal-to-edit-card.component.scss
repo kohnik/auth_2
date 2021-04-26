@@ -17,11 +17,16 @@
   width: 100px;
   justify-content: space-between;
 }
-.header
+.modal__container
 {
-background: black;
+  position: relative;
+  margin: 0  auto;
+  top: 100px;
+  width: 50%  ;
+  border: 1px solid black;
 }
-.bg-light
+.modal-footer
 {
-  background: #403f3f !important;
+  display: flex;
+  justify-content: center;
 }

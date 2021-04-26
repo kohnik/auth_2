@@ -10,13 +10,11 @@ import {Router} from '@angular/router';
   styleUrls: ['./cards.component.scss'],
 })
 export class CardsComponent implements OnInit {
-  errorTitle = false;
-  errorText = false;
-  errorCheck = '';
   constructor(
     public dataService: FireDatabaseService,
     private modalService: NgbModal,
-    public addItem: QuestionService
+    public addItem: QuestionService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -24,23 +22,10 @@ export class CardsComponent implements OnInit {
     this.addItem.getCheckboxs();
   }
 
-  newQuestion(title: string, text: string, content: any): void {
+  redirectTo()
+  {
+    this.router.navigate(['newquestion']);
+  }
 
-    if (title === '')
-    {
-      this.errorTitle = true;
-    }
-    if (text === '')
-    {
-      this.errorText = true;
-    }
-    else
-    {
-      this.addItem.addQuestion(title, text);
-      this.modalService.dismissAll(content);
-    }
-  }
-  open(content: any): void {
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
-  }
+
 }

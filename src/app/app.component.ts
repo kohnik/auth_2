@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { SwithThemeService } from './core/services/switchTheme/swith-theme.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -7,5 +8,5 @@ import { Component, Input, OnInit } from '@angular/core';
 export class AppComponent {
   title = 'authorization';
 
-  constructor() {}
+  constructor(public themeService: SwithThemeService) {}
 }
