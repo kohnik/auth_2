@@ -1,4 +1,4 @@
-<div class="comment">
+<div class="comment" [ngClass]="{'comment__border': themeService.colorTheme}">
   <div class="comment__header">
     <div class="comment__imgContainer">
       <img
@@ -12,7 +12,7 @@
 
   </div>
 
-    <div class="comment__answerContainer">
+    <div class="comment__answerContainer" [ngClass]="{'comment__border': themeService.colorTheme}">
       <span class="comment__text">{{ dataComment.textComment  }}</span>
       <span>{{dataComment.dateCreateComment | date:'M/d/yy, h:mm a'}}</span>
     </div>

@@ -3,6 +3,7 @@ import { FireDatabaseService } from '../../core/services/fire-database.service';
 import { QuestionService } from '../../core/services/question/question.service';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {SwithThemeService} from "../../core/services/switchTheme/swith-theme.service";
 
 @Component({
   selector: 'app-modal-to-edit-card',
@@ -26,7 +27,7 @@ export class ModalToEditCardComponent implements OnInit {
   constructor(
     public dataService: FireDatabaseService,
     public addItemService: QuestionService,
-    private router: Router
+    private router: Router,    public themeService: SwithThemeService
   ) {}
 
   ngOnInit(): void {

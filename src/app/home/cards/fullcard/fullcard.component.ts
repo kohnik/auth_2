@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { QuestionService } from '../../../core/services/question/question.service';
 import { FireDatabaseService } from '../../../core/services/fire-database.service';
 import { switchMap } from 'rxjs/operators';
+import { SwithThemeService } from '../../../core/services/switchTheme/swith-theme.service';
 
 @Component({
   selector: 'app-fullcard',
@@ -13,9 +14,9 @@ export class FullcardComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     public questionService: QuestionService,
-    public dataService: FireDatabaseService
-  ) {
-  }
+    public dataService: FireDatabaseService,
+    public themeService: SwithThemeService
+  ) {}
 
   ngOnInit(): void {
     this.route.paramMap
@@ -28,7 +29,7 @@ export class FullcardComponent implements OnInit {
 
   ngOnDestroy(): void {
     this.dataService.item = [];
-    console.log(this.dataService.item)
+    console.log(this.dataService.item);
   }
 
   async getItemData(id: string) {

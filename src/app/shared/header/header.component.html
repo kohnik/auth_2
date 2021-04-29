@@ -1,26 +1,28 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light"  [ngClass]="{'bg-light': themeService.colorTheme}">
-  <div  class="container-fluid" >
-    <a class="navbar-brand login" routerLink="question">Home</a>
-    <div class="navbar-nav" *ngIf="!authService.isLoggedIn">
+  <div  class="container-fluid"  >
+    <a class="navbar-brand login"   routerLink="question"  [ngClass]="{'header__logo': themeService.colorTheme}" >Home</a>
+    <div class="navbar-nav" *ngIf="!authService.isLoggedIn" >
       <a
         *ngIf="!authService.InputLogin"
+        [ngClass]="{'header__logo': themeService.colorTheme}"
         class="nav-link login"
         (click)="changeLogin()"
         routerLink="">Sign in</a>
       <a
         *ngIf="authService.InputLogin"
         class="nav-link login"
-        (click)="changeLogin()"
+        (click)="changeLogin()"  [ngClass]="{'header__logo': themeService.colorTheme}"
         >Sign up</a>
     </div>
     <div class="navbar-nav" *ngIf="authService.isLoggedIn">
       <button
         routerLink="newquestion"
+        [ngClass]="{'header__btn': themeService.colorTheme}"
         type="button"
         class="btn btn-outline-dark btnAddQuestion">
         Add question
       </button>
-      <button type="button" class="btn btn-outline-dark" (click)="logout()">
+      <button [ngClass]="{'header__btn': themeService.colorTheme}" type="button" class="btn btn-outline-dark" (click)="logout()">
         Logout
       </button>
     </div>

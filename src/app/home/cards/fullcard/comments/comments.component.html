@@ -2,10 +2,10 @@
   (closeToCreate)="closeToCreateComment()"
   *ngIf="toCreateComment"
 ></app-create-comment>
-<section class="comments">
-  <div class="comments__wr">
+<section class="comments" >
+  <div class="comments__wr" [ngClass]="{'fullcard__switchText': themeService.colorTheme}">
     <div class="comments__header">
-      <div class="comments__title">Answers to the question</div>
+      <div class="comments__title" >Answers to the question</div>
       <div class="comments__btnAnswer">
         <button class="btn btn-outline-danger" (click)="openToCreateComment()">
           Ответить на вопрос

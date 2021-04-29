@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class FireDatabaseService {
   items: object[] = [];
+  itemsSave: object[] = [];
   item: any;
   itemForEdit: any;
   comments: object[] = [];
@@ -37,9 +38,11 @@ export class FireDatabaseService {
             // @ts-ignore
             item.id = `${Object.keys(data)[countId]}`;
             this.items.push(item);
+            this.itemsSave.push(item);
             // console.log(Object.values(this.item.comments));
             countId++;
           });
+
         }
       });
   }

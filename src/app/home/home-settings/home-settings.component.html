@@ -1,40 +1,163 @@
-<nav *ngIf="authService.isLoggedIn" class="navbar navbar-expand-lg navbar-light bg-light" style="border:1px solid black"  [ngClass]="{'bg-light': themeService.colorTheme}" >
-  <div class="container-fluid">
-    <div class="navbar-nav" >
-      <a>filters</a>
-    </div>
-    <div class="navbar-nav" >
-      <a>sort</a>
-    </div>
-    <div class="navbar-nav" >
+<nav
+  *ngIf="authService.isLoggedIn"
+  class="navbar navbar-expand-lg navbar-light bg-light"
+  style="border: 1px solid black"
+  [ngClass]="{ 'bg-light': themeService.colorTheme }"
+>
+  <div
+    class="container-fluid"
+    [ngClass]="{ homeSettings__text: themeService.colorTheme }"
+  >
+    <div class="navbar-nav">
+      <span
+        class="setting"
+        type="button"
+        (click)="collapseFilter.toggle()"
+        [attr.aria-expanded]="!isCollapsedFilter"
+        aria-controls="collapseExample"
+      >
+        filters
+      </span>
 
-        <span class="setting" type="button" (click)="collapse.toggle()" [attr.aria-expanded]="!isCollapsed"
-                aria-controls="collapseExample">
-          settings
-        </span>
-      <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed" class="card__container">
-        <div class="card">
-          <div class="card-body">
+      <div
+        #collapseFilter="ngbCollapse"
+        [(ngbCollapse)]="isCollapsedFilter"
+        class="sort__container"
+      >
+        <div
+          class="card"
+          [ngClass]="{ card__setting: themeService.colorTheme }"
+        >
+          <div class="card-body-sort">
+            <span><strong>Фильтровать по: </strong></span>
+            <div class="choose__sortContainer">
+              <form [formGroup]="filterForm">
+                <span> 1.Completed</span>
+                <div>
+                  <label>отвечен</label>
+                  <input
+                    type="radio"
+                    [value]="true"
+                    formControlName="completdeCheck"
+                    name="drone"
+                  />
+                  <label>не отвечен</label>
+                  <input
+                    type="radio"
+                    [value]="false"
+                    formControlName="completdeCheck"
+                    name="drone"
+                  />
+                </div>
+                <span> 2.Category</span>
+                <div>
+             
+                </div>
+                <button type="button" (click)="filter()">Фильтровать</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="navbar-nav">
+      <span
+        class="setting"
+        type="button"
+        (click)="collapseSort.toggle()"
+        [attr.aria-expanded]="!isCollapsedSort"
+        aria-controls="collapseExample"
+      >
+        sort
+      </span>
+
+      <div
+        #collapseSort="ngbCollapse"
+        [(ngbCollapse)]="isCollapsedSort"
+        class="sort__container"
+      >
+        <div
+          class="card"
+          [ngClass]="{ card__setting: themeService.colorTheme }"
+        >
+          <div class="card-body-sort">
+            <span><strong>Сортировать по: </strong></span>
+            <div class="choose__sortContainer">
+              <div>
+                <span
+                  class="setting"
+                  (click)="sortService.sortCardsAscending()"
+                >
+                  1.Sort ascending</span
+                >
+              </div>
+              <div>
+                <span
+                  class="setting"
+                  (click)="sortService.sortCardsDescending()"
+                >
+                  2.Sort descending</span
+                >
+              </div>
+              <div>
+                <span class="setting" (click)="sortService.sortCardsReturn()">
+                  3.Return as it was</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="navbar-nav">
+      <span
+        class="setting"
+        type="button"
+        (click)="collapse.toggle()"
+        [attr.aria-expanded]="!isCollapsed"
+        aria-controls="collapseExample"
+      >
+        settings
+      </span>
+
+      <div
+        #collapse="ngbCollapse"
+        [(ngbCollapse)]="isCollapsed"
+        class="view__container"
+      >
+        <div
+          class="card-view"
+          [ngClass]="{ card__setting: themeService.colorTheme }"
+        >
+          <div class="card-body-view">
             <div class="switch__theme">
-
               <span><strong>Смена темы</strong></span>
               <div>
-                <span>темная</span>
+                <span>{{ themeService.statusColorTheme }}</span>
                 <label class="switch">
-                  <input type="checkbox" (click)="themeService.changeTheme()" [(ngModel)]="this.themeService.colorTheme">
+                  <input
+                    type="checkbox"
+                    (click)="themeService.changeTheme()"
+                    [(ngModel)]="this.themeService.colorTheme"
+                  />
                   <span class="slider round"></span>
                 </label>
               </div>
             </div>
+
             <div class="card__View">
-              <span><strong>Смена темы</strong></span>
+              <span><strong>Вид</strong></span>
               <div>
-                <span>темная</span>
+                <span>{{ viewCardscesvice.statusViewCards }}</span>
                 <label class="switch">
-                  <input type="checkbox">
+                  <input
+                    type="checkbox"
+                    (click)="viewCardscesvice.switchViewCards()"
+                    [(ngModel)]="this.viewCardscesvice.viewCards"
+                  />
                   <span class="slider round"></span>
                 </label>
-
               </div>
             </div>
           </div>

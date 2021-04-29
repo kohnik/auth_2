@@ -1,7 +1,7 @@
-<div xmlns="http://www.w3.org/1999/html">
-  <ul class="Ulcard__item">
-    <li>
-      <div class="card" style="width: 18rem"  [ngClass]="{cardColor: themeService.colorTheme}">
+
+  <div class="Ulcard__item" [ngClass]="{'Ulcard__item_row' : viewCardsService.viewCards}">
+    <div>
+      <div class="card"  [ngClass]="{'cardColor': themeService.colorTheme, 'card_row': viewCardsService.viewCards}">
         <div class="card-body">
           <h5 class="card-title">{{item.title}}</h5>
           <div class="idItems" style="display: none"></div>
@@ -10,6 +10,6 @@
           <a class="btn btn-primary btnInfo"  [routerLink]="[item.id]"   >Click for Info</a>
         </div>
       </div>
-    </li>
-  </ul>
-</div>
+    </div>
+  </div>
+

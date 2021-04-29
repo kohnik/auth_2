@@ -6,6 +6,10 @@
   margin-top: 20px;
 
 }
+.items__content_row{
+  grid-template-columns:1fr ;
+  row-gap: 20px;
+}
 
 @media (max-width: 1200px){
   .items__content {
@@ -79,5 +83,16 @@
   align-items: flex-end;
   height: 68vh;
   width: 97%;
+}
+.circleAddCard__switch{
+  border: 1px solid white;
+  &>span
+  {
+    color: white;
+  }
+}
+.waiting__text
+{
+  color: white;
 }
 

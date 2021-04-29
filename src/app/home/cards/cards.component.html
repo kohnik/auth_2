@@ -1,14 +1,14 @@
-<div class="items__content " xmlns="http://www.w3.org/1999/html">
+<div class="items__content " [ngClass]="{'items__content_row': viewCardsService.viewCards}" xmlns="http://www.w3.org/1999/html">
   <ng-container *ngIf="dataService.items.length !== 0">
     <app-card-item *ngFor="let item of dataService.items" [item]="item" ></app-card-item>
   </ng-container>
   <ng-container *ngIf="dataService.items.length === 0">
-<strong> ЗАДАЙТЕ СВОЙ ПЕРВЫЙ ВОПРОС</strong>
+<strong  [ngClass]="{'waiting__text': themeService.colorTheme}"> ЗАДАЙТЕ СВОЙ ПЕРВЫЙ ВОПРОС</strong>
   </ng-container>
 </div>
 
-<div class="containerForPlusAdd">
-  <div class="circleAddCard" (click)="redirectTo()"><span>+</span></div>
+<div class="containerForPlusAdd"  >
+  <div class="circleAddCard" (click)="redirectTo() " [ngClass]="{'circleAddCard__switch': themeService.colorTheme}"><span>+</span></div>
 </div>
 
 

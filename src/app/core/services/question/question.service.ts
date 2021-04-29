@@ -48,6 +48,7 @@ export class QuestionService {
       status: `ischecking`,
       author: `${this.userauthService.getname()}`,
       date: `${this.createDateCreation()}`,
+      completed: 'false'
     };
     console.log(this.dataOfQuestionToSend);
     this.dataService
@@ -55,8 +56,6 @@ export class QuestionService {
       .subscribe((data) => {
         console.log(data);
       });
-
-
     this.checkBoxListToSend = [];
     this.dataOfQuestionToSend = [];
     setTimeout(() => {
