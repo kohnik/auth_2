@@ -39,7 +39,6 @@ export class FireDatabaseService {
             item.id = `${Object.keys(data)[countId]}`;
             this.items.push(item);
             this.itemsSave.push(item);
-            // console.log(Object.values(this.item.comments));
             countId++;
           });
 
@@ -83,7 +82,7 @@ export class FireDatabaseService {
         `https://fir-auth-9b2a0-default-rtdb.firebaseio.com/${this.currentCardId}.json`,
         this.item
       )
-      .subscribe((data) => console.log(data));
+      .subscribe();
   }
 
   addComment(body: object) {

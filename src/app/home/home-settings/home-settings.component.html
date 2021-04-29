@@ -50,8 +50,36 @@
                   />
                 </div>
                 <span> 2.Category</span>
-                <div>
-             
+                <div class="input-group tags">
+                  <div
+                    class="container__tag"
+                    *ngFor="
+                      let tag of addItemService.checkboxList;
+                      let i = index
+                    "
+                  >
+                    <label
+                      ><strong>{{ tag.name }}</strong></label
+                    >
+                    <input
+                      formControlName="tagCheck"
+                      class="form-check-input checkBoxTag"
+                      type="checkbox"
+                      name="`${tag.name}`"
+                      (change)="addItemService.onChange(tag.isselected, i)"
+                    />
+                  </div>
+                </div>
+                <span> 3.By Date</span>
+                <div class="input-group dateRadioButton">
+                  <div  *ngFor="let type of typeFilteringByDate">
+                    <label>{{type}}</label>
+                    <input
+                      type="radio"
+                      name="Date"
+                      [value]="type"
+                      formControlName="dateCheck"/>
+                  </div>
                 </div>
                 <button type="button" (click)="filter()">Фильтровать</button>
               </form>

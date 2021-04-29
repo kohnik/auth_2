@@ -31,7 +31,6 @@ export class ModalToEditCardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log(this.addItemService.checkboxList);
   }
   editQuestion() {
     if (

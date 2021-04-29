@@ -22,7 +22,6 @@ export class SwitchViewCardsService {
   }
   checkStatusView() {
     if (!localStorage.getItem('viewCards')) {
-      console.log(1);
       localStorage.setItem('viewCards', `false`);
       this.statusViewCards = 'строка';
     } else {

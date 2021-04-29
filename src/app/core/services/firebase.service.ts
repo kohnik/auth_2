@@ -49,7 +49,6 @@ export class FirebaseService {
     await this.firebaseAuth.signInWithPopup(provider)
       .then((res) => {
         this.isLoggedIn = true;
-        console.log(res.user);
         localStorage.setItem('user', JSON.stringify(res.user));
       });
 

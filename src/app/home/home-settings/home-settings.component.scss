@@ -138,4 +138,29 @@ flex-direction: column;
 {
   color: white;
 }
+.tags
+{
+  display: grid;
+  grid-template-columns: 1fr 1fr ;
+  justify-items: center;
+  row-gap: 10px;
+  width: 80%;
+
+}
+.dateRadioButton
+{
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+.dateRadioButton>div{
+  display: flex;
+  justify-content: space-between;
+}
+.container__tag
+{
+  display: flex;
+  width: 100px;
+  justify-content: space-between;
+}
 

@@ -22,7 +22,6 @@ export class QuestionService {
   ) {}
 
   getCheckboxs(): void {
-    console.log(this.checkboxList);
     this.checkboxList = [];
     let i: number;
     for (i = 0; i < tags.length; i++) {
@@ -32,12 +31,10 @@ export class QuestionService {
         isselected: false,
       });
     }
-    console.log(this.checkboxList);
   }
 
   onChange(tag: any, index: number): void {
     this.checkboxList[index].isselected = !this.checkboxList[index].isselected;
-    console.log( this.checkboxList);
   }
   addQuestion(titlequestion: string, textquestion: string): void {
     this.createCheckboxList();

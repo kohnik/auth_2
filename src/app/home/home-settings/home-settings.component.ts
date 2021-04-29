@@ -5,6 +5,7 @@ import { SwitchViewCardsService } from '../../core/services/switchViewCards/swit
 import { SortCardsService } from '../../core/services/sortCards/sort-cards.service';
 import { FiltersCardsService } from '../../core/services/filersCards/filters-cards.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { QuestionService } from '../../core/services/question/question.service';
 
 @Component({
   selector: 'app-home-settings',
@@ -14,23 +15,24 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class HomeSettingsComponent implements OnInit {
   filterForm: FormGroup = new FormGroup({
     completdeCheck: new FormControl(''),
+    tagCheck: new FormControl(''),
+    dateCheck: new FormControl('')
   });
-
+  typeFilteringByDate: string[] = ['last day', 'last week', 'last month', 'all time'];
   constructor(
     public authService: FirebaseService,
     public themeService: SwithThemeService,
     public viewCardscesvice: SwitchViewCardsService,
     public sortService: SortCardsService,
-    public filterService: FiltersCardsService
+    public filterService: FiltersCardsService,
+    public addItemService: QuestionService
   ) {}
   public isCollapsed = true;
   public isCollapsedSort = true;
   public isCollapsedFilter = true;
   ngOnInit(): void {}
   filter(): void {
-    console.log(this.filterForm.value.completdeCheck)
-    this.filterService.filterCards(
-      this.filterForm.value.completdeCheck
-    );
+    this.filterService.filteringByDate=this.filterForm.value.dateCheck;
+    this.filterService.filterCards(this.filterForm.value.completdeCheck);
   }
 }

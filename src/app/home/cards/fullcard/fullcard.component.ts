@@ -29,7 +29,6 @@ export class FullcardComponent implements OnInit {
 
   ngOnDestroy(): void {
     this.dataService.item = [];
-    console.log(this.dataService.item);
   }
 
   async getItemData(id: string) {

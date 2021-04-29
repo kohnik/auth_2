@@ -9,7 +9,6 @@ export class SwithThemeService {
   constructor() {}
 
   changeTheme() {
-    console.log(this.colorTheme);
     localStorage.setItem('colorTheme', `${!this.colorTheme}`);
     this.colorTheme = !this.colorTheme;
     if(this.colorTheme)
@@ -23,7 +22,6 @@ export class SwithThemeService {
 
   checkStatusTheme() {
     if (!localStorage.getItem('colorTheme')) {
-      console.log(1);
       localStorage.setItem('colorTheme', `false`);
       this.statusColorTheme = 'темная';
     } else {
