@@ -8,31 +8,24 @@ export class SwitchViewCardsService {
   statusViewCards: string | undefined;
   constructor() {}
 
-  switchViewCards() {
-
+  switchViewCards(): void {
     localStorage.setItem('viewCards', `${!this.viewCards}`);
     this.viewCards = !this.viewCards;
-    if(this.viewCards)
-    {
+    if (this.viewCards) {
       this.statusViewCards = 'строка';
-    }
-    else {
+    } else {
       this.statusViewCards = 'блок';
     }
   }
-  checkStatusView() {
+  checkStatusView(): void {
     if (!localStorage.getItem('viewCards')) {
       localStorage.setItem('viewCards', `false`);
       this.statusViewCards = 'строка';
     } else {
-      this.viewCards = JSON.parse(
-        localStorage.getItem('viewCards') as string
-      );
-      if(this.viewCards)
-      {
+      this.viewCards = JSON.parse(localStorage.getItem('viewCards') as string);
+      if (this.viewCards) {
         this.statusViewCards = 'строка';
-      }
-      else {
+      } else {
         this.statusViewCards = 'блок';
       }
     }

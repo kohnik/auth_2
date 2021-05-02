@@ -4,10 +4,10 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class UserauthService {
-  userName: any;
+  userName: string | undefined;
   constructor() {}
-  getname() {
-    this.userName = localStorage.getItem('user');
+  getname(): void{
+    this.userName = `${localStorage.getItem('user')}`;
     return (this.userName = JSON.parse(this.userName).email);
   }
 }

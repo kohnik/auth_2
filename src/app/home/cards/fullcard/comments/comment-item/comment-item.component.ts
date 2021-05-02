@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { SwithThemeService } from '../../../../../core/services/switchTheme/swith-theme.service';
+import { DataOfComment } from '../../../../../shared/interface';
 
 @Component({
   selector: 'app-comment-item',
@@ -8,8 +9,7 @@ import { SwithThemeService } from '../../../../../core/services/switchTheme/swit
 })
 export class CommentItemComponent implements OnInit {
   constructor(public themeService: SwithThemeService) {}
-  @Input() dataComment: any;
+  @Input() dataComment!: DataOfComment;
   ngOnInit(): void {
-    console.log(this.dataComment);
   }
 }

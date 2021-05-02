@@ -14,22 +14,20 @@ export class AuthCardComponent {
     private router: Router,
     public themeService: SwithThemeService
   ) {}
-  async onSignupWithGoogle() {
-    await this.AuthService.signGoogle();
+  onSignupWithGoogle(): void {
+    this.AuthService.signGoogle();
     if (this.AuthService.isLoggedIn) {
       this.router.navigate(['question']);
     }
   }
-  async onSignupWithFacebook() {
-    await this.AuthService.signFacebook().catch((error) => {
-      console.log(error);
-    });
+  onSignupWithFacebook(): void {
+    this.AuthService.signFacebook();
     if (this.AuthService.isLoggedIn) {
       this.router.navigate(['question']);
     }
   }
-  async onSignupWithGitHub() {
-    await this.AuthService.signGithub();
+  onSignupWithGitHub(): void {
+    this.AuthService.signGithub();
     if (this.AuthService.isLoggedIn) {
       this.router.navigate(['question']);
     }

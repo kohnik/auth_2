@@ -12,7 +12,7 @@ export class AppComponent implements OnInit {
     public themeService: SwithThemeService,
     public viewCardsService: SwitchViewCardsService
   ) {}
-  ngOnInit() {
+  ngOnInit(): void {
     this.themeService.checkStatusTheme();
     this.viewCardsService.checkStatusView();
   }

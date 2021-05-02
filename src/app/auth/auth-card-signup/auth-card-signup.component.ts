@@ -14,15 +14,20 @@ export class AuthCardSignupComponent implements OnInit {
   mistakeValidPass = false;
   authEror: string = '';
   constructor(public AuthService: FirebaseService, private router: Router) {}
-  async onSignup(email: string, password: string) {
+  onSignup(email: string, password: string) {
     if (
       this.patternForEmail.test(email) &&
       this.patternForPassword.test(password)
     ) {
-      await this.AuthService.signup(email, password).catch((error) => {
-        console.log(error);
-        this.authEror = error.message;
-      });
+      this.AuthService.signup(email, password)
+        .then((rez: any) => {
+          this.AuthService.isLoggedIn = true;
+          localStorage.setItem('user', JSON.stringify(rez.user));
+        })
+        .catch((error) => {
+          console.log(error);
+          this.authEror = error.message;
+        });
       if (this.AuthService.isLoggedIn) {
         this.router.navigate(['question']);
       }
@@ -35,11 +40,12 @@ export class AuthCardSignupComponent implements OnInit {
       }
     }
   }
-  chooseValueMistakeEmail() {
+
+  chooseValueMistakeEmail(): void {
     this.mistakeValidEmail = false;
     this.authEror = '';
   }
-  chooseValueMistakePass() {
+  chooseValueMistakePass(): void {
     this.mistakeValidPass = false;
     this.authEror = '';
   }

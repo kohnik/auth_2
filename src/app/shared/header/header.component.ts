@@ -44,6 +44,11 @@ export class HeaderComponent implements OnInit {
   open(content: any): void {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
   }
+  routerNavigation(): void
+  {
+    localStorage.removeItem('lastFullCardId')
+    this.router.navigate(['question']);
+  }
 
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {

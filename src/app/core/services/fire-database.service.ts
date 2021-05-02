@@ -1,92 +1,49 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { DataOfCard, DataOfComment } from '../../shared/interface';
+import { observableToBeFn } from 'rxjs/internal/testing/TestScheduler';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FireDatabaseService {
-  items: object[] = [];
-  itemsSave: object[] = [];
-  item: any;
-  itemForEdit: any;
-  comments: object[] = [];
+  items: DataOfCard[] = [];
+  itemsSave: DataOfCard[] = [];
+  item!: DataOfCard;
+  itemForEdit!: DataOfCard;
+  comments: DataOfComment[] = [];
   currentCommentId = '';
   currentCardId = '';
-  tags = [
-    'Js',
-    'Nodejs',
-    'Ruby',
-    'C++',
-    'C#',
-    'Java',
-    'Python',
-    'Angular',
-    'React',
-    'Vue',
-    'Other',
-  ];
-
+  statusSort!: boolean;
   constructor(private http: HttpClient) {}
-  async getAll() {
-    let countId = 0;
-    this.http
-      .get('https://fir-auth-9b2a0-default-rtdb.firebaseio.com/.json')
-      .subscribe((data) => {
-        if (data !== null) {
-          Object.values(data).map((item) => {
-            // @ts-ignore
-            item.id = `${Object.keys(data)[countId]}`;
-            this.items.push(item);
-            this.itemsSave.push(item);
-            countId++;
-          });
-
-        }
-      });
+  getAll(): Observable<object> {
+    return this.http.get(
+      'https://fir-auth-9b2a0-default-rtdb.firebaseio.com/.json'
+    );
   }
 
-  async getCard(id: string) {
-    this.http
-      .get(`https://fir-auth-9b2a0-default-rtdb.firebaseio.com/${id}.json`)
-      .subscribe((data) => {
-        if (data !== null) {
-          this.currentCardId = id;
-          this.item = data;
-          this.itemForEdit = data;
-          if (this.item.comments) {
-            for (
-              let i = 1;
-              i <= Object.values(this.item.comments).length;
-              i++
-            ) {
-              this.comments.push(
-                Object.values<object>(this.item.comments)[
-                  Object.values(this.item.comments).length - i
-                ]
-              );
-            }
-          }
-        }
-      });
+  getCard(id: string): Observable<object> {
+    return this.http.get(
+      `https://fir-auth-9b2a0-default-rtdb.firebaseio.com/${id}.json`
+    );
   }
-  postQuestion(dataOfQuestionToSend: object) {
+
+  postQuestion(dataOfQuestionToSend: DataOfCard): Observable<object> {
     return this.http.post(
       'https://fir-auth-9b2a0-default-rtdb.firebaseio.com/.json',
       dataOfQuestionToSend
     );
   }
-  postEditQuestion() {
-    this.http
-      .patch(
-        `https://fir-auth-9b2a0-default-rtdb.firebaseio.com/${this.currentCardId}.json`,
-        this.item
-      )
-      .subscribe();
+  postEditQuestion(): Observable<object> {
+    return this.http.patch(
+      `https://fir-auth-9b2a0-default-rtdb.firebaseio.com/${this.currentCardId}.json`,
+      this.item
+    );
   }
 
-  addComment(body: object) {
+  addComment(body: object): Observable<object> {
     const url = `https://fir-auth-9b2a0-default-rtdb.firebaseio.com/${this.currentCommentId}/comments.json`;
-    this.http.post(url, body).subscribe();
+    return this.http.post(url, body);
   }
 }

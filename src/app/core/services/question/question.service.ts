@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FireDatabaseService } from '../fire-database.service';
-import { CheckBox } from './../../../shared/interface';
+import {CheckBox, DataOfCard} from './../../../shared/interface';
 import { tags } from '../../../shared/constants';
 import { UserauthService } from '../userName/userauth.service';
 import { Router } from '@angular/router';
@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class QuestionService {
   checkboxList: CheckBox[] = [];
   checkBoxListToSend: string[] = [];
-  dataOfQuestionToSend = {};
+  dataOfQuestionToSend!: DataOfCard;
   tags: any;
   dateOfCreation: any;
   dateCreation: any;
@@ -42,24 +42,22 @@ export class QuestionService {
       title: `${titlequestion}`,
       text: `${textquestion}`,
       tag: this.checkBoxListToSend,
-      status: `ischecking`,
+      status: false,
+      comments: [],
       author: `${this.userauthService.getname()}`,
-      date: `${this.createDateCreation()}`,
-      completed: 'false'
+      date: this.createDateCreation(),
+      completed: false,
+      id: '',
     };
-    console.log(this.dataOfQuestionToSend);
     this.dataService
       .postQuestion(this.dataOfQuestionToSend)
       .subscribe((data) => {
-        console.log(data);
+        this.router.navigate(['question']);
       });
-    this.checkBoxListToSend = [];
-    this.dataOfQuestionToSend = [];
-    setTimeout(() => {
-      this.router.navigate(['question']);
-    }, 500);
+    // this.checkBoxListToSend = [];
+    // this.dataOfQuestionToSend = [];
   }
-  createCheckboxList() {
+  createCheckboxList(): void {
     let i: number;
     for (i = 0; i < this.checkboxList.length; i++) {
       if (this.checkboxList[i].isselected === true) {

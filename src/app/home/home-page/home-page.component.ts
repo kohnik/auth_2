@@ -7,7 +7,7 @@ import { FireDatabaseService } from '../../core/services/fire-database.service';
   styleUrls: ['./home-page.component.scss'],
 })
 export class HomePageComponent implements OnInit {
-  name: any;
+  name: string | undefined;
 
   constructor(
     public authService: FirebaseService,
@@ -15,7 +15,7 @@ export class HomePageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.name = localStorage.getItem('user');
+    this.name = `${localStorage.getItem('user')}`;
     this.name = JSON.parse(this.name).email;
   }
   ngOnDestroy(): void {

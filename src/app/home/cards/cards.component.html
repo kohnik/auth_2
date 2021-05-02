@@ -1,6 +1,6 @@
 <div class="items__content " [ngClass]="{'items__content_row': viewCardsService.viewCards}" xmlns="http://www.w3.org/1999/html">
   <ng-container *ngIf="dataService.items.length !== 0">
-    <app-card-item *ngFor="let item of dataService.items" [item]="item" ></app-card-item>
+    <app-card-item *ngFor="let item of dataService.items | filterPipe:dataService.statusSort " [item]="item" ></app-card-item>
   </ng-container>
   <ng-container *ngIf="dataService.items.length === 0">
 <strong  [ngClass]="{'waiting__text': themeService.colorTheme}"> ЗАДАЙТЕ СВОЙ ПЕРВЫЙ ВОПРОС</strong>

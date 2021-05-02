@@ -15,23 +15,47 @@ export class FullcardComponent implements OnInit {
     private route: ActivatedRoute,
     public questionService: QuestionService,
     public dataService: FireDatabaseService,
-    public themeService: SwithThemeService
+    public themeService: SwithThemeService,
+    private routerNavigate: Router
   ) {}
 
   ngOnInit(): void {
     this.route.paramMap
       .pipe(switchMap((params) => params.getAll('id')))
       .subscribe((id) => {
+        localStorage.setItem('lastFullCardId', `${id}`);
         this.dataService.currentCommentId = id;
         this.getItemData(id);
       });
   }
 
-  ngOnDestroy(): void {
-    this.dataService.item = [];
+  ngOnDestroy() {
+    Object.keys(this.dataService.item).forEach((key) => {
+      if (this.dataService.item.hasOwnProperty(key)) {
+        // @ts-ignore
+        delete this.dataService.item[key];
+      }
+    });
   }
 
-  async getItemData(id: string) {
-    await this.dataService.getCard(id);
+  getItemData(id: string): void {
+    this.dataService.getCard(id).subscribe((data: any) => {
+      if (data !== null) {
+        this.dataService.currentCardId = id;
+        this.dataService.item = data;
+        this.dataService.itemForEdit = data;
+        if (this.dataService.item.comments) {
+          this.dataService.item.comments = Object.keys(
+            this.dataService.item.comments
+          ).map((key: any) => {
+            return this.dataService.item.comments[key];
+          });
+        }
+      }
+    });
+  }
+  routerNavigation(): void {
+    localStorage.removeItem('lastFullCardId');
+    this.routerNavigate.navigate(['question']);
   }
 }

@@ -14,7 +14,10 @@ export class CommentsComponent implements OnInit {
     public themeService: SwithThemeService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+
+    console.log(this.dataService.item.comments)
+  }
   ngOnDestroy(): void {
     this.dataService.comments = [];
   }

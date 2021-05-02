@@ -25,22 +25,22 @@ export class CreateCommentComponent implements OnInit {
   }
 
   addAnswer(textAnswer: string): void {
-    const obs = {
+    const obj = {
       textComment: `${textAnswer}`,
       dateCreateComment: `${this.questionService.createDateCreation()}`,
       authorComment: `${this.usernameService.getname()}`,
     };
 
-    this.dataService.comments = [
+    this.dataService.item.comments = [
       {
         textComment: `${textAnswer}`,
         dateCreateComment: `${this.questionService.createDateCreation()}`,
         authorComment: `${this.usernameService.getname()}`,
       },
-      ...this.dataService.comments,
+      ...this.dataService.item.comments,
     ];
 
-    this.dataService.addComment(obs);
+    this.dataService.addComment(obj).subscribe();
     this.closeToCreateComment();
   }
 }

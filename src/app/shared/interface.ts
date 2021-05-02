@@ -3,11 +3,19 @@ export interface CheckBox {
   name: string;
   isselected: boolean;
 }
-export interface DataOfQuestionToSend {
+export interface DataOfCard {
   title: string;
-  questionText: string;
+  text: string;
   tag: string[];
-  status: string;
-  userName: string;
-  date: any;
+  status: boolean;
+  author: string;
+  date: number;
+  completed: boolean;
+  comments: object[];
+  id: string;
+}
+export interface DataOfComment {
+  authorComment: string;
+  dateCreateComment: string;
+  textComment: string;
 }

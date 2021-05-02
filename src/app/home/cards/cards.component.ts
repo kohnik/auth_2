@@ -22,11 +22,24 @@ export class CardsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.dataService.getAll();
+    this.dataService.getAll().subscribe((data) => {
+      let countId = 0;
+      if (data !== null) {
+        Object.values(data).map((item) => {
+          item.id = `${Object.keys(data)[countId]}`;
+          this.dataService.items.push(item);
+          this.dataService.itemsSave.push(item);
+          countId++;
+        });
+      }
+    });
     this.addItem.getCheckboxs();
   }
-
-  redirectTo() {
+  // lol()
+  // {
+  //   console.log(1);
+  // }
+  redirectTo(): void {
     this.router.navigate(['newquestion']);
   }
 }

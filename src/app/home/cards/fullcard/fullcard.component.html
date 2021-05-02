@@ -3,7 +3,7 @@
   <div class="fullcard__wr" [ngClass]="{'fullcard__switchText': themeService.colorTheme}">
     <header class="fullcard__header">
       <nav  [ngClass]="{'bg-light': themeService.colorTheme}" class="navbar navbar-expand-lg navbar-light bg-light">
-        <button class="btn btn-outline-dark" routerLink="/question" [ngClass]="{'fullcard__btnReturn': themeService.colorTheme}">return</button>
+        <button class="btn btn-outline-dark"  (click)="routerNavigation()" [ngClass]="{'fullcard__btnReturn': themeService.colorTheme}">return</button>
         <div class="container-fluid">
 
           <div class="navbar-nav login"  [ngClass]="{'fullcard__switchText': themeService.colorTheme}"  >{{dataService.item.author}}</div>
@@ -22,7 +22,7 @@
 
     <footer class="fullcard__footer">
         <ul class="fullcard__footerUl">
-          <li *ngFor="let tag of dataService.item.tag"><span style="visibility: hidden">s</span>{{tag}} <strong> | </strong></li>
+          <li *ngFor="let tag of dataService.item.tag"><strong>|</strong><span style="visibility: hidden">s</span>{{tag}}<span style="visibility: hidden">s</span> </li>
         </ul>
       <div class="fullcard__footerButton">
         <button routerLink="/editquestion"  class="btn btn-outline-primary">Edit</button>

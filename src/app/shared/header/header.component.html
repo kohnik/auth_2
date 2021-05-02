@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light"  [ngClass]="{'bg-light': themeService.colorTheme}">
   <div  class="container-fluid"  >
-    <a class="navbar-brand login"   routerLink="question"  [ngClass]="{'header__logo': themeService.colorTheme}" >Home</a>
+    <a class="navbar-brand login"   (click)="routerNavigation()"  [ngClass]="{'header__logo': themeService.colorTheme}" >Home</a>
     <div class="navbar-nav" *ngIf="!authService.isLoggedIn" >
       <a
         *ngIf="!authService.InputLogin"

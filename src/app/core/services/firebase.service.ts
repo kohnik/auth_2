@@ -10,57 +10,41 @@ export class FirebaseService {
   googleProvider = new firebase.auth.GoogleAuthProvider();
   facebookProvider = new firebase.auth.FacebookAuthProvider();
   githubProvider = new firebase.auth.GithubAuthProvider();
-  isLoggedIn: boolean = false;
-  InputLogin: boolean = false;
+  isLoggedIn = false;
+  InputLogin = false;
 
-  constructor(
-    public firebaseAuth: AngularFireAuth,
-    public DataService: FireDatabaseService
-  ) {}
-  async signup(email: string, password: string) {
-    await this.firebaseAuth
-      .createUserWithEmailAndPassword(email, password)
-      .then((rez) => {
-        this.isLoggedIn = true;
-        localStorage.setItem('user', JSON.stringify(rez.user));
-      });
+  constructor(public firebaseAuth: AngularFireAuth) {}
+  signup(email: string, password: string): Promise<object> {
+    return this.firebaseAuth.createUserWithEmailAndPassword(email, password);
   }
 
-  async signin(email: string, password: string) {
-    await this.firebaseAuth
-      .signInWithEmailAndPassword(email, password)
-      .then((rez) => {
-        this.isLoggedIn = true;
-        localStorage.setItem('user', JSON.stringify(rez.user));
-      });
+  signin(email: string, password: string): Promise<object> {
+    return this.firebaseAuth.signInWithEmailAndPassword(email, password);
   }
 
-  signGoogle() {
+  signGoogle(): void {
     return this.authLogin(this.googleProvider);
   }
-  signFacebook() {
+  signFacebook(): void {
     return this.authLogin(this.facebookProvider);
   }
-  signGithub() {
+  signGithub(): void {
     return this.authLogin(this.githubProvider);
   }
 
-  async authLogin(provider: any) {
-    await this.firebaseAuth.signInWithPopup(provider)
-      .then((res) => {
-        this.isLoggedIn = true;
-        localStorage.setItem('user', JSON.stringify(res.user));
-      });
-
+  authLogin(provider: any): void {
+    this.firebaseAuth.signInWithPopup(provider).then((res) => {
+      this.isLoggedIn = true;
+      localStorage.setItem('user', JSON.stringify(res.user));
+    });
   }
-  logout() {
+  logout(): void {
     this.firebaseAuth.signOut();
     localStorage.removeItem('user');
     this.isLoggedIn = false;
-
   }
 
-  checkAuth() {
+  checkAuth(): boolean {
     if (localStorage.getItem('user') === null) {
       this.isLoggedIn = false;
       return true;

@@ -6,7 +6,7 @@
           <h5 class="card-title">{{item.title}}</h5>
           <div class="idItems" style="display: none"></div>
           <span class="card-text model"><strong> Created:</strong>{{item.date | date:' M/d/yy, h:mm a'}} </span>
-          <p class="card-text created"><strong>tag: </strong> <span *ngFor="let tag of item.tag"> {{tag}} <strong>|</strong> </span></p>
+          <p class="card-text created"><strong>tag: </strong> <span *ngFor="let tag of item.tag"> <strong>|</strong> {{tag}}  </span></p>
           <a class="btn btn-primary btnInfo"  [routerLink]="[item.id]"   >Click for Info</a>
         </div>
       </div>

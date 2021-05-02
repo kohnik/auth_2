@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { FireDatabaseService } from '../fire-database.service';
 import { QuestionService } from '../question/question.service';
+import { DataOfCard } from '../../../shared/interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FiltersCardsService {
   filteringByDate: string | undefined;
+  filteredArray: DataOfCard[] = [];
   constructor(
     public dataservice: FireDatabaseService,
     public addItemService: QuestionService
@@ -18,26 +20,26 @@ export class FiltersCardsService {
     if (completed === '') {
       if (completed) {
         console.log(this.dataservice.items);
-        const filteredArray = this.dataservice.itemsSave.filter((item) => {
+        this.filteredArray = this.dataservice.itemsSave.filter((item) => {
           // @ts-ignore
           return item.completed === true;
         });
 
-        this.filtersByTags(filteredArray);
+        this.filtersByTags(this.filteredArray);
       } else {
         const filteredArray = this.dataservice.itemsSave.filter((item) => {
           // @ts-ignore
           return item.completed !== true;
         });
         console.log(filteredArray);
-        this.filtersByTags(filteredArray);
+        this.filtersByTags(this.filteredArray);
       }
     } else {
       const filteredArray = JSON.parse(JSON.stringify(this.dataservice.items));
       this.filtersByTags(filteredArray);
     }
   }
-  filtersByTags(filteredArray: object[]) {
+  filtersByTags(filteredArray: DataOfCard[]): void {
     let i: number;
     const checkBoxListForFilter: string[] = [];
     let filteredCheckBox: string[] = [];
@@ -48,8 +50,7 @@ export class FiltersCardsService {
         );
       }
     }
-    if(checkBoxListForFilter.length>0)
-    {
+    if (checkBoxListForFilter.length > 0) {
       filteredArray = filteredArray.filter((item: any) => {
         filteredCheckBox = [];
         item.tag.map((tag: any) => {
@@ -62,12 +63,11 @@ export class FiltersCardsService {
         }
       });
       this.filteredByDate(filteredArray);
-    }
-    else {
+    } else {
       this.filteredByDate(filteredArray);
     }
   }
-  filteredByDate(filteredArray: object[]): void {
+  filteredByDate(filteredArray: DataOfCard[]): void {
     const date = new Date();
     const milSecInDay = 86400000;
     const milSecInWeek = 604800000;
@@ -75,7 +75,6 @@ export class FiltersCardsService {
     if (this.filteringByDate === 'last day') {
       filteredArray = filteredArray.filter((item: any) => {
         console.log(date.getTime() - item.date);
-        // @ts-ignore
         if (date.getTime() - item.date <= milSecInDay) {
           return item;
         }
@@ -84,7 +83,6 @@ export class FiltersCardsService {
     if (this.filteringByDate === 'last week') {
       filteredArray = filteredArray.filter((item: any) => {
         console.log(date.getTime() - item.date);
-        // @ts-ignore
         if (date.getTime() - item.date <= milSecInWeek) {
           return item;
         }
@@ -93,7 +91,6 @@ export class FiltersCardsService {
     if (this.filteringByDate === 'last month') {
       filteredArray = filteredArray.filter((item: any) => {
         console.log(date.getTime() - item.date);
-        // @ts-ignore
         if (date.getTime() - item.date <= milSecInMonth) {
           return item;
         }
