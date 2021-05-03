@@ -19,3 +19,11 @@ export interface DataOfComment {
   dateCreateComment: string;
   textComment: string;
 }
+
+export interface FilterSettings {
+
+  completed: string;
+  filteringByDate: number;
+  checkBox: string[];
+
+}

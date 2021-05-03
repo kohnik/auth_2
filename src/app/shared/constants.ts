@@ -11,3 +11,5 @@ export const tags = [
   'Vue',
   'Other'
 ];
+export  const milSecInDay = 86400000;
+

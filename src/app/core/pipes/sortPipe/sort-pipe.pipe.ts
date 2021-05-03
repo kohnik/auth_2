@@ -1,10 +1,11 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { DataOfCard } from '../../shared/interface';
+import { DataOfCard } from '../../../shared/interface';
 
 @Pipe({
-  name: 'filterPipe',
+  name: 'sortPipe',
+
 })
-export class FilterPipePipe implements PipeTransform {
+export class SortPipePipe implements PipeTransform {
   transform(value: any, args: boolean): void {
     if (args === undefined) {
       return value;

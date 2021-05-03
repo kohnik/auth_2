@@ -48,6 +48,13 @@
                     formControlName="completdeCheck"
                     name="drone"
                   />
+                  <label>Все</label>
+                  <input
+                    type="radio"
+                    [value]='valueAll'
+                    formControlName="completdeCheck"
+                    name="drone"
+                  />
                 </div>
                 <span> 2.Category</span>
                 <div class="input-group tags">
@@ -72,12 +79,12 @@
                 </div>
                 <span> 3.By Date</span>
                 <div class="input-group dateRadioButton">
-                  <div  *ngFor="let type of typeFilteringByDate">
-                    <label>{{type}}</label>
+                  <div  *ngFor="let type of typeFilteringByDate ">
+                    <label>{{type.name}}</label>
                     <input
                       type="radio"
                       name="Date"
-                      [value]="type"
+                      [value]=type.id
                       formControlName="dateCheck"/>
                   </div>
                 </div>

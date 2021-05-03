@@ -18,11 +18,23 @@ export class HomeSettingsComponent implements OnInit {
     tagCheck: new FormControl(''),
     dateCheck: new FormControl(''),
   });
-  typeFilteringByDate: string[] = [
-    'last day',
-    'last week',
-    'last month',
-    'all time',
+  typeFilteringByDate: object = [
+    {
+      name: 'last day',
+      id: 1,
+    },
+    {
+      name: 'last week',
+      id: 7,
+    },
+    {
+      name: 'last month',
+      id: 30,
+    },
+    {
+      name: 'all time',
+      id: 2000,
+    },
   ];
   constructor(
     public authService: FirebaseService,
@@ -32,12 +44,18 @@ export class HomeSettingsComponent implements OnInit {
     public addItemService: QuestionService,
     public dataService: FireDatabaseService
   ) {}
+  public valueAll = 'all';
   public isCollapsed = true;
   public isCollapsedSort = true;
   public isCollapsedFilter = true;
   ngOnInit(): void {}
   filter(): void {
-    this.filterService.filteringByDate = this.filterForm.value.dateCheck;
+    if ((this.filterForm.value.dateCheck = ' ')) {
+      this.filterService.filteringByDate = 10000;
+    } else {
+      this.filterService.filteringByDate = this.filterForm.value.dateCheck;
+    }
+
     this.filterService.filterCards(this.filterForm.value.completdeCheck);
   }
   sortCardsAscending(): void {

@@ -27,7 +27,8 @@ import { CommentItemComponent } from './home/cards/fullcard/comments/comment-ite
 import { CreateCommentComponent } from './home/cards/fullcard/comments/create-comment/create-comment.component';
 import { ModaltoCreateCardComponent } from './shared/modalto-create-card/modalto-create-card.component';
 import { ModalToEditCardComponent } from './shared/modal-to-edit-card/modal-to-edit-card.component';
-import { FilterPipePipe } from './core/pipes/filter-pipe.pipe';
+import { FilterPipePipe } from './core/pipes/filterPipe/filter-pipe.pipe';
+import { SortPipePipe } from './core/pipes/sortPipe/sort-pipe.pipe';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { FilterPipePipe } from './core/pipes/filter-pipe.pipe';
     ModaltoCreateCardComponent,
     ModalToEditCardComponent,
     FilterPipePipe,
+    SortPipePipe,
 
   ],
   imports: [
