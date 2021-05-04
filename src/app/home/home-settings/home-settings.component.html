@@ -2,32 +2,25 @@
   *ngIf="authService.isLoggedIn"
   class="navbar navbar-expand-lg navbar-light bg-light"
   style="border: 1px solid black"
-  [ngClass]="{ 'bg-light': themeService.colorTheme }"
->
-  <div
-    class="container-fluid"
-    [ngClass]="{ homeSettings__text: themeService.colorTheme }"
-  >
+  [ngClass]="{ 'bg-light': themeService.colorTheme }">
+  <div class="container-fluid">
     <div class="navbar-nav">
       <span
         class="setting"
         type="button"
         (click)="collapseFilter.toggle()"
         [attr.aria-expanded]="!isCollapsedFilter"
-        aria-controls="collapseExample"
-      >
+        aria-controls="collapseExample">
         filters
       </span>
 
       <div
         #collapseFilter="ngbCollapse"
         [(ngbCollapse)]="isCollapsedFilter"
-        class="sort__container"
-      >
+        class="sort__container">
         <div
           class="card"
-          [ngClass]="{ card__setting: themeService.colorTheme }"
-        >
+          [ngClass]="{ card__setting: themeService.colorTheme }">
           <div class="card-body-sort">
             <span><strong>Фильтровать по: </strong></span>
             <div class="choose__sortContainer">
@@ -39,22 +32,19 @@
                     type="radio"
                     [value]="true"
                     formControlName="completdeCheck"
-                    name="drone"
-                  />
+                    name="drone"/>
                   <label>не отвечен</label>
                   <input
                     type="radio"
                     [value]="false"
                     formControlName="completdeCheck"
-                    name="drone"
-                  />
+                    name="drone"/>
                   <label>Все</label>
                   <input
                     type="radio"
                     [value]='valueAll'
                     formControlName="completdeCheck"
-                    name="drone"
-                  />
+                    name="drone"/>
                 </div>
                 <span> 2.Category</span>
                 <div class="input-group tags">
@@ -62,9 +52,7 @@
                     class="container__tag"
                     *ngFor="
                       let tag of addItemService.checkboxList;
-                      let i = index
-                    "
-                  >
+                      let i = index">
                     <label
                       ><strong>{{ tag.name }}</strong></label
                     >
@@ -159,25 +147,16 @@
       <div
         #collapse="ngbCollapse"
         [(ngbCollapse)]="isCollapsed"
-        class="view__container"
-      >
+        class="view__container">
         <div
           class="card-view"
-          [ngClass]="{ card__setting: themeService.colorTheme }"
-        >
+          [ngClass]="{ card__setting: themeService.colorTheme }">
           <div class="card-body-view">
             <div class="switch__theme">
               <span><strong>Смена темы</strong></span>
-              <div>
-                <span>{{ themeService.statusColorTheme }}</span>
-                <label class="switch">
-                  <input
-                    type="checkbox"
-                    (click)="themeService.changeTheme()"
-                    [(ngModel)]="this.themeService.colorTheme"
-                  />
-                  <span class="slider round"></span>
-                </label>
+              <div *ngFor="let typeTheme of typeTheme">
+                <label>{{typeTheme.name}}</label>
+                <input [value]=typeTheme.name type="radio" name="colorTheme" #colorTheme (click)="themeService.changeTheme(colorTheme.value)" />
               </div>
             </div>
 

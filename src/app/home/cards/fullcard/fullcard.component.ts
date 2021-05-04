@@ -4,6 +4,7 @@ import { QuestionService } from '../../../core/services/question/question.servic
 import { FireDatabaseService } from '../../../core/services/fire-database.service';
 import { switchMap } from 'rxjs/operators';
 import { SwithThemeService } from '../../../core/services/switchTheme/swith-theme.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-fullcard',
@@ -18,8 +19,8 @@ export class FullcardComponent implements OnInit {
     public themeService: SwithThemeService,
     private routerNavigate: Router
   ) {}
-
   ngOnInit(): void {
+
     this.route.paramMap
       .pipe(switchMap((params) => params.getAll('id')))
       .subscribe((id) => {
@@ -43,7 +44,10 @@ export class FullcardComponent implements OnInit {
       if (data !== null) {
         this.dataService.currentCardId = id;
         this.dataService.item = data;
-        this.dataService.itemForEdit = data;
+        this.dataService.itemForEdit = JSON.parse(
+          JSON.stringify(this.dataService.item)
+        );
+        console.log(this.dataService.itemForEdit);
         if (this.dataService.item.comments) {
           this.dataService.item.comments = Object.keys(
             this.dataService.item.comments

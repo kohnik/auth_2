@@ -14,7 +14,7 @@ export class FilterPipePipe implements PipeTransform {
     public addItemService: QuestionService
   ) {}
   filteredArray: DataOfCard[] = [];
-  transform(value: any, args: FilterSettings): void {
+  transform(value: any, args: FilterSettings): object {
     if (args.completed === 'all') {
       value = value;
     }

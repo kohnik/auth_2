@@ -1,12 +1,12 @@
 <div *ngIf="!dataService.item"><strong>ГРУЗИТСЯ</strong></div>
 <div class="fullcard" *ngIf="dataService.item">
-  <div class="fullcard__wr" [ngClass]="{'fullcard__switchText': themeService.colorTheme}">
+  <div class="fullcard__wr {{themeService.color}}" >
     <header class="fullcard__header">
-      <nav  [ngClass]="{'bg-light': themeService.colorTheme}" class="navbar navbar-expand-lg navbar-light bg-light">
-        <button class="btn btn-outline-dark"  (click)="routerNavigation()" [ngClass]="{'fullcard__btnReturn': themeService.colorTheme}">return</button>
+      <nav   class="navbar navbar-expand-lg navbar-light bg-light {{themeService.color}}">
+        <button class="btn btn-outline-dark {{themeService.color}}"  (click)="routerNavigation()" >return</button>
         <div class="container-fluid">
 
-          <div class="navbar-nav login"  [ngClass]="{'fullcard__switchText': themeService.colorTheme}"  >{{dataService.item.author}}</div>
+          <div class="navbar-nav login {{themeService.color}}"    >{{dataService.item.author}}</div>
           <div class="navbar-nav">
                         <a>{{dataService.item.date | date:'M/d/yy, h:mm a'}}</a>
           </div>

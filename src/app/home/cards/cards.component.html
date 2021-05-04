@@ -3,12 +3,12 @@
     <app-card-item *ngFor="let item of dataService.items | sortPipe:dataService.statusSort | filterPipe:filterService.filterSettings " [item]="item" ></app-card-item>
   </ng-container>
   <ng-container *ngIf="dataService.items.length === 0">
-<strong  [ngClass]="{'waiting__text': themeService.colorTheme}"> ЗАДАЙТЕ СВОЙ ПЕРВЫЙ ВОПРОС</strong>
+<strong  > ЗАДАЙТЕ СВОЙ ПЕРВЫЙ ВОПРОС</strong>
   </ng-container>
 </div>
 
 <div class="containerForPlusAdd"  >
-  <div class="circleAddCard" (click)="redirectTo() " [ngClass]="{'circleAddCard__switch': themeService.colorTheme}"><span>+</span></div>
+  <div class="circleAddCard {{themeService.color}}" (click)="redirectTo() " ><span>+</span></div>
 </div>
 
 

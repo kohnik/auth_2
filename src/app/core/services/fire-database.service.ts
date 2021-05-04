@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { DataOfCard, DataOfComment } from '../../shared/interface';
 import { observableToBeFn } from 'rxjs/internal/testing/TestScheduler';
-import { Observable } from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -16,6 +16,7 @@ export class FireDatabaseService {
   currentCommentId = '';
   currentCardId = '';
   statusSort!: boolean;
+
   constructor(private http: HttpClient) {}
   getAll(): Observable<object> {
     return this.http.get(
@@ -24,6 +25,7 @@ export class FireDatabaseService {
   }
 
   getCard(id: string): Observable<object> {
+
     return this.http.get(
       `https://fir-auth-9b2a0-default-rtdb.firebaseio.com/${id}.json`
     );

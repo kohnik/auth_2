@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FireDatabaseService } from '../../core/services/fire-database.service';
 import { QuestionService } from '../../core/services/question/question.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SwithThemeService } from '../../core/services/switchTheme/swith-theme.service';
-import {switchMap} from "rxjs/operators";
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-modal-to-edit-card',
@@ -30,36 +30,15 @@ export class ModalToEditCardComponent implements OnInit {
     public addItemService: QuestionService,
     private router: Router,
     public themeService: SwithThemeService,
-    private route: ActivatedRoute,
-    public questionService: QuestionService,
-    private routerNavigate: Router
+    public questionService: QuestionService
   ) {}
 
   ngOnInit(): void {
-    this.route.paramMap
-      .pipe(switchMap((params) => params.getAll('id')))
-      .subscribe((id) => {
-        localStorage.setItem('lastFullCardId', `${id}`);
-        this.dataService.currentCommentId = id;
-        this.getItemData(id);
-      });
+
+    console.log(this.editForm.value);
+    console.log(this.dataService.itemForEdit);
   }
-  getItemData(id: string): void {
-    this.dataService.getCard(id).subscribe((data: any) => {
-      if (data !== null) {
-        this.dataService.currentCardId = id;
-        this.dataService.item = data;
-        this.dataService.itemForEdit = data;
-        if (this.dataService.item.comments) {
-          this.dataService.item.comments = Object.keys(
-            this.dataService.item.comments
-          ).map((key: any) => {
-            return this.dataService.item.comments[key];
-          });
-        }
-      }
-    });
-  }
+
   editQuestion() {
     if (
       this.editForm.controls['titlequestion'].invalid ||

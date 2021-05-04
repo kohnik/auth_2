@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { FireDatabaseService } from '../fire-database.service';
 import { QuestionService } from '../question/question.service';
 import { DataOfCard, FilterSettings } from '../../../shared/interface';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',

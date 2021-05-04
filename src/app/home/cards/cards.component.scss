@@ -53,7 +53,7 @@
 }
 .circleAddCard
 {
-  border: 1px solid black;
+
   border-radius: 50%;
   height:50px;
   width: 50px;
@@ -61,10 +61,6 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  &>span
-  {
-    color: black;
-  }
   transition: 0.2s;
 }
 .circleAddCard:hover
@@ -91,6 +87,7 @@
     color: white;
   }
 }
+
 .waiting__text
 {
   color: white;

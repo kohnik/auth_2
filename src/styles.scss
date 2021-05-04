@@ -46,6 +46,45 @@ input.ng-touched.ng-invalid {border:solid red 2px;}
     margin: 10px;
   }
 
+}
+//theme
+//themeWhite
+
+.circleAddCard
+{
+  border: 1px solid black;
+  &>span
+  {
+    color: black;
+  }
+}
+
+//themeBlack
+.fullcard.black
+{
+  color: white;
+}
+.circleAddCard.black
+{
+  border: 1px solid white;
+  &>span
+  {
+    color: white;
+  }
+}
+.bg-light.black
+{
+  background: #242020 !important;
+}
+.btn.btn-outline-dark.black
+{
+    color: white;
+
 
 }
+.navbar-nav.login.black
+{
+  color: white;
+}
+
 

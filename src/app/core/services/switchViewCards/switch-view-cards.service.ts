@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 export class SwitchViewCardsService {
   viewCards = false;
   statusViewCards: string | undefined;
+
   constructor() {}
 
   switchViewCards(): void {

@@ -6,6 +6,7 @@ import { FiltersCardsService } from '../../core/services/filersCards/filters-car
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { QuestionService } from '../../core/services/question/question.service';
 import { FireDatabaseService } from '../../core/services/fire-database.service';
+import { typeFilteringByDate, typeTheme } from '../../shared/constants';
 
 @Component({
   selector: 'app-home-settings',
@@ -18,24 +19,7 @@ export class HomeSettingsComponent implements OnInit {
     tagCheck: new FormControl(''),
     dateCheck: new FormControl(''),
   });
-  typeFilteringByDate: object = [
-    {
-      name: 'last day',
-      id: 1,
-    },
-    {
-      name: 'last week',
-      id: 7,
-    },
-    {
-      name: 'last month',
-      id: 30,
-    },
-    {
-      name: 'all time',
-      id: 2000,
-    },
-  ];
+
   constructor(
     public authService: FirebaseService,
     public themeService: SwithThemeService,
@@ -48,6 +32,8 @@ export class HomeSettingsComponent implements OnInit {
   public isCollapsed = true;
   public isCollapsedSort = true;
   public isCollapsedFilter = true;
+  public typeFilteringByDate = typeFilteringByDate;
+  public typeTheme = typeTheme;
   ngOnInit(): void {}
   filter(): void {
     if ((this.filterForm.value.dateCheck = ' ')) {

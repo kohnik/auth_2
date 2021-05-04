@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { SwithThemeService } from '../../core/services/switchTheme/swith-theme.service';
 import { SwitchViewCardsService } from '../../core/services/switchViewCards/switch-view-cards.service';
 import { FiltersCardsService } from '../../core/services/filersCards/filters-cards.service';
+import { observable } from 'rxjs';
 
 @Component({
   selector: 'app-cards',
@@ -13,6 +14,7 @@ import { FiltersCardsService } from '../../core/services/filersCards/filters-car
   styleUrls: ['./cards.component.scss'],
 })
 export class CardsComponent implements OnInit {
+
   constructor(
     public dataService: FireDatabaseService,
     private modalService: NgbModal,
@@ -22,7 +24,6 @@ export class CardsComponent implements OnInit {
     public themeService: SwithThemeService,
     public viewCardsService: SwitchViewCardsService
   ) {}
-
 
   ngOnInit(): void {
     this.dataService.getAll().subscribe((data) => {
