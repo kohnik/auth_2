@@ -7,6 +7,7 @@ import { SwithThemeService } from '../../core/services/switchTheme/swith-theme.s
 import { SwitchViewCardsService } from '../../core/services/switchViewCards/switch-view-cards.service';
 import { FiltersCardsService } from '../../core/services/filersCards/filters-cards.service';
 import { observable } from 'rxjs';
+import {getCheckboxs} from "../../shared/constants";
 
 @Component({
   selector: 'app-cards',
@@ -19,25 +20,14 @@ export class CardsComponent implements OnInit {
     public dataService: FireDatabaseService,
     private modalService: NgbModal,
     public filterService: FiltersCardsService,
-    public addItem: QuestionService,
     private router: Router,
     public themeService: SwithThemeService,
     public viewCardsService: SwitchViewCardsService
   ) {}
 
   ngOnInit(): void {
-    this.dataService.getAll().subscribe((data) => {
-      let countId = 0;
-      if (data !== null) {
-        Object.values(data).map((item) => {
-          item.id = `${Object.keys(data)[countId]}`;
-          this.dataService.items.push(item);
-          this.dataService.itemsSave.push(item);
-          countId++;
-        });
-      }
-    });
-    this.addItem.getCheckboxs();
+    this.dataService.getAll().subscribe();
+    getCheckboxs();
   }
 
   redirectTo(): void {

@@ -22,10 +22,10 @@ export class AuthHomeGuardGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    if (localStorage.getItem('lastFullCardId')) {
-      this.router.navigate([`question/${localStorage.getItem(`lastFullCardId`)}`]);
-      return false;
-    }
+    // if (localStorage.getItem('lastFullCardId')) {
+    //   this.router.navigate([`question/${localStorage.getItem(`lastFullCardId`)}`]);
+    //   return false;
+    // }
     return !this.AuthService.checkAuth();
   }
 }

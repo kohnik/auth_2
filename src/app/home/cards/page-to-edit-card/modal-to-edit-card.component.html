@@ -1,9 +1,8 @@
-<div class="modal__container"  [ngClass]="{'modal__container': themeService.colorTheme}">
+<div class="modal__container" >
   <div class="modal-header">
     <button
       class="btn btn-outline-dark"
-      routerLink="/question"
-      [ngClass]="{ modal__btnReturn: themeService.colorTheme }">
+     (click)="returnOnQuestionCard()">
       return
     </button>
     <h4 class="modal-title" id="modal-basic-title">Edit the question</h4>
@@ -24,7 +23,7 @@
         <div class="input-group tags">
           <div
             class="container__tag"
-            *ngFor="let tag of addItemService.checkboxList,let i = index"
+            *ngFor="let tag of checkBoxList,let i = index"
           >
             <label
             ><strong>{{ tag.name }}</strong></label
@@ -33,7 +32,7 @@
               class="form-check-input checkBoxTag"
               type="checkbox"
               name="`${tag.name}`"
-              (change)="addItemService.onChange(tag.isselected, i)"
+              (click)="transferDataForOnChange(tag.isselected,i)"
               formControlName="checkquestion"
             />
           </div>

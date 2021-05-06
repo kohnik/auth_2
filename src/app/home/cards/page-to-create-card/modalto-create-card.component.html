@@ -1,6 +1,6 @@
-<div class="modal__container" [ngClass]="{'modal__container': themeService.colorTheme}">
+<div class="modal__container">
   <div class="modal-header">
-    <button class="btn btn-outline-dark" routerLink="/question" [ngClass]="{'modal__btnReturn': themeService.colorTheme}">return</button>
+    <button class="btn btn-outline-dark" routerLink="/question">return</button>
     <h4 class="modal-title" id="modal-basic-title">Ask the question</h4>
   </div>
   <div class="modal-body">
@@ -20,7 +20,7 @@
         <div class="input-group tags">
           <div
             class="container__tag"
-            *ngFor="let tag of addItemService.checkboxList, let i = index"
+            *ngFor="let tag of checkBoxList, let i = index"
           >
             <label
               ><strong>{{ tag.name }}</strong></label
@@ -30,11 +30,11 @@
               class="form-check-input checkBoxTag"
               type="checkbox"
               name="`${tag.name}`"
-              (change)="addItemService.onChange(tag.isselected,i)"
+              (click)="transferDataForOnChange(tag.isselected,i)"
 
             />
           </div>
-
+<!--          (change)="addItemService.onChange(tag.isselected,i)"-->
         </div>
         <div    *ngIf="error" class="alert alert-danger">
           Very short title, min 6 symbol or very short text, min 10 symbol or

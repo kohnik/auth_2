@@ -6,19 +6,19 @@ import { HomePageComponent } from './home/home-page/home-page.component';
 import { AuthHomeGuardGuard } from './core/guards/guardHome/auth-home-guard.guard';
 import { FullcardComponent } from './home/cards/fullcard/fullcard.component';
 import { QuestionGuard } from './core/guards/guardQuestion/question.guard';
-import { ModaltoCreateCardComponent } from './shared/modalto-create-card/modalto-create-card.component';
-import { ModalToEditCardComponent } from './shared/modal-to-edit-card/modal-to-edit-card.component';
+import { ModaltoCreateCardComponent } from './home/cards/page-to-create-card/modalto-create-card.component';
+import { ModalToEditCardComponent } from './home/cards/page-to-edit-card/modal-to-edit-card.component';
 const appRoutes: Routes = [
   { path: '', component: AuthCardComponent, canActivate: [AuthGuard] },
-  {
-    path: 'question',
-    component: HomePageComponent,
-    canActivate: [AuthHomeGuardGuard],
-  },
   {
     path: 'question/:id',
     component: FullcardComponent,
     canActivate: [QuestionGuard],
+  },
+  {
+    path: 'question',
+    component: HomePageComponent,
+    canActivate: [AuthHomeGuardGuard],
   },
   {
     path: 'newquestion',

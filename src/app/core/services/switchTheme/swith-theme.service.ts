@@ -5,41 +5,20 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class SwithThemeService {
-  public color!: string;
+  public color!: string | null;
   public nameTheme: BehaviorSubject<string> = new BehaviorSubject<string>(
     'white'
   );
-  constructor() {}
 
-  changeTheme(color: string) {
+  changeTheme(color: string): void {
     this.nameTheme.next(`${color}`);
     this.nameTheme.subscribe((data) => (this.color = data));
-    // localStorage.setItem('colorTheme', `${!this.colorTheme}`);
-    // this.colorTheme = !this.colorTheme;
-    // if(this.colorTheme)
-    // {
-    //   this.statusColorTheme = 'темная';
-    // }
-    // else {
-    //   this.statusColorTheme = 'светлая';
-    // }
+    localStorage.setItem('color', `${this.color}`);
   }
 
-  checkStatusTheme() {
-    // if (!localStorage.getItem('colorTheme')) {
-    //   localStorage.setItem('colorTheme', `false`);
-    //   this.statusColorTheme = 'темная';
-    // } else {
-    //   this.colorTheme = JSON.parse(
-    //     localStorage.getItem('colorTheme') as string
-    //   );
-    //   if(this.colorTheme)
-    //   {
-    //     this.statusColorTheme = 'темная';
-    //   }
-    //   else {
-    //     this.statusColorTheme = 'светлая';
-    //   }
-    // }
+  checkStatusTheme(): void {
+    !localStorage.getItem('color')
+      ? localStorage.setItem('color', `white`)
+      : (this.color = localStorage.getItem('color'));
   }
 }

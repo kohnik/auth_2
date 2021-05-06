@@ -1,7 +1,7 @@
 
   <div class="Ulcard__item" [ngClass]="{'Ulcard__item_row' : viewCardsService.viewCards}">
     <div>
-      <div class="card"  [ngClass]="{'cardColor': themeService.colorTheme, 'card_row': viewCardsService.viewCards}">
+      <div class="card {{themeService.color}}"  [ngClass]="{'card_row': viewCardsService.viewCards}">
         <div class="card-body">
           <h5 class="card-title">{{item.title}}</h5>
           <div class="idItems" style="display: none"></div>

@@ -1,41 +1,52 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import firebase from 'firebase';
-import { FireDatabaseService } from './fire-database.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FirebaseService {
-  googleProvider = new firebase.auth.GoogleAuthProvider();
-  facebookProvider = new firebase.auth.FacebookAuthProvider();
-  githubProvider = new firebase.auth.GithubAuthProvider();
-  isLoggedIn = false;
-  InputLogin = false;
-
-  constructor(public firebaseAuth: AngularFireAuth) {}
-  signup(email: string, password: string): Promise<object> {
-    return this.firebaseAuth.createUserWithEmailAndPassword(email, password);
+  public googleProvider = new firebase.auth.GoogleAuthProvider();
+  public facebookProvider = new firebase.auth.FacebookAuthProvider();
+  public githubProvider = new firebase.auth.GithubAuthProvider();
+  public isLoggedIn = false;
+  public displaySignInOrOn = false;
+  constructor(public firebaseAuth: AngularFireAuth, public router: Router) {}
+  signup(email: string, password: string): Promise<void> {
+    return this.firebaseAuth
+      .createUserWithEmailAndPassword(email, password)
+      .then((rez: any) => {
+        this.isLoggedIn = true;
+        this.router.navigate(['question']);
+        localStorage.setItem('user', JSON.stringify(rez.user));
+      });
+  }
+  signin(email: string, password: string): Promise<void> {
+    return this.firebaseAuth
+      .signInWithEmailAndPassword(email, password)
+      .then((rez: any) => {
+        this.isLoggedIn = true;
+        this.router.navigate(['question']);
+        localStorage.setItem('user', JSON.stringify(rez.user));
+      });
   }
 
-  signin(email: string, password: string): Promise<object> {
-    return this.firebaseAuth.signInWithEmailAndPassword(email, password);
-  }
-
-  signGoogle(): void {
+  signGoogle(): Promise<void> {
     return this.authLogin(this.googleProvider);
   }
-  signFacebook(): void {
+  signFacebook(): Promise<void> {
     return this.authLogin(this.facebookProvider);
   }
-  signGithub(): void {
+  signGithub(): Promise<void> {
     return this.authLogin(this.githubProvider);
   }
 
-  authLogin(provider: any): void {
-    this.firebaseAuth.signInWithPopup(provider).then((res) => {
+  authLogin(provider: any): Promise<void> {
+    return this.firebaseAuth.signInWithPopup(provider).then((res) => {
       this.isLoggedIn = true;
       localStorage.setItem('user', JSON.stringify(res.user));
+      this.router.navigate(['question']);
     });
   }
   logout(): void {
@@ -43,7 +54,6 @@ export class FirebaseService {
     localStorage.removeItem('user');
     this.isLoggedIn = false;
   }
-
   checkAuth(): boolean {
     if (localStorage.getItem('user') === null) {
       this.isLoggedIn = false;

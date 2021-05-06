@@ -1,42 +1,30 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { FirebaseService } from '../../core/services/firebase.service';
-import { Router } from '@angular/router';
+import { patternForEmail, patternForPassword } from '../../shared/constants';
 
 @Component({
   selector: 'app-auth-card-signup',
   templateUrl: './auth-card-signup.component.html',
   styleUrls: ['./auth-card-signup.component.scss'],
 })
-export class AuthCardSignupComponent implements OnInit {
-  patternForEmail = /[a-zA-Z_]+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}/;
-  patternForPassword = /[0-9a-zA-Z]{6,}/;
+export class AuthCardSignupComponent implements OnInit{
   mistakeValidEmail = false;
   mistakeValidPass = false;
-  authEror: string = '';
-  constructor(public AuthService: FirebaseService, private router: Router) {}
-  onSignup(email: string, password: string) {
-    if (
-      this.patternForEmail.test(email) &&
-      this.patternForPassword.test(password)
-    ) {
-      this.AuthService.signup(email, password)
-        .then((rez: any) => {
-          this.AuthService.isLoggedIn = true;
-          localStorage.setItem('user', JSON.stringify(rez.user));
-        })
-        .catch((error) => {
-          console.log(error);
-          this.authEror = error.message;
-        });
-      if (this.AuthService.isLoggedIn) {
-        this.router.navigate(['question']);
-      }
-    } else {
-      if (!this.patternForEmail.test(email)) {
-        this.mistakeValidEmail = true;
-      }
-      if (!this.patternForPassword.test(password)) {
-        this.mistakeValidPass = true;
+  authEror = '';
+  constructor(public AuthService: FirebaseService) {}
+  onSignup(email: string, password: string): void {
+    if (patternForEmail.test(email) && patternForPassword.test(password)) {
+      this.AuthService.signup(email, password).catch((error) => {
+        this.authEror = error.message;
+      });
+
+      if (!this.AuthService.isLoggedIn) {
+        if (!patternForEmail.test(email)) {
+          this.mistakeValidEmail = true;
+        }
+        if (!patternForPassword.test(password)) {
+          this.mistakeValidPass = true;
+        }
       }
     }
   }
@@ -49,5 +37,8 @@ export class AuthCardSignupComponent implements OnInit {
     this.mistakeValidPass = false;
     this.authEror = '';
   }
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.chooseValueMistakeEmail();
+    this.chooseValueMistakePass();
+  }
 }

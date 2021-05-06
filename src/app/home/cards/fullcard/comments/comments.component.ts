@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FireDatabaseService } from '../../../../core/services/fire-database.service';
 import { SwithThemeService } from '../../../../core/services/switchTheme/swith-theme.service';
 
@@ -7,26 +7,21 @@ import { SwithThemeService } from '../../../../core/services/switchTheme/swith-t
   templateUrl: './comments.component.html',
   styleUrls: ['./comments.component.scss'],
 })
-export class CommentsComponent implements OnInit {
-  toCreateComment = false;
+export class CommentsComponent {
+  public statusStateCreateComment = false;
   constructor(
     public dataService: FireDatabaseService,
     public themeService: SwithThemeService
   ) {}
 
-  ngOnInit(): void {
-
-    console.log(this.dataService.item.comments)
-  }
   ngOnDestroy(): void {
     this.dataService.comments = [];
   }
 
-  openToCreateComment(): void {
-    this.toCreateComment = true;
+  openForCreateComment(): void {
+    this.statusStateCreateComment = true;
   }
-  closeToCreateComment(): void {
-    this.toCreateComment = false;
-    console.log(1);
+  closeForCreateComment(): void {
+    this.statusStateCreateComment = false;
   }
 }

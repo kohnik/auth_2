@@ -4,19 +4,15 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class SwitchViewCardsService {
-  viewCards = false;
-  statusViewCards: string | undefined;
-
-  constructor() {}
+  public viewCards = false;
+  public statusViewCards!: string;
 
   switchViewCards(): void {
     localStorage.setItem('viewCards', `${!this.viewCards}`);
     this.viewCards = !this.viewCards;
-    if (this.viewCards) {
-      this.statusViewCards = 'строка';
-    } else {
-      this.statusViewCards = 'блок';
-    }
+    this.viewCards
+      ? (this.statusViewCards = 'строка')
+      : (this.statusViewCards = 'блок');
   }
   checkStatusView(): void {
     if (!localStorage.getItem('viewCards')) {
@@ -24,11 +20,9 @@ export class SwitchViewCardsService {
       this.statusViewCards = 'строка';
     } else {
       this.viewCards = JSON.parse(localStorage.getItem('viewCards') as string);
-      if (this.viewCards) {
-        this.statusViewCards = 'строка';
-      } else {
-        this.statusViewCards = 'блок';
-      }
+      this.viewCards
+        ? (this.statusViewCards = 'строка')
+        : (this.statusViewCards = 'блок');
     }
   }
 }

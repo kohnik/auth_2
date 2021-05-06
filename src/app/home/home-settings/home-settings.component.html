@@ -1,8 +1,7 @@
 <nav
   *ngIf="authService.isLoggedIn"
-  class="navbar navbar-expand-lg navbar-light bg-light"
-  style="border: 1px solid black"
-  [ngClass]="{ 'bg-light': themeService.colorTheme }">
+  class="navbar navbar-expand-lg navbar-light {{themeService.color}}"
+  style="border: 1px solid black">
   <div class="container-fluid">
     <div class="navbar-nav">
       <span
@@ -19,8 +18,7 @@
         [(ngbCollapse)]="isCollapsedFilter"
         class="sort__container">
         <div
-          class="card"
-          [ngClass]="{ card__setting: themeService.colorTheme }">
+          class="card  card__setting {{themeService.color}}">
           <div class="card-body-sort">
             <span><strong>Фильтровать по: </strong></span>
             <div class="choose__sortContainer">
@@ -51,7 +49,7 @@
                   <div
                     class="container__tag"
                     *ngFor="
-                      let tag of addItemService.checkboxList;
+                      let tag of checkBoxList;
                       let i = index">
                     <label
                       ><strong>{{ tag.name }}</strong></label
@@ -61,7 +59,7 @@
                       class="form-check-input checkBoxTag"
                       type="checkbox"
                       name="`${tag.name}`"
-                      (change)="addItemService.onChange(tag.isselected, i)"
+                      (click)="transferDataForOnChange(tag.isselected,i)"
                     />
                   </div>
                 </div>
@@ -100,8 +98,7 @@
         class="sort__container"
       >
         <div
-          class="card"
-          [ngClass]="{ card__setting: themeService.colorTheme }"
+          class="card card__setting {{themeService.color}}"
         >
           <div class="card-body-sort">
             <span><strong>Сортировать по: </strong></span>
@@ -122,11 +119,7 @@
                   2.Sort descending</span
                 >
               </div>
-<!--              <div>-->
-<!--                <span class="setting" (click)="sortCardsReturn()">-->
-<!--                  3.Return as it was</span-->
-<!--                >-->
-<!--              </div>-->
+
             </div>
           </div>
         </div>
@@ -149,8 +142,7 @@
         [(ngbCollapse)]="isCollapsed"
         class="view__container">
         <div
-          class="card-view"
-          [ngClass]="{ card__setting: themeService.colorTheme }">
+          class="card card__setting {{themeService.color}}">
           <div class="card-body-view">
             <div class="switch__theme">
               <span><strong>Смена темы</strong></span>
@@ -159,7 +151,6 @@
                 <input [value]=typeTheme.name type="radio" name="colorTheme" #colorTheme (click)="themeService.changeTheme(colorTheme.value)" />
               </div>
             </div>
-
             <div class="card__View">
               <span><strong>Вид</strong></span>
               <div>

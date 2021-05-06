@@ -3,10 +3,10 @@
   <div class="fullcard__wr {{themeService.color}}" >
     <header class="fullcard__header">
       <nav   class="navbar navbar-expand-lg navbar-light bg-light {{themeService.color}}">
-        <button class="btn btn-outline-dark {{themeService.color}}"  (click)="routerNavigation()" >return</button>
+        <button class="btn btn-outline-dark {{themeService.color}}" routerLink="/question">return</button>
         <div class="container-fluid">
 
-          <div class="navbar-nav login {{themeService.color}}"    >{{dataService.item.author}}</div>
+          <div class="navbar-nav login {{themeService.color}}" >{{dataService.item.author}}</div>
           <div class="navbar-nav">
                         <a>{{dataService.item.date | date:'M/d/yy, h:mm a'}}</a>
           </div>

@@ -1,13 +1,13 @@
 <app-create-comment
-  (closeToCreate)="closeToCreateComment()"
-  *ngIf="toCreateComment"
+  (closeToCreate)="closeForCreateComment()"
+  *ngIf="statusStateCreateComment"
 ></app-create-comment>
 <section class="comments" >
-  <div class="comments__wr" [ngClass]="{'fullcard__switchText': themeService.colorTheme}">
+  <div class="comments__wr {{themeService.color}}" >
     <div class="comments__header">
       <div class="comments__title" >Answers to the question</div>
       <div class="comments__btnAnswer">
-        <button class="btn btn-outline-danger" (click)="openToCreateComment()">
+        <button class="btn btn-outline-danger" (click)="openForCreateComment()">
           Ответить на вопрос
         </button>
       </div>

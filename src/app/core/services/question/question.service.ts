@@ -1,72 +1,32 @@
 import { Injectable } from '@angular/core';
 import { FireDatabaseService } from '../fire-database.service';
-import {CheckBox, DataOfCard} from './../../../shared/interface';
-import { tags } from '../../../shared/constants';
-import { UserauthService } from '../userName/userauth.service';
-import { Router } from '@angular/router';
+import { DataOfCard } from './../../../shared/interface';
+import { createDateCreation, getName} from '../../../shared/constants';
+import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
 export class QuestionService {
-  checkboxList: CheckBox[] = [];
-  checkBoxListToSend: string[] = [];
   dataOfQuestionToSend!: DataOfCard;
-  tags: any;
-  dateOfCreation: any;
-  dateCreation: any;
-
   constructor(
     public dataService: FireDatabaseService,
-    public userauthService: UserauthService,
-    private router: Router
   ) {}
-
-  getCheckboxs(): void {
-    this.checkboxList = [];
-    let i: number;
-    for (i = 0; i < tags.length; i++) {
-      this.checkboxList.push({
-        id: i + 1,
-        name: `${tags[i]}`,
-        isselected: false,
-      });
-    }
-  }
-
-  onChange(tag: any, index: number): void {
-    this.checkboxList[index].isselected = !this.checkboxList[index].isselected;
-  }
-  addQuestion(titlequestion: string, textquestion: string): void {
-    this.createCheckboxList();
+  addQuestion(
+    titlequestion: string,
+    textquestion: string,
+    checkBoxList: string[]
+  ): Observable<any> {
     this.dataOfQuestionToSend = {
       title: `${titlequestion}`,
       text: `${textquestion}`,
-      tag: this.checkBoxListToSend,
+      tag: checkBoxList,
       status: false,
       comments: [],
-      author: `${this.userauthService.getname()}`,
-      date: this.createDateCreation(),
+      author: `${getName()}`,
+      date: createDateCreation(),
       completed: false,
       id: '',
     };
-    this.dataService
-      .postQuestion(this.dataOfQuestionToSend)
-      .subscribe((data) => {
-        this.router.navigate(['question']);
-      });
-    // this.checkBoxListToSend = [];
-    // this.dataOfQuestionToSend = [];
-  }
-  createCheckboxList(): void {
-    let i: number;
-    for (i = 0; i < this.checkboxList.length; i++) {
-      if (this.checkboxList[i].isselected === true) {
-        this.checkBoxListToSend.push(`${this.checkboxList[i].name}`);
-      }
-    }
-  }
-
-  createDateCreation(): number {
-    return (this.dateCreation = new Date().getTime());
+    return this.dataService.postQuestion(this.dataOfQuestionToSend);
   }
 }

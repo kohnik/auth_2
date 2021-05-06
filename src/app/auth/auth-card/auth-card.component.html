@@ -1,10 +1,11 @@
-<div class="container" [ngClass]="{'containerAuth__switch': themeService.colorTheme}">
+<div class="container" >
+<!--  [ngClass]="{'containerAuth__switch': themeService.colorTheme}"-->
   <div class="container__card">
       <app-auth-card-signin
-        *ngIf="AuthService.InputLogin"
+        *ngIf="AuthService.displaySignInOrOn"
       ></app-auth-card-signin>
       <app-auth-card-signup
-        *ngIf="!AuthService.InputLogin"
+        *ngIf="!AuthService.displaySignInOrOn"
       ></app-auth-card-signup>
     <div>
       <span>Войдите с помощью</span>

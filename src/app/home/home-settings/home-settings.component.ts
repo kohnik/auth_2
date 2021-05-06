@@ -6,7 +6,13 @@ import { FiltersCardsService } from '../../core/services/filersCards/filters-car
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { QuestionService } from '../../core/services/question/question.service';
 import { FireDatabaseService } from '../../core/services/fire-database.service';
-import { typeFilteringByDate, typeTheme } from '../../shared/constants';
+import {
+  getCheckboxs,
+  onChange,
+  typeFilteringByDate,
+  typeTheme,
+} from '../../shared/constants';
+import { CheckBox } from '../../shared/interface';
 
 @Component({
   selector: 'app-home-settings',
@@ -15,7 +21,7 @@ import { typeFilteringByDate, typeTheme } from '../../shared/constants';
 })
 export class HomeSettingsComponent implements OnInit {
   filterForm: FormGroup = new FormGroup({
-    completdeCheck: new FormControl(''),
+    completdeCheck: new FormControl(null),
     tagCheck: new FormControl(''),
     dateCheck: new FormControl(''),
   });
@@ -34,15 +40,24 @@ export class HomeSettingsComponent implements OnInit {
   public isCollapsedFilter = true;
   public typeFilteringByDate = typeFilteringByDate;
   public typeTheme = typeTheme;
-  ngOnInit(): void {}
+  public checkBoxList!: CheckBox[];
+  ngOnInit(): void {
+    this.checkBoxList = getCheckboxs();
+  }
+  transferDataForOnChange(tag: boolean, i: number): void {
+    this.checkBoxList = onChange(tag, i, this.checkBoxList);
+  }
   filter(): void {
-    if ((this.filterForm.value.dateCheck = ' ')) {
+    if (this.filterForm.value.dateCheck === '') {
       this.filterService.filteringByDate = 10000;
     } else {
       this.filterService.filteringByDate = this.filterForm.value.dateCheck;
     }
 
-    this.filterService.filterCards(this.filterForm.value.completdeCheck);
+    this.filterService.filterCards(
+      this.filterForm.value.completdeCheck,
+      this.checkBoxList
+    );
   }
   sortCardsAscending(): void {
     this.dataService.statusSort = false;

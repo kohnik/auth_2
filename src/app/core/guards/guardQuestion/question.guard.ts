@@ -21,6 +21,6 @@ export class QuestionGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    return !this.authService.checkAuth();
+    return !this.authService.checkAuth() ;
   }
 }

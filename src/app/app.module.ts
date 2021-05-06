@@ -25,8 +25,8 @@ import { FullcardComponent } from './home/cards/fullcard/fullcard.component';
 import { CommentsComponent } from './home/cards/fullcard/comments/comments.component';
 import { CommentItemComponent } from './home/cards/fullcard/comments/comment-item/comment-item.component';
 import { CreateCommentComponent } from './home/cards/fullcard/comments/create-comment/create-comment.component';
-import { ModaltoCreateCardComponent } from './shared/modalto-create-card/modalto-create-card.component';
-import { ModalToEditCardComponent } from './shared/modal-to-edit-card/modal-to-edit-card.component';
+import { ModaltoCreateCardComponent } from './home/cards/page-to-create-card/modalto-create-card.component';
+import { ModalToEditCardComponent } from './home/cards/page-to-edit-card/modal-to-edit-card.component';
 import { FilterPipePipe } from './core/pipes/filterPipe/filter-pipe.pipe';
 import { SortPipePipe } from './core/pipes/sortPipe/sort-pipe.pipe';
 

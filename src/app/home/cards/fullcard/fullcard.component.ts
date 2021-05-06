@@ -4,7 +4,7 @@ import { QuestionService } from '../../../core/services/question/question.servic
 import { FireDatabaseService } from '../../../core/services/fire-database.service';
 import { switchMap } from 'rxjs/operators';
 import { SwithThemeService } from '../../../core/services/switchTheme/swith-theme.service';
-import { Observable } from 'rxjs';
+import { DataOfCard } from '../../../shared/interface';
 
 @Component({
   selector: 'app-fullcard',
@@ -16,50 +16,27 @@ export class FullcardComponent implements OnInit {
     private route: ActivatedRoute,
     public questionService: QuestionService,
     public dataService: FireDatabaseService,
-    public themeService: SwithThemeService,
-    private routerNavigate: Router
+    public themeService: SwithThemeService
   ) {}
   ngOnInit(): void {
-
+    if (this.dataService.item) {
+      Object.keys(this.dataService.item).forEach((key) => {
+        if (this.dataService.item.hasOwnProperty(key)) {
+          // @ts-ignore
+          delete this.dataService.item[key];
+        }
+      });
+    }
     this.route.paramMap
       .pipe(switchMap((params) => params.getAll('id')))
       .subscribe((id) => {
         localStorage.setItem('lastFullCardId', `${id}`);
-        this.dataService.currentCommentId = id;
         this.getItemData(id);
       });
   }
 
-  ngOnDestroy() {
-    Object.keys(this.dataService.item).forEach((key) => {
-      if (this.dataService.item.hasOwnProperty(key)) {
-        // @ts-ignore
-        delete this.dataService.item[key];
-      }
-    });
+  getItemData(id: string): void {
+    this.dataService.getCard(id).subscribe();
   }
 
-  getItemData(id: string): void {
-    this.dataService.getCard(id).subscribe((data: any) => {
-      if (data !== null) {
-        this.dataService.currentCardId = id;
-        this.dataService.item = data;
-        this.dataService.itemForEdit = JSON.parse(
-          JSON.stringify(this.dataService.item)
-        );
-        console.log(this.dataService.itemForEdit);
-        if (this.dataService.item.comments) {
-          this.dataService.item.comments = Object.keys(
-            this.dataService.item.comments
-          ).map((key: any) => {
-            return this.dataService.item.comments[key];
-          });
-        }
-      }
-    });
-  }
-  routerNavigation(): void {
-    localStorage.removeItem('lastFullCardId');
-    this.routerNavigate.navigate(['question']);
-  }
 }

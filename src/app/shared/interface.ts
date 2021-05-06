@@ -3,6 +3,9 @@ export interface CheckBox {
   name: string;
   isselected: boolean;
 }
+// export interface PostCard {
+//   name: string;
+// }
 export interface DataOfCard {
   title: string;
   text: string;
@@ -11,7 +14,19 @@ export interface DataOfCard {
   author: string;
   date: number;
   completed: boolean;
-  comments: object[];
+  comments: DataOfComment[];
+  id: string;
+}
+
+export interface DataOfCardBase {
+  title: string;
+  text: string;
+  tag: string[];
+  status: boolean;
+  author: string;
+  date: number;
+  completed: boolean;
+  comments: {};
   id: string;
 }
 export interface DataOfComment {

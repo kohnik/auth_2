@@ -1,8 +1,12 @@
 import { Injectable } from '@angular/core';
 import { FireDatabaseService } from '../fire-database.service';
 import { QuestionService } from '../question/question.service';
-import { DataOfCard, FilterSettings } from '../../../shared/interface';
-import { BehaviorSubject } from 'rxjs';
+import {
+  CheckBox,
+  DataOfCard,
+  FilterSettings,
+} from '../../../shared/interface';
+import { createSuccessfulCheckBoxList } from '../../../shared/constants';
 
 @Injectable({
   providedIn: 'root',
@@ -21,17 +25,11 @@ export class FiltersCardsService {
     public addItemService: QuestionService
   ) {}
 
-  filterCards(completed: any): void {
-    let i: number;
-    this.checkBoxListForFilter = [];
-    for (i = 0; i < this.addItemService.checkboxList.length; i++) {
-      if (this.addItemService.checkboxList[i].isselected === true) {
-        this.checkBoxListForFilter.push(
-          `${this.addItemService.checkboxList[i].name}`
-        );
-      }
-    }
-    console.log(this.filteringByDate);
+  filterCards(completed: any, checkBoxList: CheckBox[]): void {
+    this.checkBoxListForFilter = createSuccessfulCheckBoxList(
+      checkBoxList
+    );
+    console.log(this.checkBoxListForFilter);
     this.filterSettings = {
       completed: `${completed}`,
       filteringByDate: this.filteringByDate,

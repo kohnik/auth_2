@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { SwithThemeService } from '../../../../../core/services/switchTheme/swith-theme.service';
 import { DataOfComment } from '../../../../../shared/interface';
 
@@ -7,9 +7,7 @@ import { DataOfComment } from '../../../../../shared/interface';
   templateUrl: './comment-item.component.html',
   styleUrls: ['./comment-item.component.scss'],
 })
-export class CommentItemComponent implements OnInit {
+export class CommentItemComponent  {
   constructor(public themeService: SwithThemeService) {}
   @Input() dataComment!: DataOfComment;
-  ngOnInit(): void {
-  }
 }

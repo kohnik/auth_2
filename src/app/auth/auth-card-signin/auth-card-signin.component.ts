@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FirebaseService } from '../../core/services/firebase.service';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-
+import { patternForEmail, patternForPassword } from '../../shared/constants';
 @Component({
   selector: 'app-auth-card-signin',
   templateUrl: './auth-card-signin.component.html',
@@ -14,39 +14,27 @@ export class AuthCardSigninComponent implements OnInit {
     userEmail: new FormControl(),
   });
   authEror = '';
-  patternForEmail = /[a-zA-Z_]+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}/;
-  patternForPassword = /[0-9a-zA-Z]{6,}/;
   mistakeValidEmail = false;
   mistakeValidPass = false;
   constructor(public AuthService: FirebaseService, private router: Router) {}
-  onSignip() {
+  onSignip(): void {
     if (
-      this.patternForEmail.test(this.myForm.value.userEmail) &&
-      this.patternForPassword.test(this.myForm.value.userPassword)
+      patternForEmail.test(this.myForm.value.userEmail) &&
+      patternForPassword.test(this.myForm.value.userPassword)
     ) {
       this.AuthService.signin(
         this.myForm.value.userEmail,
         this.myForm.value.userPassword
-      )
-        .then((rez: any) => {
-          this.AuthService.isLoggedIn = true;
-          localStorage.setItem('user', JSON.stringify(rez.user));
-        })
-        .catch((error) => {
-          this.authEror = error.message;
-        });
-
-      if (this.AuthService.isLoggedIn) {
-        this.router.navigate(['question']);
-      }
-    } else {
-      console.log(this.myForm.value);
-
-      if (!this.patternForEmail.test(this.myForm.value.userEmail)) {
-        this.mistakeValidEmail = true;
-      }
-      if (!this.patternForPassword.test(this.myForm.value.userPassword)) {
-        this.mistakeValidPass = true;
+      ).catch((error) => {
+        this.authEror = error.message;
+      });
+      if (!this.AuthService.isLoggedIn) {
+        if (!patternForEmail.test(this.myForm.value.userEmail)) {
+          this.mistakeValidEmail = true;
+        }
+        if (!patternForPassword.test(this.myForm.value.userPassword)) {
+          this.mistakeValidPass = true;
+        }
       }
     }
   }
@@ -60,5 +48,8 @@ export class AuthCardSigninComponent implements OnInit {
     this.authEror = '';
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.chooseValueMistakeEmail();
+    this.chooseValueMistakePass();
+  }
 }

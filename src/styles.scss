@@ -79,12 +79,43 @@ input.ng-touched.ng-invalid {border:solid red 2px;}
 .btn.btn-outline-dark.black
 {
     color: white;
-
-
 }
 .navbar-nav.login.black
 {
   color: white;
 }
+.app-header.black
+{
+  background: #403f3f;
+  min-height: 100vh;
+}
+.card.black
+{
+  background: #362f2f;
+  color: #fff;
+}
 
+.navbar-brand.login.black
+{
+  color: white !important;
+
+}
+.black
+{
+  color: white !important;
+}
+
+.header__btn.black
+{
+  color: white;
+  border: 1px solid white;
+}
+.card__setting.black
+{
+  background: #242020;
+}
+.card.card__setting.black
+{
+  background: #242020;
+}
 
