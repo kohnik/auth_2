@@ -20,23 +20,43 @@
           <textarea class="form-control" formControlName="textquestion" rows="5"></textarea>
         </div>
         <label>Tags</label>
-        <div class="input-group tags">
+
+        <div class="input-group tags" [formGroup]="editForm">
           <div
             class="container__tag"
-            *ngFor="let tag of checkBoxList,let i = index"
+            formArrayName="orders"
+            *ngFor="let order  of ordersFormArray.controls,let i = index"
           >
-            <label
-            ><strong>{{ tag.name }}</strong></label
-            >
+         <label>
+          <strong>{{ checkBoxList[i].name }}</strong></label>
+
             <input
+              [formControlName]="i"
               class="form-check-input checkBoxTag"
               type="checkbox"
-              name="`${tag.name}`"
-              (click)="transferDataForOnChange(tag.isselected,i)"
-              formControlName="checkquestion"
+           (click)="transferDataForOnChange(checkBoxList[i].isselected,i)"
             />
           </div>
         </div>
+
+<!--        <div class="input-group tags">-->
+<!--          <div-->
+<!--            class="container__tag"-->
+<!--            *ngFor="let tag of checkBoxList,let i = index"-->
+<!--          >-->
+<!--            <label-->
+<!--            ><strong>{{ tag.name }}</strong></label-->
+<!--            >-->
+<!--            <input-->
+<!--              class="form-check-input checkBoxTag"-->
+<!--              type="checkbox"-->
+<!--              name="`${tag.name}`"-->
+<!--              [checked]="tag.isselected"-->
+<!--              (click)="transferDataForOnChange(tag.isselected,i)"-->
+<!--              formControlName="checkquestion"-->
+<!--            />-->
+<!--          </div>-->
+<!--        </div>-->
         <div    *ngIf="error" class="alert alert-danger">
           Very short title, min 6 symbol or very short text, min 10 symbol or
           there is not one checkbox, min 1 checkbox

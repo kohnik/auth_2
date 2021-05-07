@@ -148,7 +148,7 @@
               <span><strong>Смена темы</strong></span>
               <div *ngFor="let typeTheme of typeTheme">
                 <label>{{typeTheme.name}}</label>
-                <input [value]=typeTheme.name type="radio" name="colorTheme" #colorTheme (click)="themeService.changeTheme(colorTheme.value)" />
+                <input [value]=typeTheme.name type="radio"  [(ngModel)]="colorForDisplayAfterRun" (click)="themeService.changeTheme(typeTheme.name)" />
               </div>
             </div>
             <div class="card__View">

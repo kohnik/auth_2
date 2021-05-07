@@ -3,7 +3,10 @@ import { FirebaseService } from '../../core/services/firebase.service';
 import { SwithThemeService } from '../../core/services/switchTheme/swith-theme.service';
 import { SwitchViewCardsService } from '../../core/services/switchViewCards/switch-view-cards.service';
 import { FiltersCardsService } from '../../core/services/filersCards/filters-cards.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+} from '@angular/forms';
 import { QuestionService } from '../../core/services/question/question.service';
 import { FireDatabaseService } from '../../core/services/fire-database.service';
 import {
@@ -26,13 +29,14 @@ export class HomeSettingsComponent implements OnInit {
     dateCheck: new FormControl(''),
   });
 
+  public colorForDisplayAfterRun = `${localStorage.getItem('color')}`;
   constructor(
     public authService: FirebaseService,
     public themeService: SwithThemeService,
     public viewCardscesvice: SwitchViewCardsService,
     public filterService: FiltersCardsService,
     public addItemService: QuestionService,
-    public dataService: FireDatabaseService
+    public dataService: FireDatabaseService,
   ) {}
   public valueAll = 'all';
   public isCollapsed = true;
@@ -44,6 +48,7 @@ export class HomeSettingsComponent implements OnInit {
   ngOnInit(): void {
     this.checkBoxList = getCheckboxs();
   }
+
   transferDataForOnChange(tag: boolean, i: number): void {
     this.checkBoxList = onChange(tag, i, this.checkBoxList);
   }
