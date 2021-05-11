@@ -1,8 +1,10 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FireDatabaseService } from '../../../../../core/services/fire-database.service';
 import { QuestionService } from '../../../../../core/services/question/question.service';
 import { SwithThemeService } from '../../../../../core/services/switchTheme/swith-theme.service';
-import { createDateCreation, getName } from '../../../../../shared/constants';
+import { createDateCreation } from '../../../../../shared/constants';
+import { FirebaseService } from '../../../../../core/services/firebase.service';
+import { DataOfCard } from '../../../../../shared/interface';
 
 @Component({
   selector: 'app-create-comment',
@@ -10,12 +12,19 @@ import { createDateCreation, getName } from '../../../../../shared/constants';
   styleUrls: ['./create-comment.component.scss'],
 })
 export class CreateCommentComponent {
+  public userName: string | null | undefined;
   @Output() closeToCreate = new EventEmitter();
+  // @Input() comments!: DataOfCard[];
   constructor(
     public dataService: FireDatabaseService,
     public questionService: QuestionService,
-    public themeService: SwithThemeService
-  ) {}
+    public themeService: SwithThemeService,
+    public authService: FirebaseService
+  ) {
+    this.authService.checkAuth().subscribe((data) => {
+      this.userName = data?.email;
+    });
+  }
   closeForCreateComment(): void {
     this.closeToCreate.emit();
   }
@@ -24,19 +33,28 @@ export class CreateCommentComponent {
     const objForSendNewComment = {
       textComment: `${textAnswer}`,
       dateCreateComment: `${createDateCreation()}`,
-      authorComment: `${getName()}`,
+      authorComment: `${this.userName}`,
     };
 
     this.dataService.item.comments = [
       {
         textComment: `${textAnswer}`,
         dateCreateComment: `${createDateCreation()}`,
-        authorComment: `${getName()}`,
+        authorComment: `${this.userName}`,
       },
       ...this.dataService.item.comments,
     ];
 
-    this.dataService.addComment(objForSendNewComment).subscribe();
+    this.dataService
+      .addComment(objForSendNewComment, this.dataService.item.id)
+      .subscribe(
+        (data) => {
+          console.log(this.dataService.item)
+        },
+        (rez) => {
+          alert(`${rez.message}`);
+        }
+      );
     this.closeForCreateComment();
   }
 }

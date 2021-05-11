@@ -1,16 +1,23 @@
 import { Injectable } from '@angular/core';
 import { FireDatabaseService } from '../fire-database.service';
 import { DataOfCard } from './../../../shared/interface';
-import { createDateCreation, getName} from '../../../shared/constants';
+import { createDateCreation } from '../../../shared/constants';
 import { Observable } from 'rxjs';
+import { FirebaseService } from '../firebase.service';
 @Injectable({
   providedIn: 'root',
 })
 export class QuestionService {
   dataOfQuestionToSend!: DataOfCard;
+  public userName!: string | null | undefined;
   constructor(
     public dataService: FireDatabaseService,
-  ) {}
+    public authService: FirebaseService
+  ) {
+    this.authService.checkAuth().subscribe((data) => {
+      this.userName = data?.email;
+    });
+  }
   addQuestion(
     titlequestion: string,
     textquestion: string,
@@ -22,7 +29,7 @@ export class QuestionService {
       tag: checkBoxList,
       status: false,
       comments: [],
-      author: `${getName()}`,
+      author: `${this.userName}`,
       date: createDateCreation(),
       completed: false,
       id: '',

@@ -3,9 +3,9 @@ export interface CheckBox {
   name: string;
   isselected: boolean;
 }
-// export interface PostCard {
-//   name: string;
-// }
+export interface PostCard {
+  name: string;
+}
 export interface DataOfCard {
   title: string;
   text: string;
@@ -26,7 +26,7 @@ export interface DataOfCardBase {
   author: string;
   date: number;
   completed: boolean;
-  comments: {};
+  comments: { [key: string]: DataOfComment };
   id: string;
 }
 export interface DataOfComment {
@@ -36,9 +36,7 @@ export interface DataOfComment {
 }
 
 export interface FilterSettings {
-
   completed: string;
   filteringByDate: number;
-  checkBox: string[];
-
+  checkBox: (string | null)[];
 }

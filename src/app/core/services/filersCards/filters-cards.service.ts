@@ -12,6 +12,7 @@ import { createSuccessfulCheckBoxList } from '../../../shared/constants';
   providedIn: 'root',
 })
 export class FiltersCardsService {
+  statusSort!: boolean;
   filteringByDate!: number;
   filteredArray: DataOfCard[] = [];
   checkBoxListForFilter: string[] = [];
@@ -29,7 +30,7 @@ export class FiltersCardsService {
     this.checkBoxListForFilter = createSuccessfulCheckBoxList(
       checkBoxList
     );
-    console.log(this.checkBoxListForFilter);
+    console.log(this.checkBoxListForFilter)
     this.filterSettings = {
       completed: `${completed}`,
       filteringByDate: this.filteringByDate,

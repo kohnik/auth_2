@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FireDatabaseService } from '../../core/services/fire-database.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { QuestionService } from '../../core/services/question/question.service';
 import { Router } from '@angular/router';
 import { SwithThemeService } from '../../core/services/switchTheme/swith-theme.service';
 import { SwitchViewCardsService } from '../../core/services/switchViewCards/switch-view-cards.service';
 import { FiltersCardsService } from '../../core/services/filersCards/filters-cards.service';
 import { observable } from 'rxjs';
-import {getCheckboxs} from "../../shared/constants";
+import { getCheckboxs } from '../../shared/constants';
+import { DataOfCard } from '../../shared/interface';
 
 @Component({
   selector: 'app-cards',
@@ -15,7 +15,7 @@ import {getCheckboxs} from "../../shared/constants";
   styleUrls: ['./cards.component.scss'],
 })
 export class CardsComponent implements OnInit {
-
+  items!: DataOfCard[];
   constructor(
     public dataService: FireDatabaseService,
     private modalService: NgbModal,
@@ -26,7 +26,15 @@ export class CardsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.dataService.getAll().subscribe();
+    this.dataService.getAll().subscribe(
+      (data) => {
+        console.log(data);
+        this.items = data;
+      },
+      (rez) => {
+        console.log(rez);
+      }
+    );
     getCheckboxs();
   }
 

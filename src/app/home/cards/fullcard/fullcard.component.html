@@ -1,28 +1,28 @@
-<div *ngIf="!dataService.item"><strong>ГРУЗИТСЯ</strong></div>
-<div class="fullcard" *ngIf="dataService.item">
+<div *ngIf="!item"><strong>ГРУЗИТСЯ</strong></div>
+<div class="fullcard" *ngIf="item">
   <div class="fullcard__wr {{themeService.color}}" >
     <header class="fullcard__header">
       <nav   class="navbar navbar-expand-lg navbar-light bg-light {{themeService.color}}">
         <button class="btn btn-outline-dark {{themeService.color}}" routerLink="/question">return</button>
         <div class="container-fluid">
 
-          <div class="navbar-nav login {{themeService.color}}" >{{dataService.item.author}}</div>
+          <div class="navbar-nav login {{themeService.color}}" >{{item.author}}</div>
           <div class="navbar-nav">
-                        <a>{{dataService.item.date | date:'M/d/yy, h:mm a'}}</a>
+                        <a>{{item.date | date:'M/d/yy, h:mm a'}}</a>
           </div>
         </div>
       </nav>
     </header>
     <section class="fullcard__body">
-        <h5 class="fullcard__title">{{dataService.item.title}}</h5>
+        <h5 class="fullcard__title">{{item.title}}</h5>
       <div class="fullcard__text">
-        <span>{{dataService.item.text}}</span>
+        <span>{{item.text}}</span>
       </div>
     </section>
 
     <footer class="fullcard__footer">
         <ul class="fullcard__footerUl">
-          <li *ngFor="let tag of dataService.item.tag"><strong>|</strong><span style="visibility: hidden">s</span>{{tag}}<span style="visibility: hidden">s</span> </li>
+          <li *ngFor="let tag of item.tag"><strong>|</strong><span style="visibility: hidden">s</span>{{tag}}<span style="visibility: hidden">s</span> </li>
         </ul>
       <div class="fullcard__footerButton">
         <button routerLink="/editquestion"  class="btn btn-outline-primary">Edit</button>
@@ -31,7 +31,7 @@
 
     </footer>
   </div>
-  <app-comments *ngIf="dataService.item"></app-comments>
+  <app-comments  *ngIf="item"></app-comments>
 </div>
 
 

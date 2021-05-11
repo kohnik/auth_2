@@ -1,7 +1,6 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FirebaseService } from '../../core/services/firebase.service';
 import { FireDatabaseService } from '../../core/services/fire-database.service';
-import { getName } from '../../shared/constants';
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
@@ -17,9 +16,6 @@ export class HomePageComponent implements OnInit {
 
   ngOnInit(): void {
     localStorage.removeItem('lastFullCardId');
-    this.name = getName();
   }
-  ngOnDestroy(): void {
-    this.dataService.items = [];
-  }
+
 }

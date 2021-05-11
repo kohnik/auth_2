@@ -65,9 +65,9 @@ export class HomeSettingsComponent implements OnInit {
     );
   }
   sortCardsAscending(): void {
-    this.dataService.statusSort = false;
+    this.filterService.statusSort = false;
   }
   sortCardsDescending(): void {
-    this.dataService.statusSort = true;
+    this.filterService.statusSort = true;
   }
 }

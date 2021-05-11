@@ -7,6 +7,9 @@
       <app-auth-card-signup
         *ngIf="!AuthService.displaySignInOrOn"
       ></app-auth-card-signup>
+    <div *ngIf="errorStatus" class="alert alert-danger">
+      {{errorMessage}}
+    </div>
     <div>
       <span>Войдите с помощью</span>
       <div class="container__ChooseLoginGroup">

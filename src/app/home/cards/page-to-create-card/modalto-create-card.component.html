@@ -6,20 +6,20 @@
   <div class="modal-body">
     <form [formGroup]="createForm">
       <div class="form-group">
-        <label>Title of question</label>
+        <label class="themeForTitlesCreate {{themeService.color}}">Title of question</label>
         <div class="input-group">
           <input class="form-control" type="text" formControlName="titlequestion" />
         </div>
 
-        <label>Question</label>
+        <label class="themeForTitlesCreate {{themeService.color}}">Question</label>
         <div class="input-group">
           <textarea class="form-control" formControlName="textquestion" rows="5"></textarea>
         </div>
 
-        <label>Tags</label>
+        <label class="themeForTitlesCreate {{themeService.color}}">Tags</label>
         <div class="input-group tags">
           <div
-            class="container__tag"
+            class="container__tag themeForTitlesCreate {{themeService.color}}"
             *ngFor="let tag of checkBoxList, let i = index"
           >
             <label

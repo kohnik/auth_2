@@ -34,6 +34,9 @@ export class ModalToEditCardComponent {
     public questionService: QuestionService,
     private formBuilder: FormBuilder
   ) {
+    if (!this.dataService.item) {
+      this.router.navigate(['question']);
+    }
     this.checkBoxList = getCheckboxs();
     this.editForm = this.formBuilder.group({
       orders: new FormArray([]),
@@ -59,6 +62,7 @@ export class ModalToEditCardComponent {
       this.ordersFormArray.push(new FormControl(item.isselected));
     });
   }
+
   transferDataForOnChange(tag: boolean, i: number): void {
     this.checkBoxList = onChange(tag, i, this.checkBoxList);
   }
@@ -68,17 +72,20 @@ export class ModalToEditCardComponent {
     if (this.editForm.invalid || !this.editForm.value.orders.includes(true)) {
       this.error = true;
     } else {
+      console.log(this.dataService.item);
       this.dataService.item.text = this.editForm.value.textquestion;
       this.dataService.item.title = this.editForm.value.titlequestion;
       this.dataService.item.tag = checkBoxListForSend;
-      this.dataService
-        .postEditQuestion()
-        .subscribe((data) =>
-          this.router.navigate([`question/${this.dataService.currentCardId}`])
-        );
+      this.dataService.postEditQuestion(this.dataService.item.id).subscribe(
+        (data) =>
+          this.router.navigate([`question/${this.dataService.item.id}`]),
+        (rez) => {
+          alert(`${rez.message}`);
+        }
+      );
     }
   }
   returnOnQuestionCard(): void {
-    this.router.navigate([`question/${this.dataService.currentCardId}`]);
+    this.router.navigate([`question/${this.dataService.item.id}`]);
   }
 }

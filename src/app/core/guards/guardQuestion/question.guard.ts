@@ -8,6 +8,7 @@ import {
 import { Observable } from 'rxjs';
 import { FirebaseService } from '../../services/firebase.service';
 import { FireDatabaseService } from '../../services/fire-database.service';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -25,7 +26,11 @@ export class QuestionGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-
-    return !this.authService.checkAuth();
+    return this.authService.checkAuth().pipe(
+      map((data) => {
+        this.authService.isLoggedIn = true;
+        return !!data;
+      })
+    );
   }
 }

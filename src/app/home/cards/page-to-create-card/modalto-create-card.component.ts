@@ -52,10 +52,15 @@ export class ModaltoCreateCardComponent implements OnInit {
           this.createForm.value.textquestion,
           checkBoxListForSend
         )
-        .subscribe((data) => {
-          console.log(data);
-          this.router.navigate(['question']);
-        });
+        .subscribe(
+          (data) => {
+            console.log(data);
+            this.router.navigate(['question']);
+          },
+          (rez) => {
+            alert(`${rez.message}`)
+          }
+        );
     }
   }
 }

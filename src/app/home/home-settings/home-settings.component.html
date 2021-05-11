@@ -1,5 +1,5 @@
 <nav
-  *ngIf="authService.isLoggedIn"
+  *ngIf="authService.checkAuth()"
   class="navbar navbar-expand-lg navbar-light {{themeService.color}}"
   style="border: 1px solid black">
   <div class="container-fluid">
@@ -148,7 +148,7 @@
               <span><strong>Смена темы</strong></span>
               <div *ngFor="let typeTheme of typeTheme">
                 <label>{{typeTheme.name}}</label>
-                <input [value]=typeTheme.name type="radio"  [(ngModel)]="colorForDisplayAfterRun" (click)="themeService.changeTheme(typeTheme.name)" />
+                <input value={{typeTheme.name}} type="radio"  [(ngModel)]="colorForDisplayAfterRun" (click)="themeService.changeTheme(typeTheme.name)" />
               </div>
             </div>
             <div class="card__View">

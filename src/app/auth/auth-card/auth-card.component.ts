@@ -8,23 +8,28 @@ import { SwithThemeService } from '../../core/services/switchTheme/swith-theme.s
   styleUrls: ['./auth-card.component.scss'],
 })
 export class AuthCardComponent {
+  public errorStatus = false;
+  public errorMessage = '';
   constructor(
     public AuthService: FirebaseService,
     public themeService: SwithThemeService
   ) {}
   onSignupWithGoogle(): void {
     this.AuthService.signGoogle().catch((data) => {
-      console.log(data);
+      this.errorStatus = true;
+      this.errorMessage = data.message;
     });
   }
   onSignupWithFacebook(): void {
     this.AuthService.signFacebook().catch((data) => {
-      console.log(data);
+      this.errorStatus = true;
+      this.errorMessage = data.message;
     });
   }
   onSignupWithGitHub(): void {
     this.AuthService.signGithub().catch((data) => {
-      console.log(data);
+      this.errorStatus = true;
+      this.errorMessage = data.message;
     });
   }
 }

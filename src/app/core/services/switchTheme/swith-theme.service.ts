@@ -16,9 +16,4 @@ export class SwithThemeService {
     localStorage.setItem('color', `${this.color}`);
   }
 
-  checkStatusTheme(): void {
-    !localStorage.getItem('color')
-      ? localStorage.setItem('color', `white`)
-      : (this.color = localStorage.getItem('color'));
-  }
 }
