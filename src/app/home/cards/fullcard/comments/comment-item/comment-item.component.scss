@@ -41,3 +41,20 @@
 {
   border: 1px solid papayawhip;
 }
+.containerForDateAndBtn
+{
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+.completeAnswer{
+  border-radius: 20px;
+  padding: 5px;
+  margin: 5px;
+  background-color: greenyellow!important;
+  color: black;
+
+}
+
+

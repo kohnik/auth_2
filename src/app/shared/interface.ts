@@ -6,6 +6,14 @@ export interface CheckBox {
 export interface PostCard {
   name: string;
 }
+export interface AdminsEmails {
+  email: string;
+}
+export interface ObjForCheckRole {
+  admin: boolean;
+  currentUserEmail: string;
+}
+
 export interface DataOfCard {
   title: string;
   text: string;
@@ -33,6 +41,8 @@ export interface DataOfComment {
   authorComment: string;
   dateCreateComment: string;
   textComment: string;
+  statusAnswer: boolean;
+  idComment: string;
 }
 
 export interface FilterSettings {

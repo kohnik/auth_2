@@ -28,7 +28,10 @@ export class QuestionGuard implements CanActivate {
     | UrlTree {
     return this.authService.checkAuth().pipe(
       map((data) => {
-        this.authService.isLoggedIn = true;
+        if (data !== null) {
+          this.authService.isLoggedIn = true;
+        }
+        // @ts-ignore
         return !!data;
       })
     );

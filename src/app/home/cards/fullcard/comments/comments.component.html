@@ -8,7 +8,7 @@
     <div class="comments__header">
       <div class="comments__title" >Answers to the question</div>
       <div class="comments__btnAnswer">
-        <button class="btn btn-outline-danger" (click)="openForCreateComment()">
+        <button class="btn btn-outline-danger" (click)="openForCreateComment()" *ngIf="this.dataService.item.status">
           Ответить на вопрос
         </button>
       </div>

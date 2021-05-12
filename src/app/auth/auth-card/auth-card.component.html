@@ -2,10 +2,10 @@
 <!--  [ngClass]="{'containerAuth__switch': themeService.colorTheme}"-->
   <div class="container__card">
       <app-auth-card-signin
-        *ngIf="AuthService.displaySignInOrOn"
+        *ngIf="authService.displaySignInOrOn"
       ></app-auth-card-signin>
       <app-auth-card-signup
-        *ngIf="!AuthService.displaySignInOrOn"
+        *ngIf="!authService.displaySignInOrOn"
       ></app-auth-card-signup>
     <div *ngIf="errorStatus" class="alert alert-danger">
       {{errorMessage}}

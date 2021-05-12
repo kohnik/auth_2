@@ -29,6 +29,7 @@ import { ModaltoCreateCardComponent } from './home/cards/page-to-create-card/mod
 import { ModalToEditCardComponent } from './home/cards/page-to-edit-card/modal-to-edit-card.component';
 import { FilterPipePipe } from './core/pipes/filterPipe/filter-pipe.pipe';
 import { SortPipePipe } from './core/pipes/sortPipe/sort-pipe.pipe';
+import { CheckRoleUserPipe } from './core/pipes/checkRoleUser/check-role-user.pipe';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { SortPipePipe } from './core/pipes/sortPipe/sort-pipe.pipe';
     ModalToEditCardComponent,
     FilterPipePipe,
     SortPipePipe,
+    CheckRoleUserPipe,
 
   ],
   imports: [

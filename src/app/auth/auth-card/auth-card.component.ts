@@ -11,23 +11,25 @@ export class AuthCardComponent {
   public errorStatus = false;
   public errorMessage = '';
   constructor(
-    public AuthService: FirebaseService,
+    public authService: FirebaseService,
     public themeService: SwithThemeService
-  ) {}
+  ) {
+
+  }
   onSignupWithGoogle(): void {
-    this.AuthService.signGoogle().catch((data) => {
+    this.authService.signGoogle().catch((data) => {
       this.errorStatus = true;
       this.errorMessage = data.message;
     });
   }
   onSignupWithFacebook(): void {
-    this.AuthService.signFacebook().catch((data) => {
+    this.authService.signFacebook().catch((data) => {
       this.errorStatus = true;
       this.errorMessage = data.message;
     });
   }
   onSignupWithGitHub(): void {
-    this.AuthService.signGithub().catch((data) => {
+    this.authService.signGithub().catch((data) => {
       this.errorStatus = true;
       this.errorMessage = data.message;
     });

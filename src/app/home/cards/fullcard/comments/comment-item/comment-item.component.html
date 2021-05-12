@@ -1,4 +1,4 @@
-<div class="comment" >
+<div class="comment">
   <div class="comment__header">
     <div class="comment__imgContainer">
       <img
@@ -9,12 +9,15 @@
     <div class="comment__titleContainer">
       <span class="comment__title">{{ dataComment.authorComment }}</span>
     </div>
-
   </div>
 
-    <div class="comment__answerContainer" >
-      <span class="comment__text">{{ dataComment.textComment  }}</span>
-      <span>{{dataComment.dateCreateComment | date:'M/d/yy, h:mm a'}}</span>
+  <div class="comment__answerContainer">
+    <span class="comment__text">{{ dataComment.textComment }}</span>
+    <div class="containerForDateAndBtn">
+      <div class="completeAnswer " *ngIf="dataComment.statusAnswer "><span>Правильное решение</span></div>
+      <button *ngIf=" !dataComment.statusAnswer && authService.roleCurrentUser.currentUserEmail === dataService.item.author" class="btn btn-outline-dark {{themeService.color}}" (click)="approveComment()">Пометить как правильное решение</button>
+      <span>{{ dataComment.dateCreateComment | date: "M/d/yy, h:mm a" }}</span>
     </div>
 
+  </div>
 </div>

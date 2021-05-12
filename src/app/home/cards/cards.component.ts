@@ -5,9 +5,9 @@ import { Router } from '@angular/router';
 import { SwithThemeService } from '../../core/services/switchTheme/swith-theme.service';
 import { SwitchViewCardsService } from '../../core/services/switchViewCards/switch-view-cards.service';
 import { FiltersCardsService } from '../../core/services/filersCards/filters-cards.service';
-import { observable } from 'rxjs';
 import { getCheckboxs } from '../../shared/constants';
 import { DataOfCard } from '../../shared/interface';
+import { FirebaseService } from '../../core/services/firebase.service';
 
 @Component({
   selector: 'app-cards',
@@ -22,17 +22,17 @@ export class CardsComponent implements OnInit {
     public filterService: FiltersCardsService,
     private router: Router,
     public themeService: SwithThemeService,
-    public viewCardsService: SwitchViewCardsService
+    public viewCardsService: SwitchViewCardsService,
+    public authService: FirebaseService
   ) {}
 
   ngOnInit(): void {
     this.dataService.getAll().subscribe(
       (data) => {
-        console.log(data);
         this.items = data;
       },
       (rez) => {
-        console.log(rez);
+        console.log(rez)
       }
     );
     getCheckboxs();

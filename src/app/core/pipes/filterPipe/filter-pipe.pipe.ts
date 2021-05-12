@@ -15,20 +15,20 @@ export class FilterPipePipe implements PipeTransform {
     } else if (args.completed === 'false') {
       value = value.filter((item: DataOfCard) => !item.completed);
     }
-    console.log(args.checkBox.includes(null));
     if (args.checkBox.length > 0) {
       value = value.filter((item: DataOfCard) => {
+
         return item.tag.filter(
-          (tag: string) => args.checkBox.indexOf(tag) > -1 && tag !== null
+          (tag: string) => args.checkBox.includes(tag)
         ).length;
       });
     }
-    console.log(value);
     value = value.filter((item: DataOfCard) => {
       return (
         this.date.getTime() - item.date <= milSecInDay * args.filteringByDate
       );
     });
+
     return value;
   }
 }

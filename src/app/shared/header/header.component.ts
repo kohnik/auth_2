@@ -28,9 +28,6 @@ export class HeaderComponent {
   open(content: any): void {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
   }
-  routerNavigation(): void {
-    localStorage.removeItem('lastFullCardId');
-  }
 
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {

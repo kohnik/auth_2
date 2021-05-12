@@ -54,7 +54,6 @@ export class ModaltoCreateCardComponent implements OnInit {
         )
         .subscribe(
           (data) => {
-            console.log(data);
             this.router.navigate(['question']);
           },
           (rez) => {

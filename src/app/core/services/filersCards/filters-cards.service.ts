@@ -30,7 +30,7 @@ export class FiltersCardsService {
     this.checkBoxListForFilter = createSuccessfulCheckBoxList(
       checkBoxList
     );
-    console.log(this.checkBoxListForFilter)
+
     this.filterSettings = {
       completed: `${completed}`,
       filteringByDate: this.filteringByDate,

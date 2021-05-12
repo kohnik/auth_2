@@ -44,12 +44,18 @@ export const typeTheme = [
 ];
 
 export const createSuccessfulCheckBoxList = (checkBox: CheckBox[]) => {
-  let listForFilter: any; // Вопрос с типом, либо я не правильно сделал map. Ибо тут тип string не получится, только такой тип string | null
-  listForFilter = checkBox.map((item) => {
+  // Вопрос с типом, либо я не правильно сделал map. Ибо тут тип string не получится, только такой тип string | null
+  // listForFilter = checkBox.map((item) => {
+  //   if (item.isselected) {
+  //     return item.name;
+  //   } else {
+  //     return null;
+  //   }
+  // });
+  const listForFilter: string[] = [];
+  checkBox.forEach((item) => {
     if (item.isselected) {
-      return item.name;
-    } else {
-      return null;
+      listForFilter.push(item.name);
     }
   });
   return listForFilter;

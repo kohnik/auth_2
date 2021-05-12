@@ -3,7 +3,12 @@
     <div>
       <div class="card {{themeService.color}}"  [ngClass]="{'card_row': viewCardsService.viewCards}">
         <div class="card-body">
-          <h5 class="card-title">{{item.title}}</h5>
+          <div class="Ulcard__cardTitle {{themeService.color}}">
+            <h5 class="card-title">{{item.title}}</h5>
+            <div *ngIf="(authService.roleCurrentUser.admin && !item.status) || (item.author===authService.roleCurrentUser.currentUserEmail && !item.status)"> НА МОДЕРАЦИИ</div>
+            <div class="successfulAns" *ngIf="item.completed"> ЕСТЬ ОТВЕТ</div>
+          </div>
+
           <div class="idItems" style="display: none"></div>
           <span class="card-text model"><strong> Created:</strong>{{item.date | date:' M/d/yy, h:mm a'}} </span>
           <p class="card-text created"><strong>tag: </strong> <span *ngFor="let tag of item.tag, let i = index"> <strong *ngIf="i!=0">|</strong> {{tag}}  </span></p>

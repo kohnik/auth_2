@@ -1,17 +1,27 @@
-.Ulcard__item{
+.Ulcard__item {
   text-decoration: none;
   list-style-type: none;
 }
-.Ulcard__item_row{
+.Ulcard__item_row {
   width: 98vw;
 }
 
-.card
-{
+.card {
   width: 18rem;
 }
-.card_row
-{
+.card_row {
   width: 100%;
 }
-
+.Ulcard__cardTitle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.Ulcard__cardTitle > div {
+  border-radius: 20px;
+  padding: 5px;
+}
+.successfulAns
+{
+  background-color: greenyellow!important;
+}

@@ -34,6 +34,8 @@ export class CreateCommentComponent {
       textComment: `${textAnswer}`,
       dateCreateComment: `${createDateCreation()}`,
       authorComment: `${this.userName}`,
+      statusAnswer: false,
+      idComment: '',
     };
 
     this.dataService.item.comments = [
@@ -41,15 +43,17 @@ export class CreateCommentComponent {
         textComment: `${textAnswer}`,
         dateCreateComment: `${createDateCreation()}`,
         authorComment: `${this.userName}`,
+        statusAnswer: false,
+        idComment: '',
       },
       ...this.dataService.item.comments,
     ];
 
     this.dataService
-      .addComment(objForSendNewComment, this.dataService.item.id)
+      .addComment(this.dataService.item.id, objForSendNewComment)
       .subscribe(
         (data) => {
-          console.log(this.dataService.item)
+
         },
         (rez) => {
           alert(`${rez.message}`);

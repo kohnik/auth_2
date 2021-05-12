@@ -72,17 +72,18 @@ export class ModalToEditCardComponent {
     if (this.editForm.invalid || !this.editForm.value.orders.includes(true)) {
       this.error = true;
     } else {
-      console.log(this.dataService.item);
       this.dataService.item.text = this.editForm.value.textquestion;
       this.dataService.item.title = this.editForm.value.titlequestion;
       this.dataService.item.tag = checkBoxListForSend;
-      this.dataService.postEditQuestion(this.dataService.item.id).subscribe(
-        (data) =>
-          this.router.navigate([`question/${this.dataService.item.id}`]),
-        (rez) => {
-          alert(`${rez.message}`);
-        }
-      );
+      this.dataService
+        .postEditQuestion(this.dataService.item.id, this.dataService.item)
+        .subscribe(
+          (data) =>
+            this.router.navigate([`question/${this.dataService.item.id}`]),
+          (rez) => {
+            alert(`${rez.message}`);
+          }
+        );
     }
   }
   returnOnQuestionCard(): void {

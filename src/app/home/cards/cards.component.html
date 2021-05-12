@@ -1,20 +1,26 @@
-<div class="items__content " [ngClass]="{'items__content_row': viewCardsService.viewCards}" xmlns="http://www.w3.org/1999/html">
+<div
+  class="items__content"
+  [ngClass]="{ items__content_row: viewCardsService.viewCards }"
+  xmlns="http://www.w3.org/1999/html"
+>
   <ng-container *ngIf="items">
-    <app-card-item *ngFor="let item of items | sortPipe:filterService.statusSort | filterPipe:filterService.filterSettings " [item]="item" ></app-card-item>
+    <app-card-item
+      *ngFor="
+        let item of items
+          | checkRoleUser: authService.roleCurrentUser
+          | sortPipe: filterService.statusSort
+          | filterPipe: filterService.filterSettings
+      "
+      [item]="item"
+    ></app-card-item>
   </ng-container>
   <ng-container *ngIf="!items">
-<strong  > ЗАДАЙТЕ СВОЙ ПЕРВЫЙ ВОПРОС</strong>
+    <strong> ЗАДАЙТЕ СВОЙ ПЕРВЫЙ ВОПРОС</strong>
   </ng-container>
 </div>
 
-<div class="containerForPlusAdd"  >
-  <div class="circleAddCard {{themeService.color}}" (click)="redirectTo() " ><span>+</span></div>
+<div class="containerForPlusAdd">
+  <div class="circleAddCard {{ themeService.color }}" (click)="redirectTo()">
+    <span>+</span>
+  </div>
 </div>
-
-
-
-
-
-
-
-

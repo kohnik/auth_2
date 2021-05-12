@@ -23,7 +23,7 @@ export class AuthGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-
+    // @ts-ignore
     return this.authService.checkAuth().pipe(map((data) => !data));
   }
 }

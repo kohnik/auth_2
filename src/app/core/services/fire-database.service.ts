@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { DataOfCard, DataOfComment, PostCard } from '../../shared/interface';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { forkJoin, Observable, of } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 import { link } from '../../shared/constants';
+import { FirebaseService } from './firebase.service';
 @Injectable({
   providedIn: 'root',
 })
 export class FireDatabaseService {
   // Убрал по максимум все переменные, но порассуждав, все таки решил item оставить тут. Ибо при редактировании лишний запрос делать, неудобно обновлять item, и делать проверку
   item!: DataOfCard;
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, public authService: FirebaseService) {}
   getAll(): Observable<DataOfCard[]> {
     return this.http.get(`${link}cards.json`).pipe(
       map((data) => {
@@ -30,7 +31,10 @@ export class FireDatabaseService {
       map((data: DataOfCard) => {
         // Вопросик насчет этого типа, я переделал interface DataOfCardBase, но тоже косяк
         const comments = data.comments
-          ? Object.keys(data.comments).map((key: any) => data.comments[key])
+          ? Object.keys(data.comments).map((key: any) => {
+              data.comments[key].idComment = key;
+              return data.comments[key];
+            })
           : [];
         data.id = id;
         this.item = { ...data, comments };
@@ -39,14 +43,38 @@ export class FireDatabaseService {
     );
   }
 
-  postQuestion(dataOfQuestionToSend: DataOfCard): Observable<PostCard> {
-    return this.http.post<PostCard>(`${link}cards.json`, dataOfQuestionToSend);
+  postQuestion(body: DataOfCard): Observable<PostCard> {
+    return this.http.post<PostCard>(`${link}cards.json`, body);
   }
-  postEditQuestion(id: string): Observable<PostCard> {
-    return this.http.patch<PostCard>(`${link}cards/${id}/.json`, this.item);
+  postEditQuestion(id: string, body: DataOfCard): Observable<PostCard> {
+    return this.http.patch<PostCard>(`${link}cards/${id}/.json`, body);
   }
-  addComment(body: DataOfComment, id: string): Observable<PostCard> {
-    const url = `${link}cards/${id}/comments.json`;
-    return this.http.post<PostCard>(url, body);
+  deleteQuestion(id: string): Observable<PostCard> {
+    return this.http.delete<PostCard>(`${link}cards/${id}/.json`);
+  }
+  approveQuestion(id: string, body: DataOfCard): Observable<PostCard> {
+    return this.http.patch<PostCard>(`${link}cards/${id}/.json`, body);
+  }
+
+  approveComment(
+    idCard: string,
+    idComment: string,
+    bodyCard: DataOfCard,
+    bodyComment: DataOfComment
+  ): Observable<PostCard> {
+    return this.http
+      .patch<PostCard>(`${link}cards/${idCard}/.json`, bodyCard)
+      .pipe(
+        switchMap((firstRequest) => {
+          this.http.post<PostCard>(
+            `${link}cards/${idComment}/comments.json`,
+            bodyComment
+          );
+          return of(firstRequest);
+        })
+      );
+  }
+  addComment(id: string, body: DataOfComment): Observable<PostCard> {
+    return this.http.post<PostCard>(`${link}cards/${id}/comments.json`, body);
   }
 }

@@ -6,16 +6,11 @@ import { FireDatabaseService } from '../../core/services/fire-database.service';
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.scss'],
 })
-export class HomePageComponent implements OnInit {
+export class HomePageComponent {
   name!: string;
 
   constructor(
     public authService: FirebaseService,
     public dataService: FireDatabaseService
   ) {}
-
-  ngOnInit(): void {
-    localStorage.removeItem('lastFullCardId');
-  }
-
 }
