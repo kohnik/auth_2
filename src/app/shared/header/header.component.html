@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light {{themeService.color}}"   >
-  <div  class="container-fluid"  >
+  <div  class="container-fluid" *ngIf="authService.isSiteLoading" >
     <a class="navbar-brand login {{themeService.color}}" routerLink="/question"   >Home</a>
     <div class="navbar-nav" *ngIf="!authService.isLoggedIn" >
       <a
@@ -15,7 +15,7 @@
         >Sign up</a>
     </div>
     <div class="navbar-nav" *ngIf="authService.isLoggedIn">
-      <div class="header__userName" *ngIf="authService.isLoggedIn">User: {{authService.roleCurrentUser.currentUserEmail}}</div>
+      <div class="header__userName" *ngIf="authService.isLoggedIn">User: {{authService.currentUser.email}}</div>
       <button
         routerLink="newquestion"
         class="header__btn {{themeService.color}}"

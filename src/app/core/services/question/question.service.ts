@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FireDatabaseService } from '../fire-database.service';
-import { DataOfCard } from './../../../shared/interface';
+import { DataOfCard } from '../../../shared/interface';
 import { createDateCreation } from '../../../shared/constants';
 import { Observable } from 'rxjs';
 import { FirebaseService } from '../firebase.service';

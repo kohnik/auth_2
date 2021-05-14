@@ -4,7 +4,6 @@ import {
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
   UrlTree,
-  Router,
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { FirebaseService } from '../../services/firebase.service';
@@ -14,7 +13,7 @@ import { map } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class AuthHomeGuardGuard implements CanActivate {
-  constructor(public authService: FirebaseService, public router: Router) {}
+  constructor(public authService: FirebaseService) {}
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
@@ -28,7 +27,7 @@ export class AuthHomeGuardGuard implements CanActivate {
         if (data !== null) {
           this.authService.isLoggedIn = true;
         }
-
+        this.authService.isSiteLoading = true;
         // @ts-ignore
         return !!data;
       })

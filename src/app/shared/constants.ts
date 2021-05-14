@@ -19,19 +19,39 @@ export const milSecInDay = 86400000;
 export const typeFilteringByDate = [
   {
     name: 'last day',
-    id: 1,
+    day: 1,
   },
   {
     name: 'last week',
-    id: 7,
+    day: 7,
   },
   {
     name: 'last month',
-    id: 30,
+    day: 30,
   },
   {
     name: 'all time',
-    id: 2000,
+    day: 2000,
+  },
+];
+export const typeFilteringQuestionsForModeration = [
+  {
+    name: 'on Moder',
+    isModeration: true,
+  },
+  {
+    name: 'all questions',
+    isModeration: false,
+  },
+];
+export const typeFilteringByQuestionAuthor = [
+  {
+    name: 'my quest',
+    isMyQuestions: true,
+  },
+  {
+    name: 'all questions',
+    isMyQuestions: false,
   },
 ];
 export const typeTheme = [
@@ -44,36 +64,22 @@ export const typeTheme = [
 ];
 
 export const createSuccessfulCheckBoxList = (checkBox: CheckBox[]) => {
-  // Вопрос с типом, либо я не правильно сделал map. Ибо тут тип string не получится, только такой тип string | null
-  // listForFilter = checkBox.map((item) => {
-  //   if (item.isselected) {
-  //     return item.name;
-  //   } else {
-  //     return null;
-  //   }
-  // });
-  const listForFilter: string[] = [];
-  checkBox.forEach((item) => {
-    if (item.isselected) {
-      listForFilter.push(item.name);
-    }
-  });
-  return listForFilter;
+  return checkBox
+    .filter((item) => item.isselected)
+    .map((item) => item.name);
 };
 
 export const getCheckboxs = () => {
-  let checkboxList: CheckBox[];
-  checkboxList = tags.map((item: string, i: number) => {
+  return tags.map((item: string, i: number) => {
     return {
       id: i + 1,
       name: `${tags[i]}`,
       isselected: false,
     };
   });
-  return checkboxList as CheckBox[];
 };
 
-export const onChange = (tag: any, index: number, checkboxList: CheckBox[]) => {
+export const onChange = (index: number, checkboxList: CheckBox[]) => {
   checkboxList[index].isselected = !checkboxList[index].isselected;
   return checkboxList;
 };

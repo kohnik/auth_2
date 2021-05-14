@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { QuestionService } from '../../../core/services/question/question.service';
 import { FireDatabaseService } from '../../../core/services/fire-database.service';
 import { switchMap } from 'rxjs/operators';
 import { SwithThemeService } from '../../../core/services/switchTheme/swith-theme.service';
@@ -17,7 +16,6 @@ export class FullcardComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     public router: Router,
-    public questionService: QuestionService,
     public dataService: FireDatabaseService,
     public themeService: SwithThemeService,
     public authService: FirebaseService
@@ -49,15 +47,16 @@ export class FullcardComponent implements OnInit {
     );
   }
   deleteQuestion(): void {
-    this.dataService
-      .deleteQuestion(this.item.id)
-      .subscribe((data) => this.router.navigate(['question']));
+    this.dataService.deleteQuestion(this.item.id).subscribe(
+      (data) => this.router.navigate(['question']),
+      (err) => console.log(err)
+    );
   }
   approveQuestion(): void {
     this.item.status = true;
-    console.log(this.item)
-    this.dataService
-      .approveQuestion(this.item.id, this.item)
-      .subscribe((data) => this.router.navigate(['question']));
+    this.dataService.approveQuestion(this.item.id, this.item).subscribe(
+      (data) => this.router.navigate(['question']),
+      (err) => console.log(err)
+    );
   }
 }

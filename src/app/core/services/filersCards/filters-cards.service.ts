@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { FireDatabaseService } from '../fire-database.service';
-import { QuestionService } from '../question/question.service';
 import {
   CheckBox,
   DataOfCard,
@@ -14,19 +13,19 @@ import { createSuccessfulCheckBoxList } from '../../../shared/constants';
 export class FiltersCardsService {
   statusSort!: boolean;
   filteringByDate!: number;
-  filteredArray: DataOfCard[] = [];
   checkBoxListForFilter: string[] = [];
   filterSettings: FilterSettings = {
     completed: 'all',
     filteringByDate: 100000,
     checkBox: this.checkBoxListForFilter,
+    onModeration: false,
+    myQuestion: false
   };
   constructor(
     public dataservice: FireDatabaseService,
-    public addItemService: QuestionService
   ) {}
 
-  filterCards(completed: any, checkBoxList: CheckBox[]): void {
+  filterCards(completed: any, checkBoxList: CheckBox[], onModeration: boolean, myQuestion: boolean): void {
     this.checkBoxListForFilter = createSuccessfulCheckBoxList(
       checkBoxList
     );
@@ -35,6 +34,8 @@ export class FiltersCardsService {
       completed: `${completed}`,
       filteringByDate: this.filteringByDate,
       checkBox: this.checkBoxListForFilter,
+      onModeration,
+      myQuestion
     };
   }
 }

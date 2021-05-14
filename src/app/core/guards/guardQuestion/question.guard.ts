@@ -7,7 +7,6 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { FirebaseService } from '../../services/firebase.service';
-import { FireDatabaseService } from '../../services/fire-database.service';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -15,8 +14,7 @@ import { map } from 'rxjs/operators';
 })
 export class QuestionGuard implements CanActivate {
   constructor(
-    public authService: FirebaseService,
-    public dataService: FireDatabaseService
+    public authService: FirebaseService
   ) {}
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -31,6 +29,7 @@ export class QuestionGuard implements CanActivate {
         if (data !== null) {
           this.authService.isLoggedIn = true;
         }
+        this.authService.isSiteLoading = true;
         // @ts-ignore
         return !!data;
       })

@@ -9,7 +9,6 @@ export class SwithThemeService {
   public nameTheme: BehaviorSubject<string> = new BehaviorSubject<string>(
     'white'
   );
-
   changeTheme(color: string): void {
     this.nameTheme.next(`${color}`);
     this.nameTheme.subscribe((data) => (this.color = data));

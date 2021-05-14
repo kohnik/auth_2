@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component} from '@angular/core';
 import { FireDatabaseService } from '../../../core/services/fire-database.service';
-import { QuestionService } from '../../../core/services/question/question.service';
 import { Router } from '@angular/router';
 import {
   FormArray,
@@ -28,10 +27,8 @@ export class ModalToEditCardComponent {
   checkBoxList!: CheckBox[];
   constructor(
     public dataService: FireDatabaseService,
-    public addItemService: QuestionService,
     private router: Router,
     public themeService: SwithThemeService,
-    public questionService: QuestionService,
     private formBuilder: FormBuilder
   ) {
     if (!this.dataService.item) {
@@ -63,8 +60,8 @@ export class ModalToEditCardComponent {
     });
   }
 
-  transferDataForOnChange(tag: boolean, i: number): void {
-    this.checkBoxList = onChange(tag, i, this.checkBoxList);
+  transferDataForOnChange(i: number): void {
+    onChange(i, this.checkBoxList);
   }
   editQuestion(): void {
     let checkBoxListForSend = [];

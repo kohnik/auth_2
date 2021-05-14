@@ -7,7 +7,7 @@
     <app-card-item
       *ngFor="
         let item of items
-          | checkRoleUser: authService.roleCurrentUser
+          | checkRoleUser: authService.currentUser
           | sortPipe: filterService.statusSort
           | filterPipe: filterService.filterSettings
       "

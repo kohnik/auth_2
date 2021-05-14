@@ -28,19 +28,19 @@
                   <label>отвечен</label>
                   <input
                     type="radio"
-                    [value]="true"
+                    value={{true}}
                     formControlName="completdeCheck"
                     name="drone"/>
                   <label>не отвечен</label>
                   <input
                     type="radio"
-                    [value]="false"
+                    value={{false}}
                     formControlName="completdeCheck"
                     name="drone"/>
                   <label>Все</label>
                   <input
                     type="radio"
-                    [value]='valueAll'
+                    value="all"
                     formControlName="completdeCheck"
                     name="drone"/>
                 </div>
@@ -59,7 +59,7 @@
                       class="form-check-input checkBoxTag"
                       type="checkbox"
                       name="`${tag.name}`"
-                      (click)="transferDataForOnChange(tag.isselected,i)"
+                      (click)="transferDataForOnChange(i)"
                     />
                   </div>
                 </div>
@@ -70,8 +70,34 @@
                     <input
                       type="radio"
                       name="Date"
-                      [value]=type.id
+                      value={{type.day}}
                       formControlName="dateCheck"/>
+                  </div>
+                </div>
+                <div *ngIf="authService.currentUser.admin">
+                  <span> 4.On moderation</span>
+                  <div class="input-group dateRadioButton">
+                    <div  *ngFor="let type of typeFilteringQuestionsForModeration ">
+                      <label>{{type.name}}</label>
+                      <input
+                        type="radio"
+                        name="moderation"
+                        [value]=type.isModeration
+                        formControlName="onModerationCheck"/>
+                    </div>
+                  </div>
+                </div>
+                <div >
+                  <span> 5.My questions</span>
+                  <div class="input-group dateRadioButton">
+                    <div  *ngFor="let type of typeFilteringByQuestionAuthor">
+                      <label>{{type.name}}</label>
+                      <input
+                        type="radio"
+                        name="myQuestion"
+                        [value]= type.isMyQuestions
+                        formControlName="myQuestionsCheck"/>
+                    </div>
                   </div>
                 </div>
                 <button type="button" (click)="filter()">Фильтровать</button>

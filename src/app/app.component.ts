@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { SwithThemeService } from './core/services/switchTheme/swith-theme.service';
 import { SwitchViewCardsService } from './core/services/switchViewCards/switch-view-cards.service';
-import { FirebaseService } from './core/services/firebase.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -11,7 +10,7 @@ export class AppComponent {
   title = 'authorization';
   constructor(
     public themeService: SwithThemeService,
-    public viewCardsService: SwitchViewCardsService
+    public viewCardsService: SwitchViewCardsService,
   ) {
     if (!localStorage.getItem('viewCards')) {
       localStorage.setItem('viewCards', `false`);

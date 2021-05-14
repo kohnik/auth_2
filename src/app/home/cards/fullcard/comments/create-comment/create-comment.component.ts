@@ -1,10 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FireDatabaseService } from '../../../../../core/services/fire-database.service';
-import { QuestionService } from '../../../../../core/services/question/question.service';
 import { SwithThemeService } from '../../../../../core/services/switchTheme/swith-theme.service';
 import { createDateCreation } from '../../../../../shared/constants';
 import { FirebaseService } from '../../../../../core/services/firebase.service';
-import { DataOfCard } from '../../../../../shared/interface';
 
 @Component({
   selector: 'app-create-comment',
@@ -14,10 +12,8 @@ import { DataOfCard } from '../../../../../shared/interface';
 export class CreateCommentComponent {
   public userName: string | null | undefined;
   @Output() closeToCreate = new EventEmitter();
-  // @Input() comments!: DataOfCard[];
   constructor(
     public dataService: FireDatabaseService,
-    public questionService: QuestionService,
     public themeService: SwithThemeService,
     public authService: FirebaseService
   ) {
@@ -52,9 +48,7 @@ export class CreateCommentComponent {
     this.dataService
       .addComment(this.dataService.item.id, objForSendNewComment)
       .subscribe(
-        (data) => {
-
-        },
+        (data) => {},
         (rez) => {
           alert(`${rez.message}`);
         }

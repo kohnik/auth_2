@@ -56,11 +56,9 @@
   }
 }
 .containerForPlusAdd {
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
-  height: 68vh;
-  width: 97%;
+  position: fixed;
+  top:90vh;
+  right: 5vw;
 }
 .circleAddCard__switch {
   border: 1px solid white;

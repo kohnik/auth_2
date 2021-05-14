@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import firebase from 'firebase';
 import { Router } from '@angular/router';
-import { combineLatest, forkJoin, Observable, of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { link } from '../../shared/constants';
 import { HttpClient } from '@angular/common/http';
-import { map, mergeMap, switchMap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import User = firebase.User;
-import {AdminsEmails, ObjForCheckRole} from '../../shared/interface';
+import { AdminsEmails, CurrentUser } from '../../shared/interface';
 @Injectable({
   providedIn: 'root',
 })
@@ -17,21 +17,13 @@ export class FirebaseService {
   public githubProvider = new firebase.auth.GithubAuthProvider();
   public isLoggedIn = false;
   public displaySignInOrOn = false;
-  public statusVerivication!: boolean;
-  public roleCurrentUser!: ObjForCheckRole;
+  public currentUser!: CurrentUser;
+  public isSiteLoading = false;
   constructor(
     public firebaseAuth: AngularFireAuth,
     public router: Router,
     private http: HttpClient
-  ) {
-    this.firebaseAuth.authState.subscribe((res) => {
-      if (res && res.uid) {
-        this.statusVerivication = true;
-      } else {
-        this.statusVerivication = false;
-      }
-    });
-  }
+  ) {}
   signup(email: string, password: string): Promise<void> {
     return this.firebaseAuth
       .createUserWithEmailAndPassword(email, password)
@@ -85,20 +77,16 @@ export class FirebaseService {
     );
   }
 
-  getAdminsEmails(firstRequest: User | null): Observable<firebase.User | null> {
+  getAdminsEmails(firstRequest: User): Observable<firebase.User> {
     return this.http.get(`${link}admins.json`).pipe(
       // @ts-ignore
       map((secondRequest: AdminsEmails) => {
-        // ВОПРОС опять с этим приходящим типом
-        secondRequest.email.split(',').includes(firstRequest?.email as string)
-          ? (this.roleCurrentUser = {
-              admin: true,
-              currentUserEmail: firstRequest?.email as string,
-            })
-          : (this.roleCurrentUser = {
-            admin: false,
-            currentUserEmail: firstRequest?.email as string,
-          });
+        this.currentUser = {
+          admin: secondRequest.email
+            .split(',')
+            .includes(firstRequest?.email as string),
+          email: firstRequest?.email || '',
+        };
         return firstRequest;
       })
     );

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FirebaseService } from '../../../core/services/firebase.service';
 import { Router } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { QuestionService } from '../../../core/services/question/question.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SwithThemeService } from '../../../core/services/switchTheme/swith-theme.service';
@@ -36,8 +35,8 @@ export class ModaltoCreateCardComponent implements OnInit {
     this.checkBoxList = getCheckboxs();
   }
 
-  transferDataForOnChange(tag: boolean, i: number): void {
-    this.checkBoxList = onChange(tag, i, this.checkBoxList);
+  transferDataForOnChange(i: number): void {
+     onChange(i, this.checkBoxList);
   }
 
   newQuestion(): void {

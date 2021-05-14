@@ -7,7 +7,7 @@
 
         <div class="container-fluid">
           <div class="navbar-nav login {{themeService.color}}" >{{item.author}}</div>
-          <div *ngIf="(authService.roleCurrentUser.admin && !item.status) || (item.author===authService.roleCurrentUser.currentUserEmail && !item.status)"> НА МОДЕРАЦИИ</div>
+          <div *ngIf="(authService.currentUser.admin && !item.status) || (item.author===authService.currentUser.email && !item.status)"> НА МОДЕРАЦИИ</div>
           <div class="successfulAns" *ngIf="dataService.item.completed"> ЕСТЬ ОТВЕТ </div>
           <div class="navbar-nav">
                         <a>{{item.date | date:'M/d/yy, h:mm a'}}</a>
@@ -26,10 +26,10 @@
           <li *ngFor="let tag of item.tag"><strong>|</strong><span style="visibility: hidden">s</span>{{tag}}<span style="visibility: hidden">s</span> </li>
         </ul>
       <div class="fullcard__footerButton">
-        <button routerLink="/editquestion"  class="btn btn-outline-primary" *ngIf="!authService.roleCurrentUser.admin && !item.status">Edit</button>
-        <div *ngIf="authService.roleCurrentUser.admin && !dataService.item.status" class="fullcard__groupAdminBtn ">
-          <button class="btn btn-outline-dark {{themeService.color}}" (click)="approveQuestion()">Approve question</button>
-          <button class="btn btn-outline-dark {{themeService.color}}" (click)="deleteQuestion()">Delete question</button>
+        <button routerLink="/editquestion"  class="btn btn-outline-primary" *ngIf="!authService.currentUser.admin && !item.status">Edit</button>
+        <div  class="fullcard__groupAdminBtn ">
+          <button *ngIf="authService.currentUser.admin && !dataService.item.status" class="btn btn-outline-dark {{themeService.color}}" (click)="approveQuestion()">Approve question</button>
+          <button *ngIf="authService.currentUser.admin" class="btn btn-outline-dark {{themeService.color}}" (click)="deleteQuestion()">Delete question</button>
         </div>
       </div>
     </footer>

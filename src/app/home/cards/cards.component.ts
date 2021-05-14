@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FireDatabaseService } from '../../core/services/fire-database.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { SwithThemeService } from '../../core/services/switchTheme/swith-theme.service';
 import { SwitchViewCardsService } from '../../core/services/switchViewCards/switch-view-cards.service';
@@ -18,7 +17,6 @@ export class CardsComponent implements OnInit {
   items!: DataOfCard[];
   constructor(
     public dataService: FireDatabaseService,
-    private modalService: NgbModal,
     public filterService: FiltersCardsService,
     private router: Router,
     public themeService: SwithThemeService,

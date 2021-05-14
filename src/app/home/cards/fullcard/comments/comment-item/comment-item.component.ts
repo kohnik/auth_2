@@ -14,9 +14,7 @@ export class CommentItemComponent {
     public themeService: SwithThemeService,
     public dataService: FireDatabaseService,
     public authService: FirebaseService
-  ) {
-    console.log(dataService.item.comments);
-  }
+  ) {}
   @Input() dataComment!: DataOfComment;
   approveComment(): void {
     this.dataService.item.completed = true;
@@ -28,6 +26,9 @@ export class CommentItemComponent {
         this.dataService.item,
         this.dataComment
       )
-      .subscribe((data) => {});
+      .subscribe(
+        (data) => {},
+        (rez) => alert(rez)
+      );
   }
 }

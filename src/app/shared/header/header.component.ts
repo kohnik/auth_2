@@ -1,9 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component} from '@angular/core';
 import { FirebaseService } from '../../core/services/firebase.service';
 import { Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FireDatabaseService } from '../../core/services/fire-database.service';
-import { QuestionService } from '../../core/services/question/question.service';
 import { SwithThemeService } from '../../core/services/switchTheme/swith-theme.service';
 @Component({
   selector: 'app-header',
@@ -15,7 +13,6 @@ export class HeaderComponent {
     public authService: FirebaseService,
     private router: Router,
     private modalService: NgbModal,
-    public addItemService: QuestionService,
     public themeService: SwithThemeService
   ) {}
   changeLogin(): void {

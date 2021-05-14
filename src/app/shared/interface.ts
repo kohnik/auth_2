@@ -9,9 +9,9 @@ export interface PostCard {
 export interface AdminsEmails {
   email: string;
 }
-export interface ObjForCheckRole {
+export interface CurrentUser {
   admin: boolean;
-  currentUserEmail: string;
+  email: string;
 }
 
 export interface DataOfCard {
@@ -49,4 +49,6 @@ export interface FilterSettings {
   completed: string;
   filteringByDate: number;
   checkBox: (string | null)[];
+  onModeration: boolean;
+  myQuestion: boolean
 }

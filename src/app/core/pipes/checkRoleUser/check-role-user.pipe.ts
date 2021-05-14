@@ -1,17 +1,17 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { DataOfCard, ObjForCheckRole } from '../../../shared/interface';
+import { DataOfCard, CurrentUser } from '../../../shared/interface';
 
 @Pipe({
   name: 'checkRoleUser',
   pure: false,
 })
 export class CheckRoleUserPipe implements PipeTransform {
-  transform(value: DataOfCard[], role: ObjForCheckRole): DataOfCard[] {
+  transform(value: DataOfCard[], role: CurrentUser): DataOfCard[] {
     value = role.admin
       ? value
       : value.filter(
           (item) =>
-            item.author === role.currentUserEmail || item.status
+            item.author === role.email || item.status
         );
     return value;
   }
