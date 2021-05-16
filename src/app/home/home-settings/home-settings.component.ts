@@ -7,7 +7,10 @@ import { FormControl, FormGroup } from '@angular/forms';
 import {
   getCheckboxs,
   onChange,
-  typeFilteringByDate, typeFilteringQuestionsForModeration, typeFilteringByQuestionAuthor,
+  typeFilteringByDate,
+  typeFilteringQuestionsForModeration,
+  typeFilteringByQuestionAuthor,
+  typeFilteringByQuestionsCompleted,
   typeTheme,
 } from '../../shared/constants';
 import { CheckBox } from '../../shared/interface';
@@ -19,33 +22,34 @@ import { CheckBox } from '../../shared/interface';
 })
 export class HomeSettingsComponent implements OnInit {
   filterForm: FormGroup = new FormGroup({
-    completdeCheck: new FormControl(null),
+    completdeCheck: new FormControl('All'),
     tagCheck: new FormControl(''),
-    dateCheck: new FormControl(''),
-    onModerationCheck: new FormControl(''),
-    myQuestionsCheck: new FormControl(''),
+    dateCheck: new FormControl('2000'),
+    onModerationCheck: new FormControl(false),
+    myQuestionsCheck: new FormControl(false),
   });
 
-  public colorForDisplayAfterRun = `${localStorage.getItem('color')}`;
   constructor(
     public authService: FirebaseService,
     public themeService: SwithThemeService,
     public viewCardscesvice: SwitchViewCardsService,
-    public filterService: FiltersCardsService,
+    public filterService: FiltersCardsService
   ) {}
+  public colorForDisplayAfterRun = `${localStorage.getItem('color')}`;
   public isCollapsed = true;
   public isCollapsedSort = true;
   public isCollapsedFilter = true;
   public typeFilteringByDate = typeFilteringByDate;
-  public typeFilteringQuestionsForModeration = typeFilteringQuestionsForModeration
-  public typeFilteringByQuestionAuthor = typeFilteringByQuestionAuthor
+  public typeFilteringQuestionsForModeration = typeFilteringQuestionsForModeration;
+  public typeFilteringByQuestionAuthor = typeFilteringByQuestionAuthor;
+  public typeFilteringByQuestionsCompleted = typeFilteringByQuestionsCompleted;
   public typeTheme = typeTheme;
   public checkBoxList!: CheckBox[];
   ngOnInit(): void {
     this.checkBoxList = getCheckboxs();
   }
   transferDataForOnChange(i: number): void {
-     onChange(i, this.checkBoxList);
+    onChange(i, this.checkBoxList);
   }
   filter(): void {
     if (this.filterForm.value.dateCheck === '') {
@@ -53,7 +57,6 @@ export class HomeSettingsComponent implements OnInit {
     } else {
       this.filterService.filteringByDate = this.filterForm.value.dateCheck;
     }
-
 
     this.filterService.filterCards(
       this.filterForm.value.completdeCheck,

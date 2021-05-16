@@ -26,7 +26,7 @@ const appRoutes: Routes = [
     canActivate: [QuestionGuard],
   },
   {
-    path: 'editquestion',
+    path: 'question/:id/editquestion',
     component: ModalToEditCardComponent,
     canActivate: [QuestionGuard],
   },

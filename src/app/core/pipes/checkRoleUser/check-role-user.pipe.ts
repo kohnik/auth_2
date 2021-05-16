@@ -7,11 +7,11 @@ import { DataOfCard, CurrentUser } from '../../../shared/interface';
 })
 export class CheckRoleUserPipe implements PipeTransform {
   transform(value: DataOfCard[], role: CurrentUser): DataOfCard[] {
-    value = role.admin
+    value = role.isAdmin
       ? value
       : value.filter(
           (item) =>
-            item.author === role.email || item.status
+            item.author === role.email || item.isModeration
         );
     return value;
   }

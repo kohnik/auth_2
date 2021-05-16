@@ -4,6 +4,7 @@ import {
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
   UrlTree,
+  Router,
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { FirebaseService } from '../../services/firebase.service';
@@ -13,7 +14,7 @@ import { map } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  constructor(public authService: FirebaseService) {}
+  constructor(public authService: FirebaseService, public router: Router) {}
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
@@ -23,6 +24,13 @@ export class AuthGuard implements CanActivate {
     | boolean
     | UrlTree {
     this.authService.isSiteLoading = true;
-    return this.authService.checkAuth().pipe(map((data) => !data));
+    return this.authService.checkAuth().pipe(
+      map((data) => {
+        if (!!data) {
+          this.router.navigate(['question']);
+        }
+        return !data;
+      })
+    );
   }
 }

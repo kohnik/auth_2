@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { SwithThemeService } from '../../../../../core/services/switchTheme/swith-theme.service';
-import { DataOfComment } from '../../../../../shared/interface';
+import {DataOfCard, DataOfComment} from '../../../../../shared/interface';
 import { FireDatabaseService } from '../../../../../core/services/fire-database.service';
 import { FirebaseService } from '../../../../../core/services/firebase.service';
 
@@ -16,14 +16,15 @@ export class CommentItemComponent {
     public authService: FirebaseService
   ) {}
   @Input() dataComment!: DataOfComment;
+  @Input() item!: DataOfCard;
   approveComment(): void {
-    this.dataService.item.completed = true;
-    this.dataComment.statusAnswer = true;
+    this.item.isModeration = true;
+    this.dataComment.isCorrectAnswer = true;
     this.dataService
       .approveComment(
-        this.dataService.item.id,
+        this.item.id,
         this.dataComment.idComment,
-        this.dataService.item,
+        this.item,
         this.dataComment
       )
       .subscribe(

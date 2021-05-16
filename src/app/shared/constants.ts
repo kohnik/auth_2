@@ -13,7 +13,6 @@ export const tags = [
   'Angular',
   'React',
   'Vue',
-  'Other',
 ];
 export const milSecInDay = 86400000;
 export const typeFilteringByDate = [
@@ -36,21 +35,35 @@ export const typeFilteringByDate = [
 ];
 export const typeFilteringQuestionsForModeration = [
   {
-    name: 'on Moder',
+    name: 'On Moderation',
     isModeration: true,
   },
   {
-    name: 'all questions',
+    name: 'All questions',
     isModeration: false,
+  },
+];
+export const typeFilteringByQuestionsCompleted = [
+  {
+    name: 'Отвечен',
+    isCompleted: true,
+  },
+  {
+    name: 'Не отвечен',
+    isCompleted: false,
+  },
+  {
+    name: 'Все',
+    isCompleted: 'All',
   },
 ];
 export const typeFilteringByQuestionAuthor = [
   {
-    name: 'my quest',
+    name: 'My question',
     isMyQuestions: true,
   },
   {
-    name: 'all questions',
+    name: 'All questions',
     isMyQuestions: false,
   },
 ];

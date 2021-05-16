@@ -1,6 +1,6 @@
-import { Component} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FireDatabaseService } from '../../../core/services/fire-database.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import {
   FormArray,
   FormBuilder,
@@ -10,50 +10,66 @@ import {
 } from '@angular/forms';
 import { SwithThemeService } from '../../../core/services/switchTheme/swith-theme.service';
 import {
+  createDateCreation,
   createSuccessfulCheckBoxList,
   getCheckboxs,
   onChange,
 } from '../../../shared/constants';
-import { CheckBox } from '../../../shared/interface';
+import { CheckBox, DataOfCard } from '../../../shared/interface';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-modal-to-edit-card',
   templateUrl: './modal-to-edit-card.component.html',
   styleUrls: ['./modal-to-edit-card.component.scss'],
 })
-export class ModalToEditCardComponent {
-  editForm: FormGroup;
+export class ModalToEditCardComponent implements OnInit {
+  editForm!: FormGroup;
   error = false;
   checkBoxList!: CheckBox[];
+  item!: DataOfCard;
+ dataOfQuestionToSend!: DataOfCard
   constructor(
     public dataService: FireDatabaseService,
     private router: Router,
+    public route: ActivatedRoute,
     public themeService: SwithThemeService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+
   ) {
-    if (!this.dataService.item) {
-      this.router.navigate(['question']);
-    }
     this.checkBoxList = getCheckboxs();
-    this.editForm = this.formBuilder.group({
-      orders: new FormArray([]),
-      titlequestion: new FormControl(
-        `${this.dataService.item.title}`,
-        Validators.required
-      ),
-      textquestion: new FormControl(
-        `${this.dataService.item.text}`,
-        Validators.required
-      ),
-    });
-    this.addCheckboxes();
   }
+  ngOnInit() {
+    this.route.params
+      .pipe(switchMap((params: Params) => this.dataService.getCard(params.id)))
+      .subscribe(
+        (card: DataOfCard) => {
+          this.item = card;
+          this.editForm = this.formBuilder.group({
+            orders: new FormArray([]),
+            titlequestion: new FormControl(
+              `${this.item.title}`,
+              Validators.required
+            ),
+            textquestion: new FormControl(
+              `${this.item.text}`,
+              Validators.required
+            ),
+          });
+          this.addCheckboxes();
+        },
+        (error) => {
+          this.error = error.message;
+        }
+      );
+  }
+
   get ordersFormArray(): FormArray {
     return this.editForm.controls.orders as FormArray;
   }
   private addCheckboxes(): void {
     this.checkBoxList.forEach((item) => {
-      this.dataService.item.tag.includes(item.name)
+      this.item.tag.includes(item.name)
         ? (item.isselected = !item.isselected)
         : null;
       this.ordersFormArray.push(new FormControl(item.isselected));
@@ -69,14 +85,22 @@ export class ModalToEditCardComponent {
     if (this.editForm.invalid || !this.editForm.value.orders.includes(true)) {
       this.error = true;
     } else {
-      this.dataService.item.text = this.editForm.value.textquestion;
-      this.dataService.item.title = this.editForm.value.titlequestion;
-      this.dataService.item.tag = checkBoxListForSend;
+      this.dataOfQuestionToSend = {
+        title: this.editForm.value.titlequestion,
+        text:  this.editForm.value.textquestion,
+        tag: checkBoxListForSend,
+        isModeration: this.item.isModeration,
+        comments: this.item.comments,
+        author: this.item.author,
+        date: this.item.date,
+        isAnsweredQuestion: this.item.isAnsweredQuestion,
+        id: this.item.id,
+      };
       this.dataService
-        .postEditQuestion(this.dataService.item.id, this.dataService.item)
+        .postEditQuestion(this.item.id, this.dataOfQuestionToSend)
         .subscribe(
           (data) =>
-            this.router.navigate([`question/${this.dataService.item.id}`]),
+            this.router.navigate([`question/${this.item.id}`]),
           (rez) => {
             alert(`${rez.message}`);
           }
@@ -84,6 +108,6 @@ export class ModalToEditCardComponent {
     }
   }
   returnOnQuestionCard(): void {
-    this.router.navigate([`question/${this.dataService.item.id}`]);
+    this.router.navigate([`question/${this.item.id}`]);
   }
 }

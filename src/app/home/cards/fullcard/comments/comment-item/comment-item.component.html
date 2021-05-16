@@ -14,14 +14,14 @@
   <div class="comment__answerContainer">
     <span class="comment__text">{{ dataComment.textComment }}</span>
     <div class="containerForDateAndBtn">
-      <div class="completeAnswer" *ngIf="dataComment.statusAnswer">
+      <div class="completeAnswer" *ngIf="dataComment.isCorrectAnswer">
         <span>Правильное решение</span>
       </div>
       <button
         *ngIf="
-          !dataComment.statusAnswer &&
+          !dataComment.isCorrectAnswer &&
           authService.currentUser.email ===
-            dataService.item.author
+            item.author
         "
         class="btn btn-outline-dark {{ themeService.color }}"
         (click)="approveComment()"

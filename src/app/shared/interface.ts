@@ -7,10 +7,10 @@ export interface PostCard {
   name: string;
 }
 export interface AdminsEmails {
-  email: string;
+  email: string[];
 }
 export interface CurrentUser {
-  admin: boolean;
+  isAdmin: boolean;
   email: string;
 }
 
@@ -18,10 +18,10 @@ export interface DataOfCard {
   title: string;
   text: string;
   tag: string[];
-  status: boolean;
+  isModeration: boolean;
   author: string;
   date: number;
-  completed: boolean;
+  isAnsweredQuestion: boolean;
   comments: DataOfComment[];
   id: string;
 }
@@ -39,9 +39,9 @@ export interface DataOfCardBase {
 }
 export interface DataOfComment {
   authorComment: string;
-  dateCreateComment: string;
+  dateCreateComment: number;
   textComment: string;
-  statusAnswer: boolean;
+  isCorrectAnswer: boolean;
   idComment: string;
 }
 
@@ -50,5 +50,5 @@ export interface FilterSettings {
   filteringByDate: number;
   checkBox: (string | null)[];
   onModeration: boolean;
-  myQuestion: boolean
+  myQuestion: boolean;
 }

@@ -27,11 +27,11 @@ export class QuestionService {
       title: `${titlequestion}`,
       text: `${textquestion}`,
       tag: checkBoxList,
-      status: false,
+      isModeration: false,
       comments: [],
       author: `${this.userName}`,
       date: createDateCreation(),
-      completed: false,
+      isAnsweredQuestion: false,
       id: '',
     };
     return this.dataService.postQuestion(this.dataOfQuestionToSend);

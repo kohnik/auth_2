@@ -1,42 +1,94 @@
 <div *ngIf="!item"><strong>ГРУЗИТСЯ</strong></div>
 <div class="fullcard" *ngIf="item">
-  <div class="fullcard__wr {{themeService.color}}" >
+  <div class="fullcard__wr {{ themeService.color }}">
     <header class="fullcard__header">
-      <nav   class="navbar navbar-expand-lg navbar-light bg-light {{themeService.color}}">
-        <button class="btn btn-outline-dark {{themeService.color}}" routerLink="/question">return</button>
+      <nav
+        class="navbar navbar-expand-lg navbar-light bg-light {{
+          themeService.color
+        }}"
+      >
+        <button
+          class="btn btn-outline-dark {{ themeService.color }}"
+          routerLink="/question"
+        >
+          return
+        </button>
 
         <div class="container-fluid">
-          <div class="navbar-nav login {{themeService.color}}" >{{item.author}}</div>
-          <div *ngIf="(authService.currentUser.admin && !item.status) || (item.author===authService.currentUser.email && !item.status)"> НА МОДЕРАЦИИ</div>
-          <div class="successfulAns" *ngIf="dataService.item.completed"> ЕСТЬ ОТВЕТ </div>
+          <div class="navbar-nav login {{ themeService.color }}">
+            {{ item.author }}
+          </div>
+          <div
+            class="moderAns"
+            *ngIf="
+              (authService.currentUser.isAdmin && !item.isModeration) ||
+              (item.author === authService.currentUser.email &&
+                !item.isModeration)
+            "
+          >
+            НА МОДЕРАЦИИ
+          </div>
+          <div class="successfulAns" *ngIf="item.isAnsweredQuestion">
+            ЕСТЬ ОТВЕТ
+          </div>
           <div class="navbar-nav">
-                        <a>{{item.date | date:'M/d/yy, h:mm a'}}</a>
+            <a>{{ item.date | date: "M/d/yy, h:mm a" }}</a>
           </div>
         </div>
       </nav>
     </header>
     <section class="fullcard__body">
-        <h5 class="fullcard__title">{{item.title}}</h5>
+      <h5 class="fullcard__title">{{ item.title }}</h5>
       <div class="fullcard__text">
-        <span>{{item.text}}</span>
+        <span>{{ item.text }}</span>
       </div>
     </section>
     <footer class="fullcard__footer">
-        <ul class="fullcard__footerUl">
-          <li *ngFor="let tag of item.tag"><strong>|</strong><span style="visibility: hidden">s</span>{{tag}}<span style="visibility: hidden">s</span> </li>
-        </ul>
+      <ul class="fullcard__footerUl">
+        <li *ngFor="let tag of item.tag; let i = index">
+          <strong *ngIf="i != 0">|</strong
+          ><span style="visibility: hidden">s</span>{{ tag
+          }}<span style="visibility: hidden">s</span>
+        </li>
+      </ul>
       <div class="fullcard__footerButton">
-        <button routerLink="/editquestion"  class="btn btn-outline-primary" *ngIf="!authService.currentUser.admin && !item.status">Edit</button>
-        <div  class="fullcard__groupAdminBtn ">
-          <button *ngIf="authService.currentUser.admin && !dataService.item.status" class="btn btn-outline-dark {{themeService.color}}" (click)="approveQuestion()">Approve question</button>
-          <button *ngIf="authService.currentUser.admin" class="btn btn-outline-dark {{themeService.color}}" (click)="deleteQuestion()">Delete question</button>
+        <button
+          [routerLink]="['editquestion']"
+          class="btn btn-outline-primary"
+          *ngIf="
+            (!authService.currentUser.isAdmin && !item.isModeration)
+          "
+        >
+          Edit
+        </button>
+
+        <div class="fullcard__groupAdminBtn">
+          <button
+            *ngIf="authService.currentUser.isAdmin && !item.isModeration"
+            class="btn btn-outline-dark {{ themeService.color }}"
+            (click)="approveQuestion()"
+          >
+            Approve question
+          </button>
+          <button
+            *ngIf="authService.currentUser.isAdmin"
+            class="btn btn-outline-dark {{ themeService.color }}"
+            (click)="deleteQuestion()"
+          >
+            Delete question
+          </button>
+          <button
+            [routerLink]="['editquestion']"
+            class="btn btn-outline-primary"
+            *ngIf="
+            (authService.currentUser.isAdmin && !item.isModeration && authService.currentUser.email===item.author)
+          "
+          >
+            Edit
+          </button>
         </div>
       </div>
     </footer>
   </div>
-  <app-comments  *ngIf="item"></app-comments>
+  <app-comments [item]="item" *ngIf="item"></app-comments>
 </div>
-
-
-
-

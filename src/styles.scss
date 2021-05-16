@@ -66,6 +66,13 @@ input.ng-touched.ng-invalid {border:solid red 2px;}
   background: black;
   color: white;
 }
+.issueStatusOnModer.white{
+  color: white;
+}
+
+
+
+
 .completeAnswer.black{
   background: black;
   color: white;
@@ -142,3 +149,7 @@ input.ng-touched.ng-invalid {border:solid red 2px;}
 
   color:black ;
 }
+.issueStatusOnModer.black{
+  color: black!important;
+}
+

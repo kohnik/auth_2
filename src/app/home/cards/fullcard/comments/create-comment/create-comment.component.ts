@@ -3,6 +3,7 @@ import { FireDatabaseService } from '../../../../../core/services/fire-database.
 import { SwithThemeService } from '../../../../../core/services/switchTheme/swith-theme.service';
 import { createDateCreation } from '../../../../../shared/constants';
 import { FirebaseService } from '../../../../../core/services/firebase.service';
+import { DataOfCard } from '../../../../../shared/interface';
 
 @Component({
   selector: 'app-create-comment',
@@ -12,6 +13,7 @@ import { FirebaseService } from '../../../../../core/services/firebase.service';
 export class CreateCommentComponent {
   public userName: string | null | undefined;
   @Output() closeToCreate = new EventEmitter();
+  @Input() item!: DataOfCard;
   constructor(
     public dataService: FireDatabaseService,
     public themeService: SwithThemeService,
@@ -28,25 +30,25 @@ export class CreateCommentComponent {
   addAnswer(textAnswer: string): void {
     const objForSendNewComment = {
       textComment: `${textAnswer}`,
-      dateCreateComment: `${createDateCreation()}`,
+      dateCreateComment: createDateCreation(),
       authorComment: `${this.userName}`,
-      statusAnswer: false,
+      isCorrectAnswer: false,
       idComment: '',
     };
 
-    this.dataService.item.comments = [
+    this.item.comments = [
       {
         textComment: `${textAnswer}`,
-        dateCreateComment: `${createDateCreation()}`,
+        dateCreateComment: createDateCreation(),
         authorComment: `${this.userName}`,
-        statusAnswer: false,
+        isCorrectAnswer: false,
         idComment: '',
       },
-      ...this.dataService.item.comments,
+      ...this.item.comments,
     ];
 
     this.dataService
-      .addComment(this.dataService.item.id, objForSendNewComment)
+      .addComment(this.item.id, objForSendNewComment)
       .subscribe(
         (data) => {},
         (rez) => {

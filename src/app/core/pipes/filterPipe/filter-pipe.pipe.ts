@@ -13,9 +13,9 @@ export class FilterPipePipe implements PipeTransform {
   constructor(public authService: FirebaseService) {}
   transform(value: DataOfCard[], args: FilterSettings): DataOfCard[] {
     if (args.completed === 'true') {
-      value = value.filter((item: DataOfCard) => item.completed);
+      value = value.filter((item: DataOfCard) => item.isAnsweredQuestion);
     } else if (args.completed === 'false') {
-      value = value.filter((item: DataOfCard) => !item.completed);
+      value = value.filter((item: DataOfCard) => !item.isAnsweredQuestion);
     }
     if (args.checkBox.length > 0) {
       value = value.filter((item: DataOfCard) => {
@@ -29,9 +29,9 @@ export class FilterPipePipe implements PipeTransform {
       );
     });
 
-    if (this.authService.currentUser.admin) {
+    if (this.authService.currentUser.isAdmin) {
       value = args.onModeration
-        ? value.filter((item: DataOfCard) => !item.status)
+        ? value.filter((item: DataOfCard) => !item.isModeration)
         : value;
     }
 

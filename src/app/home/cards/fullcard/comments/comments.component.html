@@ -1,6 +1,7 @@
 <app-create-comment
   (closeToCreate)="closeForCreateComment()"
   *ngIf="isCreateComment"
+  [item]="item"
 
 ></app-create-comment>
 <section class="comments" >
@@ -8,17 +9,17 @@
     <div class="comments__header">
       <div class="comments__title" >Answers to the question</div>
       <div class="comments__btnAnswer">
-        <button class="btn btn-outline-danger" (click)="openForCreateComment()" *ngIf="this.dataService.item.status">
+        <button class="btn btn-outline-danger" (click)="openForCreateComment()" *ngIf="this.item.isModeration">
           Ответить на вопрос
         </button>
       </div>
     </div>
     <div class="comments__body">
-      <ng-container *ngIf="this.dataService.item.comments"
-        ><div class="comments__item" *ngFor="let comment of this.dataService.item.comments">
-          <app-comment-item [dataComment]="comment"></app-comment-item></div
+      <ng-container *ngIf="this.item.comments"
+        ><div class="comments__item" *ngFor="let comment of this.item.comments">
+          <app-comment-item [dataComment]="comment" [item]="item"></app-comment-item></div
       ></ng-container>
-      <div *ngIf="!this.dataService.item.comments" class="comments__error"><span> ADD YOUR FIRST ANSWER </span></div>
+      <div *ngIf="!this.item.comments" class="comments__error"><span> ADD YOUR FIRST ANSWER </span></div>
     </div>
   </div>
 </section>

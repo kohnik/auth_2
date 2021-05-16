@@ -82,8 +82,7 @@ export class FirebaseService {
       // @ts-ignore
       map((secondRequest: AdminsEmails) => {
         this.currentUser = {
-          admin: secondRequest.email
-            .split(',')
+          isAdmin: secondRequest.email
             .includes(firstRequest?.email as string),
           email: firstRequest?.email || '',
         };

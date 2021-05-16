@@ -144,11 +144,15 @@ flex-direction: column;
   width: 80%;
 
 }
+.filter__container
+{
+  width: 100%;
+}
 .dateRadioButton
 {
   display: flex;
   flex-direction: column;
-  width: 50%;
+  width: 70%;
 }
 .dateRadioButton>div{
   display: flex;
@@ -159,5 +163,9 @@ flex-direction: column;
   display: flex;
   width: 100px;
   justify-content: space-between;
+}
+.container__tag>input
+{
+margin-right: 10px;
 }
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import { FireDatabaseService } from '../../../core/services/fire-database.service';
 import { switchMap } from 'rxjs/operators';
 import { SwithThemeService } from '../../../core/services/switchTheme/swith-theme.service';
@@ -12,7 +12,8 @@ import { FirebaseService } from '../../../core/services/firebase.service';
   styleUrls: ['./fullcard.component.scss'],
 })
 export class FullcardComponent implements OnInit {
-  public item: DataOfCard = this.dataService.item;
+  public item!: DataOfCard;
+  public error!: string;
   constructor(
     private route: ActivatedRoute,
     public router: Router,
@@ -21,31 +22,16 @@ export class FullcardComponent implements OnInit {
     public authService: FirebaseService
   ) {}
   ngOnInit(): void {
-    if (this.item) {
-      Object.keys(this.item).forEach((key) => {
-        if (this.item.hasOwnProperty(key)) {
-          // @ts-ignore
-          delete this.item[key];
-        }
-      });
-    }
-    this.route.paramMap
-      .pipe(switchMap((params) => params.getAll('id')))
-      .subscribe((id) => {
-        this.getItemData(id);
-      });
+    this.route.params.pipe(
+      switchMap((params: Params) => {
+        return this.dataService.getCard(params.id);
+      })).subscribe((item: DataOfCard) => {
+      this.item = item;
+    }, error => {
+      this.error = error.message;
+    });
   }
 
-  getItemData(id: string): void {
-    this.dataService.getCard(id).subscribe(
-      (data) => {
-        this.item = data;
-      },
-      (rez) => {
-        alert(rez);
-      }
-    );
-  }
   deleteQuestion(): void {
     this.dataService.deleteQuestion(this.item.id).subscribe(
       (data) => this.router.navigate(['question']),
@@ -53,7 +39,7 @@ export class FullcardComponent implements OnInit {
     );
   }
   approveQuestion(): void {
-    this.item.status = true;
+    this.item.isModeration = true;
     this.dataService.approveQuestion(this.item.id, this.item).subscribe(
       (data) => this.router.navigate(['question']),
       (err) => console.log(err)

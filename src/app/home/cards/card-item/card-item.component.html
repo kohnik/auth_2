@@ -5,8 +5,8 @@
         <div class="card-body">
           <div class="Ulcard__cardTitle {{themeService.color}}">
             <h5 class="card-title">{{item.title}}</h5>
-            <div class="issueStatusOnModer" *ngIf="(authService.currentUser.admin && !item.status) || (item.author===authService.currentUser.email && !item.status)"> НА МОДЕРАЦИИ</div>
-            <div class="issueStatus" *ngIf="item.completed"> ЕСТЬ ОТВЕТ</div>
+            <div class="issueStatusOnModer {{themeService.color}}" *ngIf="(authService.currentUser.isAdmin && !item.isModeration) || (item.author===authService.currentUser.email && !item.isModeration)"> НА МОДЕРАЦИИ</div>
+            <div class="issueStatus" *ngIf="item.isAnsweredQuestion"> ЕСТЬ ОТВЕТ</div>
           </div>
 
           <div class="idItems" style="display: none"></div>
