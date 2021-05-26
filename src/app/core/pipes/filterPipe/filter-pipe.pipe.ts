@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { DataOfCard, FilterSettings } from '../../../shared/interface';
 import { milSecInDay } from '../../../shared/constants';
-import { FirebaseService } from '../../services/firebase.service';
+import { AuthService } from '../../services/auth.service';
 
 @Pipe({
   name: 'filterPipe',
@@ -10,7 +10,7 @@ import { FirebaseService } from '../../services/firebase.service';
 export class FilterPipePipe implements PipeTransform {
   filteredArray: DataOfCard[] = [];
   date = new Date();
-  constructor(public authService: FirebaseService) {}
+  constructor(public authService: AuthService) {}
   transform(value: DataOfCard[], args: FilterSettings): DataOfCard[] {
     if (args.completed === 'true') {
       value = value.filter((item: DataOfCard) => item.isAnsweredQuestion);

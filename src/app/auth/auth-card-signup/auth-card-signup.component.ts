@@ -1,5 +1,5 @@
 import { Component, OnInit} from '@angular/core';
-import { FirebaseService } from '../../core/services/firebase.service';
+import { AuthService } from '../../core/services/auth.service';
 import { patternForEmail, patternForPassword } from '../../shared/constants';
 
 @Component({
@@ -11,7 +11,7 @@ export class AuthCardSignupComponent implements OnInit{
   mistakeValidEmail = false;
   mistakeValidPass = false;
   authEror = '';
-  constructor(public AuthService: FirebaseService) {}
+  constructor(public AuthService: AuthService) {}
   onSignup(email: string, password: string): void {
     if (patternForEmail.test(email) && patternForPassword.test(password)) {
       this.AuthService.signup(email, password).catch((error) => {

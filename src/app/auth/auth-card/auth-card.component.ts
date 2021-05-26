@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FirebaseService } from '../../core/services/firebase.service';
+import { AuthService } from '../../core/services/auth.service';
 import { SwithThemeService } from '../../core/services/switchTheme/swith-theme.service';
 
 @Component({
@@ -11,7 +11,7 @@ export class AuthCardComponent {
   public errorStatus = false;
   public errorMessage = '';
   constructor(
-    public authService: FirebaseService,
+    public authService: AuthService,
     public themeService: SwithThemeService
   ) {
 

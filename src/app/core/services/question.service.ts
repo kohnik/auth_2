@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { DataOfCard, DataOfComment, PostCard } from '../../shared/interface';
-import {  Observable, of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import { link } from '../../shared/constants';
-import { FirebaseService } from './firebase.service';
+import { createDateCreation, link } from '../../shared/constants';
+import { AuthService } from './auth.service';
 @Injectable({
   providedIn: 'root',
 })
-export class FireDatabaseService {
-  constructor(private http: HttpClient, public authService: FirebaseService) {}
+export class QuestionService {
+  constructor(public http: HttpClient, public authService: AuthService) {}
   getAll(): Observable<DataOfCard[]> {
     return this.http.get(`${link}cards.json`).pipe(
       map((data) => {
@@ -39,7 +39,22 @@ export class FireDatabaseService {
     );
   }
 
-  postQuestion(body: DataOfCard): Observable<PostCard> {
+  postQuestion(
+    titlequestion: string,
+    textquestion: string,
+    checkBoxList: string[]
+  ): Observable<PostCard> {
+    const body = {
+      title: `${titlequestion}`,
+      text: `${textquestion}`,
+      tag: checkBoxList,
+      isModeration: false,
+      comments: [],
+      author: `${this.authService.currentUser.email}`,
+      date: createDateCreation(),
+      isAnsweredQuestion: false,
+      id: '',
+    };
     return this.http.post<PostCard>(`${link}cards.json`, body);
   }
   postEditQuestion(id: string, body: DataOfCard): Observable<PostCard> {

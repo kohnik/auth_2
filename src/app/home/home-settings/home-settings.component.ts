@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FirebaseService } from '../../core/services/firebase.service';
+import { AuthService } from '../../core/services/auth.service';
 import { SwithThemeService } from '../../core/services/switchTheme/swith-theme.service';
 import { SwitchViewCardsService } from '../../core/services/switchViewCards/switch-view-cards.service';
 import { FiltersCardsService } from '../../core/services/filersCards/filters-cards.service';
@@ -30,7 +30,7 @@ export class HomeSettingsComponent implements OnInit {
   });
 
   constructor(
-    public authService: FirebaseService,
+    public authService: AuthService,
     public themeService: SwithThemeService,
     public viewCardscesvice: SwitchViewCardsService,
     public filterService: FiltersCardsService

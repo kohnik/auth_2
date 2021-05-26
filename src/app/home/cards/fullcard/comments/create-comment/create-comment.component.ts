@@ -1,8 +1,8 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FireDatabaseService } from '../../../../../core/services/fire-database.service';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { QuestionService } from '../../../../../core/services/question.service';
 import { SwithThemeService } from '../../../../../core/services/switchTheme/swith-theme.service';
 import { createDateCreation } from '../../../../../shared/constants';
-import { FirebaseService } from '../../../../../core/services/firebase.service';
+import { AuthService } from '../../../../../core/services/auth.service';
 import { DataOfCard } from '../../../../../shared/interface';
 
 @Component({
@@ -11,17 +11,14 @@ import { DataOfCard } from '../../../../../shared/interface';
   styleUrls: ['./create-comment.component.scss'],
 })
 export class CreateCommentComponent {
-  public userName: string | null | undefined;
   @Output() closeToCreate = new EventEmitter();
   @Input() item!: DataOfCard;
   constructor(
-    public dataService: FireDatabaseService,
+    public dataService: QuestionService,
     public themeService: SwithThemeService,
-    public authService: FirebaseService
+    public authService: AuthService
   ) {
-    this.authService.checkAuth().subscribe((data) => {
-      this.userName = data?.email;
-    });
+
   }
   closeForCreateComment(): void {
     this.closeToCreate.emit();
@@ -31,7 +28,7 @@ export class CreateCommentComponent {
     const objForSendNewComment = {
       textComment: `${textAnswer}`,
       dateCreateComment: createDateCreation(),
-      authorComment: `${this.userName}`,
+      authorComment: `${this.authService.currentUser.email}`,
       isCorrectAnswer: false,
       idComment: '',
     };
@@ -40,7 +37,7 @@ export class CreateCommentComponent {
       {
         textComment: `${textAnswer}`,
         dateCreateComment: createDateCreation(),
-        authorComment: `${this.userName}`,
+        authorComment: `${this.authService.currentUser.email}`,
         isCorrectAnswer: false,
         idComment: '',
       },

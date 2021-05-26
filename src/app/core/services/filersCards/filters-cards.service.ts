@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FireDatabaseService } from '../fire-database.service';
+import { QuestionService } from '../question.service';
 import {
   CheckBox,
   DataOfCard,
@@ -22,7 +22,7 @@ export class FiltersCardsService {
     myQuestion: false
   };
   constructor(
-    public dataservice: FireDatabaseService,
+    public dataservice: QuestionService,
   ) {}
 
   filterCards(completed: any, checkBoxList: CheckBox[], onModeration: boolean, myQuestion: boolean): void {

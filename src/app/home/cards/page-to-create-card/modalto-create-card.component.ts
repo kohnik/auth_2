@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FirebaseService } from '../../../core/services/firebase.service';
+import { AuthService } from '../../../core/services/auth.service';
 import { Router } from '@angular/router';
-import { QuestionService } from '../../../core/services/question/question.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SwithThemeService } from '../../../core/services/switchTheme/swith-theme.service';
 import {
@@ -10,6 +9,7 @@ import {
   onChange,
 } from '../../../shared/constants';
 import { CheckBox } from '../../../shared/interface';
+import {QuestionService} from "../../../core/services/question.service";
 
 @Component({
   selector: 'app-modalto-create-card',
@@ -25,8 +25,8 @@ export class ModaltoCreateCardComponent implements OnInit {
     checkquestion: new FormControl('', Validators.required),
   });
   constructor(
-    public authService: FirebaseService,
-    public addItemService: QuestionService,
+    public authService: AuthService,
+    public dataService: QuestionService,
     public themeService: SwithThemeService,
     public router: Router
   ) {}
@@ -45,8 +45,8 @@ export class ModaltoCreateCardComponent implements OnInit {
     if (this.createForm.invalid || this.createForm.value.checkquestion === '') {
       this.error = true;
     } else {
-      this.addItemService
-        .addQuestion(
+      this.dataService
+        .postQuestion(
           this.createForm.value.titlequestion,
           this.createForm.value.textquestion,
           checkBoxListForSend

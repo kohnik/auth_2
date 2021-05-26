@@ -11,7 +11,7 @@ import { AdminsEmails, CurrentUser } from '../../shared/interface';
 @Injectable({
   providedIn: 'root',
 })
-export class FirebaseService {
+export class AuthService {
   public googleProvider = new firebase.auth.GoogleAuthProvider();
   public facebookProvider = new firebase.auth.FacebookAuthProvider();
   public githubProvider = new firebase.auth.GithubAuthProvider();

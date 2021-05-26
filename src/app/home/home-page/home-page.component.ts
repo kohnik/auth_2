@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FirebaseService } from '../../core/services/firebase.service';
+import { AuthService } from '../../core/services/auth.service';
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
@@ -8,7 +8,7 @@ import { FirebaseService } from '../../core/services/firebase.service';
 export class HomePageComponent {
 
   constructor(
-    public authService: FirebaseService,
+    public authService: AuthService,
   ) {}
 
   ngDestroy()

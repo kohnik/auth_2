@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { SwithThemeService } from '../../../../../core/services/switchTheme/swith-theme.service';
 import {DataOfCard, DataOfComment} from '../../../../../shared/interface';
-import { FireDatabaseService } from '../../../../../core/services/fire-database.service';
-import { FirebaseService } from '../../../../../core/services/firebase.service';
+import { QuestionService } from '../../../../../core/services/question.service';
+import { AuthService } from '../../../../../core/services/auth.service';
 
 @Component({
   selector: 'app-comment-item',
@@ -12,13 +12,13 @@ import { FirebaseService } from '../../../../../core/services/firebase.service';
 export class CommentItemComponent {
   constructor(
     public themeService: SwithThemeService,
-    public dataService: FireDatabaseService,
-    public authService: FirebaseService
+    public dataService: QuestionService,
+    public authService: AuthService
   ) {}
   @Input() dataComment!: DataOfComment;
   @Input() item!: DataOfCard;
   approveComment(): void {
-    this.item.isModeration = true;
+    this.item.isAnsweredQuestion = true;
     this.dataComment.isCorrectAnswer = true;
     this.dataService
       .approveComment(

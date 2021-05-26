@@ -3,8 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import {FormsModule} from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {FirebaseService} from './core/services/firebase.service';
-import {FireDatabaseService} from './core/services/fire-database.service';
+import {AuthService} from './core/services/auth.service';
+import {QuestionService} from './core/services/question.service';
 import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './shared/header/header.component';
 import { AuthCardComponent } from './auth/auth-card/auth-card.component';
@@ -30,6 +30,7 @@ import { ModalToEditCardComponent } from './home/cards/page-to-edit-card/modal-t
 import { FilterPipePipe } from './core/pipes/filterPipe/filter-pipe.pipe';
 import { SortPipePipe } from './core/pipes/sortPipe/sort-pipe.pipe';
 import { CheckRoleUserPipe } from './core/pipes/checkRoleUser/check-role-user.pipe';
+import {AngularFireAuthModule} from "@angular/fire/auth";
 
 @NgModule({
   declarations: [
@@ -61,9 +62,10 @@ import { CheckRoleUserPipe } from './core/pipes/checkRoleUser/check-role-user.pi
     AppRoutingModule,
     ReactiveFormsModule,
     AngularFireDatabaseModule,
-    HttpClientModule
+    HttpClientModule,
+    AngularFireAuthModule
   ],
-  providers: [FirebaseService, FireDatabaseService, AuthGuard, AuthHomeGuardGuard],
+  providers: [AuthService, QuestionService, AuthGuard, AuthHomeGuardGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule{

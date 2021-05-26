@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FireDatabaseService } from '../../../core/services/fire-database.service';
+import { QuestionService } from '../../../core/services/question.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import {
   FormArray,
@@ -30,9 +30,9 @@ export class ModalToEditCardComponent implements OnInit {
   item!: DataOfCard;
  dataOfQuestionToSend!: DataOfCard
   constructor(
-    public dataService: FireDatabaseService,
+    public dataService: QuestionService,
     private router: Router,
-    public route: ActivatedRoute,
+    private route: ActivatedRoute,
     public themeService: SwithThemeService,
     private formBuilder: FormBuilder,
 

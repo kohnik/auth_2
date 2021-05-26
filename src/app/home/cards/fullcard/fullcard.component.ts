@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
-import { FireDatabaseService } from '../../../core/services/fire-database.service';
+import { QuestionService } from '../../../core/services/question.service';
 import { switchMap } from 'rxjs/operators';
 import { SwithThemeService } from '../../../core/services/switchTheme/swith-theme.service';
 import { DataOfCard } from '../../../shared/interface';
-import { FirebaseService } from '../../../core/services/firebase.service';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-fullcard',
@@ -16,10 +16,10 @@ export class FullcardComponent implements OnInit {
   public error!: string;
   constructor(
     private route: ActivatedRoute,
-    public router: Router,
-    public dataService: FireDatabaseService,
+    private router: Router,
+    public dataService: QuestionService,
     public themeService: SwithThemeService,
-    public authService: FirebaseService
+    public authService: AuthService
   ) {}
   ngOnInit(): void {
     this.route.params.pipe(

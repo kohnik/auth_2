@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { SwithThemeService } from '../../../core/services/switchTheme/swith-theme.service';
 import { SwitchViewCardsService } from '../../../core/services/switchViewCards/switch-view-cards.service';
 import { DataOfCard } from '../../../shared/interface';
-import { FirebaseService } from '../../../core/services/firebase.service';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-card-item',
@@ -14,6 +14,6 @@ export class CardItemComponent {
   constructor(
     public themeService: SwithThemeService,
     public viewCardsService: SwitchViewCardsService,
-    public authService: FirebaseService
+    public authService: AuthService
   ) {}
 }

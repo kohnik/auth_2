@@ -6,14 +6,14 @@ import {
   UrlTree,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { FirebaseService } from '../../services/firebase.service';
+import { AuthService } from '../../services/auth.service';
 import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthHomeGuardGuard implements CanActivate {
-  constructor(public authService: FirebaseService) {}
+  constructor(public authService: AuthService) {}
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot

@@ -6,7 +6,7 @@ import {
   UrlTree,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { FirebaseService } from '../../services/firebase.service';
+import { AuthService } from '../../services/auth.service';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -14,7 +14,7 @@ import { map } from 'rxjs/operators';
 })
 export class QuestionGuard implements CanActivate {
   constructor(
-    public authService: FirebaseService
+    private authService: AuthService
   ) {}
   canActivate(
     route: ActivatedRouteSnapshot,

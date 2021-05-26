@@ -1,5 +1,5 @@
 import { Component} from '@angular/core';
-import { FirebaseService } from '../../core/services/firebase.service';
+import { AuthService } from '../../core/services/auth.service';
 import { Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SwithThemeService } from '../../core/services/switchTheme/swith-theme.service';
@@ -10,7 +10,7 @@ import { SwithThemeService } from '../../core/services/switchTheme/swith-theme.s
 })
 export class HeaderComponent {
   constructor(
-    public authService: FirebaseService,
+    public authService: AuthService,
     private router: Router,
     private modalService: NgbModal,
     public themeService: SwithThemeService

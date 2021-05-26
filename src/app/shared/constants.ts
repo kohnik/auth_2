@@ -1,7 +1,59 @@
-import { CheckBox } from './interface';
+import {CheckBox, CurrentUser, DataOfCard, DataOfComment} from './interface';
 export const patternForEmail = /[a-zA-Z_]+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}/;
 export const patternForPassword = /[0-9a-zA-Z]{6,}/;
 export const link = 'https://fir-auth-9b2a0-default-rtdb.firebaseio.com/';
+export const dataOfCardForUnitTest: DataOfCard = {
+  title: 'string',
+  text: 'string',
+  tag: [],
+  isModeration: true,
+  author: 'sdf234sdf',
+  date: 12312312312,
+  isAnsweredQuestion: false,
+  comments: [],
+  id: '-mdfdsfsdfds',
+};
+
+export let dataOfAllCardForUnitTest: DataOfCard[] = [{
+  title: 'string',
+  text: 'string',
+  tag: [],
+  isModeration: true,
+  author: 'sdf234sdf',
+  date: 12312312312,
+  isAnsweredQuestion: false,
+  comments: [],
+  id: '-mdfdsfsdfds',
+}];
+export const dataOfAllCardForUnitTestWithisNoModeration: DataOfCard[] = [{
+  title: 'string',
+  text: 'string',
+  tag: [],
+  isModeration: false,
+  author: 'sdsdsd',
+  date: 12312312312,
+  isAnsweredQuestion: false,
+  comments: [],
+  id: '-mdfdsfsdfds',
+}];
+export const request = { name: 'request' };
+export const dataOfComment: DataOfComment = {
+  authorComment: 'string',
+  dateCreateComment: 12312312312,
+  textComment: 'string',
+  isCorrectAnswer: true,
+  idComment: 'string',
+};
+export const currentUserForTest: CurrentUser = {
+  isAdmin: false,
+  email: 'sdf234sdf',
+};
+export const currentUserForTest1: CurrentUser = {
+  isAdmin: true,
+  email: 'sdfвыаsdf',
+};
+
+
 export const tags = [
   'Js',
   'Nodejs',

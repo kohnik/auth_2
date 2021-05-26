@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FirebaseService } from '../../core/services/firebase.service';
+import { AuthService } from '../../core/services/auth.service';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { patternForEmail, patternForPassword } from '../../shared/constants';
@@ -16,7 +16,7 @@ export class AuthCardSigninComponent implements OnInit {
   authEror = '';
   mistakeValidEmail = false;
   mistakeValidPass = false;
-  constructor(public AuthService: FirebaseService, private router: Router) {}
+  constructor(public AuthService: AuthService, private router: Router) {}
   onSignip(): void {
     if (
       patternForEmail.test(this.myForm.value.userEmail) &&

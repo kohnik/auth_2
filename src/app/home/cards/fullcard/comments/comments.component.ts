@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy } from '@angular/core';
-import { FireDatabaseService } from '../../../../core/services/fire-database.service';
+import { QuestionService } from '../../../../core/services/question.service';
 import { SwithThemeService } from '../../../../core/services/switchTheme/swith-theme.service';
 import { DataOfCard } from '../../../../shared/interface';
 
@@ -12,7 +12,7 @@ export class CommentsComponent {
   @Input() item!: DataOfCard;
   public isCreateComment = false;
   constructor(
-    public dataService: FireDatabaseService,
+    public dataService: QuestionService,
     public themeService: SwithThemeService
   ) {}
 
